@@ -488,25 +488,27 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
 //-----------------------------------------------------------------------------
 void Raven_Game::ScrollMouseButton(bool scrollUp)
 {
+	// New weapons should be add at the end of the vector !
+	std::vector<unsigned int> armes = { type_rail_gun, type_rocket_launcher, type_shotgun, type_blaster };
+
 	if (m_pSelectedBot && m_pSelectedBot->isPossessed())
 	{
 		debug_con << "Up : " << scrollUp << "";
 		// Get the ref of the current weapon
 		Raven_Weapon* current_weapon = PossessedBot()->GetWeaponSys()->GetCurrentWeapon();
-		unsigned int currentIdWeapon = (current_weapon->GetType() - 6);
-		debug_con << "currentId : " << currentIdWeapon << "";
+		int indice = (current_weapon->GetType() - 6);
 		do
 		{
 			if (scrollUp)
-				currentIdWeapon++;
+				indice++;
 			else
-				currentIdWeapon--;
-			currentIdWeapon %= 4;
-			debug_con << "IdEval : " << currentIdWeapon << "";
-		} while (PossessedBot()->GetWeaponSys()->GetWeaponFromInventory(currentIdWeapon + 6) == NULL);
+				indice--;
+			indice %= armes.size();
+			debug_con << "IdEval : " << indice << "";
+		} while (PossessedBot()->GetWeaponSys()->GetWeaponFromInventory(armes.at(indice)) == NULL);
 
 		// Change the weapon
-		PossessedBot()->ChangeWeapon(currentIdWeapon + 6);
+		PossessedBot()->ChangeWeapon(armes.at(indice));
 	}
 }
 

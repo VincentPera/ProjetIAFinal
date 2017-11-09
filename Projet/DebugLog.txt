@@ -73,66 +73,70 @@ Creating a shotgun
 Creating a shotgun
 Creating a rocket_launcher
 maps/Raven_DM1.map loaded okay
-Player Possesses bot 401
+Player Possesses bot 402
 Action !
 Up : 0
-currentId : 3
-IdEval : 2
-IdEval : 1
 IdEval : 0
+Action !
+Up : 0
 IdEval : 3
 Action !
 Up : 0
-currentId : 3
 IdEval : 2
 IdEval : 1
+Action !
+Up : 0
 IdEval : 0
+BOT 402 IS STUCK!!
+Action !
+Up : 0
 IdEval : 3
+Action !
+Up : 0
+IdEval : 2
+IdEval : 1
+Action !
+Up : 0
+IdEval : 0
 Action !
 Up : 1
-currentId : 3
-IdEval : 0
+IdEval : 1
+BOT 401 IS STUCK!!
 Action !
 Up : 0
-currentId : 0
-IdEval : 3
-Action !
-Up : 1
-currentId : 3
-IdEval : 0
-Action !
-Up : 0
-currentId : 0
-IdEval : 3
-Action !
-Up : 0
-currentId : 3
 IdEval : 2
 IdEval : 1
 IdEval : 0
-Action !
-Up : 0
-currentId : 0
 IdEval : 3
 Action !
 Up : 0
-currentId : 3
 IdEval : 2
 IdEval : 1
 IdEval : 0
-Action !
-Up : 0
-currentId : 0
 IdEval : 3
 Action !
 Up : 0
-currentId : 3
 IdEval : 2
 IdEval : 1
-Player Possesses bot 401
-Player Possesses bot 401
-Player Possesses bot 401
-Player Possesses bot 401
+Action !
+Up : 0
+IdEval : 0
+IdEval : 3
+Action !
+Up : 0
+IdEval : 2
+IdEval : 1
+Action !
+Up : 0
+IdEval : 0
+Action !
+Up : 0
+IdEval : 3
+Action !
+Up : 0
+IdEval : 2
+IdEval : 1
+BOT 401 IS STUCK!!
 deleting raven bot (id = 401)
 deleting raven bot (id = 402)
 deleting raven bot (id = 403)
