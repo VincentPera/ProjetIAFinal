@@ -384,15 +384,15 @@ void Raven_Bot::ChangeWeapon(unsigned int type)
 void Raven_Bot::FireWeapon(Vector2D pos)
 {
 	// Do some fuzzyfication here
-	double degree_fuzz = GetBotAim(pos);
+	/*double degree_fuzz = GetBotAim(pos);
 
 	Vector2D pos_fuzz;
 	
 	pos_fuzz.x = cos(degree_fuzz) * (pos.x - m_vPosition.x) - sin(degree_fuzz) * (pos.y - m_vPosition.y) + m_vPosition.x;
 	pos_fuzz.y = sin(degree_fuzz) * (pos.x - m_vPosition.x) + cos(degree_fuzz) * (pos.y - m_vPosition.y) + m_vPosition.y;
-
+*/
 	// Fire with the position
-	m_pWeaponSys->ShootAt(pos_fuzz);
+	m_pWeaponSys->ShootAt(pos);
 }
 
 //-------------------------  InitializeFuzzyModule ----------------------------

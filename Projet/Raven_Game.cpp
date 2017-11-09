@@ -26,7 +26,9 @@
 #include "goals/Goal_Think.h"
 #include "goals/Raven_Goal_Types.h"
 
+#include "armory/Raven_Weapon.h"
 
+#include "Debug/DebugConsole.h"
 
 //uncomment to write object creation/deletion to debug console
 //#define  LOG_CREATIONAL_STUFF
@@ -480,6 +482,32 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
   {
     m_pSelectedBot->FireWeapon(POINTStoVector(p));
   }
+}
+
+//---------------------- ScrollMouseButton ---------------------------------
+//-----------------------------------------------------------------------------
+void Raven_Game::ScrollMouseButton(bool scrollUp)
+{
+	if (m_pSelectedBot && m_pSelectedBot->isPossessed())
+	{
+		debug_con << "Up : " << scrollUp << "";
+		// Get the ref of the current weapon
+		Raven_Weapon* current_weapon = PossessedBot()->GetWeaponSys()->GetCurrentWeapon();
+		unsigned int currentIdWeapon = (current_weapon->GetType() - 6);
+		debug_con << "currentId : " << currentIdWeapon << "";
+		do
+		{
+			if (scrollUp)
+				currentIdWeapon++;
+			else
+				currentIdWeapon--;
+			currentIdWeapon %= 4;
+			debug_con << "IdEval : " << currentIdWeapon << "";
+		} while (PossessedBot()->GetWeaponSys()->GetWeaponFromInventory(currentIdWeapon + 6) == NULL);
+
+		// Change the weapon
+		PossessedBot()->ChangeWeapon(currentIdWeapon + 6);
+	}
 }
 
 //------------------------ GetPlayerInput -------------------------------------

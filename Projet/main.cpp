@@ -28,7 +28,6 @@ char*	g_szWindowClassName = "MyWindowClass";
 
 Raven_Game* g_pRaven;
 
-
 //---------------------------- WindowProc ---------------------------------
 //	
 //	This is the callback function which handles all the windows messages
@@ -52,6 +51,8 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
    static TCHAR   szFileName[MAX_PATH],
                   szTitleName[MAX_PATH];
 
+   // To get information about the mouse
+   MSLLHOOKSTRUCT * pMouseStruct = (MSLLHOOKSTRUCT *)lParam;
 
     switch (msg)
     {
@@ -175,7 +176,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
         }
       }
 
-      break;
+    break;
 
 
     case WM_LBUTTONDOWN:
@@ -191,6 +192,21 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
     }
     
     break;
+
+    case WM_MOUSEWHEEL:
+	{
+		bool MScrollUp;
+		WPARAM fwKeys = GET_KEYSTATE_WPARAM(wParam);
+		WPARAM zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+		//WPARAM zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+		debug_con << "Action !" << "";
+		g_pRaven->ScrollMouseButton(zDelta == 120);
+
+		//MScrollUp = HIWORD(pMouseStruct->mouseData) == 120;
+		//g_pRaven->ScrollMouseButton(MScrollUp);
+	}
+
+	break;
 
     case WM_COMMAND:
     {
@@ -426,7 +442,6 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 		 return DefWindowProc (hwnd, msg, wParam, lParam);
 }
 
-
 //-------------------------------- WinMain -------------------------------
 //
 //	The entry point of the windows program
@@ -488,7 +503,6 @@ int WINAPI WinMain (HINSTANCE hInstance,
      {
        MessageBox(NULL, "CreateWindowEx Failed!", "Error!", 0);
      }
-
      
     //make the window visible
     ShowWindow (hWnd, iCmdShow);
