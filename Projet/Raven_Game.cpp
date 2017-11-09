@@ -493,18 +493,17 @@ void Raven_Game::ScrollMouseButton(bool scrollUp)
 
 	if (m_pSelectedBot && m_pSelectedBot->isPossessed())
 	{
-		debug_con << "Up : " << scrollUp << "";
 		// Get the ref of the current weapon
 		Raven_Weapon* current_weapon = PossessedBot()->GetWeaponSys()->GetCurrentWeapon();
 		int indice = (current_weapon->GetType() - 6);
 		do
 		{
+			// Get the next weapon on the vector
 			if (scrollUp)
 				indice++;
 			else
 				indice--;
 			indice %= armes.size();
-			debug_con << "IdEval : " << indice << "";
 		} while (PossessedBot()->GetWeaponSys()->GetWeaponFromInventory(armes.at(indice)) == NULL);
 
 		// Change the weapon
