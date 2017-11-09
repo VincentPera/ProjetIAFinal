@@ -17,9 +17,6 @@
 #include "misc/utils.h"
 #include "Raven_TargetingSystem.h"
 
-#include "Fuzzy/FuzzyModule.h"
-
-
 class Raven_PathPlanner;
 class Raven_Steering;
 class Raven_Game;
@@ -39,10 +36,6 @@ class Raven_Bot : public MovingEntity
 protected:
 
   enum Status{alive, dead, spawning};
-
-private:
-
-	void     InitializeFuzzyModule();
 
 protected:
 
@@ -115,12 +108,6 @@ protected:
   std::vector<Vector2D>              m_vecBotVB;
   //the buffer for the transformed vertices
   std::vector<Vector2D>              m_vecBotVBTrans;
-
-  //fuzzy logic is used to determine the trajectory use for shooting 
-  //owns its own instance of a fuzzy module because each has a different rule 
-  //set for inferring trajectory.
-  FuzzyModule   m_FuzzyModule;
-
 
   //bots shouldn't be copied, only created or respawned
   Raven_Bot(const Raven_Bot&);
@@ -209,10 +196,6 @@ public:
   bool          canStepRight(Vector2D& PositionOfStep)const;
   bool          canStepForward(Vector2D& PositionOfStep)const;
   bool          canStepBackward(Vector2D& PositionOfStep)const;
-
-  // To modify with fuzzy logic the aim of the bot
-  double		GetBotAim(Vector2D pos);
-
   
   Raven_Game* const                  GetWorld(){return m_pWorld;} 
   Raven_Steering* const              GetSteering(){return m_pSteering;}

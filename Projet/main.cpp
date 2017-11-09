@@ -195,7 +195,6 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
     case WM_MOUSEWHEEL:
 	{
-		bool MScrollUp;
 		WPARAM fwKeys = GET_KEYSTATE_WPARAM(wParam);
 		WPARAM zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
 		//WPARAM zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
