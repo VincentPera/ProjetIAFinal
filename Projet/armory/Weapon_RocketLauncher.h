@@ -25,7 +25,6 @@ public:
 
   RocketLauncher(Raven_Bot* owner);
 
-
   void Render();
 
   void ShootAt(Vector2D pos);
@@ -33,6 +32,6 @@ public:
   double GetDesirability(double DistToTarget);
 };
 
-
+int intpart(double x);
 
 #endif
