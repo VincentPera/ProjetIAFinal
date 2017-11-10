@@ -9,7 +9,7 @@
 #include "../lua/Raven_Scriptor.h"
 
 
-#include "DebugIA/DebugConsole.h"
+#include "Debug/DebugConsole.h"
 
 
 

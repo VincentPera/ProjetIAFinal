@@ -7,7 +7,7 @@
 
 
 
-#include "DebugIA/DebugConsole.h"
+#include "Debug/DebugConsole.h"
 
 
 

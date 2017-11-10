@@ -17,7 +17,7 @@
 
 //uncomment to write object creation/deletion to debug console
 #define  LOG_CREATIONAL_STUFF
-#include "DebugIA/DebugConsole.h"
+#include "Debug/DebugConsole.h"
 
 
 //----------------------------- ctor ------------------------------------------

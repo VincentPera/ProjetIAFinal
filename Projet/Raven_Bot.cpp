@@ -19,7 +19,7 @@
 #include "goals/Raven_Goal_Types.h"
 #include "goals/Goal_Think.h"
 
-#include "DebugIA/DebugConsole.h"
+#include "Debug/DebugConsole.h"
 
 //-------------------------- ctor ---------------------------------------------
 Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):

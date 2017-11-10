@@ -2,7 +2,7 @@
 #include "Game/BaseGameEntity.h"
 #include "misc/FrameCounter.h"
 #include "game/EntityManager.h"
-#include "DebugIA/DebugConsole.h"
+#include "Debug/DebugConsole.h"
 
 using std::set;
 
