@@ -25,6 +25,7 @@
 #include "game/EntityFunctionTemplates.h"
 #include "Raven_Bot.h"
 #include "navigation/pathmanager.h"
+#include "Raven_HumanPlayer.h"
 
 
 class BaseGameEntity;
@@ -54,6 +55,9 @@ private:
 
   //this class manages all the path planning requests
   PathManager<Raven_PathPlanner>*  m_pPathManager;
+
+  //We implement for this game a human player
+  Raven_Bot*			   m_ThePlayer;
 
 
   //if true the game will be paused
@@ -94,6 +98,7 @@ public:
   bool LoadMap(const std::string& FileName); 
 
   void AddBots(unsigned int NumBotsToAdd);
+  void AddHumanPlayer();
   void AddRocket(Raven_Bot* shooter, Vector2D target);
   void AddRailGunSlug(Raven_Bot* shooter, Vector2D target);
   void AddShotGunPellet(Raven_Bot* shooter, Vector2D target);

@@ -268,6 +268,19 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
   }
 }
 
+//------------------------ InstanciatePlayer------------------------------------
+// instanciate a single human player controlled by default by the user in the game
+//------------------------------------------------------------------------------
+void Raven_Game::AddHumanPlayer()
+{
+	Raven_HumanPlayer* hP = new Raven_HumanPlayer(this, Vector2D());
+	m_Bots.push_back(hP);
+	m_ThePlayer = hP;
+	EntityMgr->RegisterEntity(hP);
+}
+
+
+
 //---------------------------- NotifyAllBotsOfRemoval -------------------------
 //
 //  when a bot is removed from the game by a user all remianing bots
@@ -397,7 +410,8 @@ bool Raven_Game::LoadMap(const std::string& filename)
   if (m_pMap->LoadMap(filename))
   { 
     AddBots(script->GetInt("NumBots"));
-  
+	AddHumanPlayer();
+	
     return true;
   }
 
@@ -427,33 +441,39 @@ void Raven_Game::ExorciseAnyPossessedBot()
 //-----------------------------------------------------------------------------
 void Raven_Game::ClickRightMouseButton(POINTS p)
 {
-  Raven_Bot* pBot = GetBotAtPosition(POINTStoVector(p));
+  Raven_Bot* pBot = m_ThePlayer;
 
   //if there is no selected bot just return;
-  if (!pBot && m_pSelectedBot == NULL) return;
+  //if (!pBot && m_pSelectedBot == NULL) return;
 
   //if the cursor is over a different bot to the existing selection,
   //change selection
-  if (pBot && pBot != m_pSelectedBot)
+
+  //-------------------------------------------------------------
+  //With a human player we assume you cannot select another bot
+  //-------------------------------------------------------------
+
+  /*if (pBot && pBot != m_pSelectedBot)
   { 
     if (m_pSelectedBot) m_pSelectedBot->Exorcise();
     m_pSelectedBot = pBot;
 
     return;
-  }
+  }*/
 
   //if the user clicks on a selected bot twice it becomes possessed(under
   //the player's control)
-  if (pBot && pBot == m_pSelectedBot)
-  {
-    m_pSelectedBot->TakePossession();
+  //if (pBot && pBot == m_pSelectedBot)
+  //{
+  //  m_pSelectedBot->TakePossession();
 
-    //clear any current goals
-    m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
-  }
+  //  //clear any current goals
+  //  m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
+  //}
 
   //if the bot is possessed then a right click moves the bot to the cursor
   //position
+  m_pSelectedBot = m_ThePlayer;
   if (m_pSelectedBot->isPossessed())
   {
     //if the shift key is pressed down at the same time as clicking then the
