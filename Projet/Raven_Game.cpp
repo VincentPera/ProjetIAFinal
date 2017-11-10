@@ -28,7 +28,7 @@
 
 #include "armory/Raven_Weapon.h"
 
-#include "Debug/DebugConsole.h"
+#include "DebugIA/DebugConsole.h"
 
 //uncomment to write object creation/deletion to debug console
 //#define  LOG_CREATIONAL_STUFF

@@ -7,7 +7,7 @@
 #include "Messaging/Telegram.h"
 #include "../Raven_Messages.h"
 
-#include "debug/DebugConsole.h"
+#include "DebugIA/DebugConsole.h"
 #include "misc/cgdi.H"
 
 

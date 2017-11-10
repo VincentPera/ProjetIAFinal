@@ -7,7 +7,7 @@
 #include "Resource.h"
 #include "misc/windowutils.h"
 #include "misc/Cgdi.h"
-#include "debug/DebugConsole.h"
+#include "DebugIA/DebugConsole.h"
 #include "Raven_UserOptions.h"
 #include "Raven_Game.h"
 #include "lua/Raven_Scriptor.h"

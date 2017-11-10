@@ -15,7 +15,7 @@
 #include "graph/NodeTypeEnumerations.h"
 
 
-#include "Debug/DebugConsole.h"
+#include "DebugIA/DebugConsole.h"
 //#define SHOW_NAVINFO
 #include <cassert>
 

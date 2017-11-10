@@ -9,7 +9,7 @@
 #include "Raven_Game.h"
 #include "Raven_UserOptions.h"
 #include "2D/transformations.h"
-#include "debug/DebugConsole.h"
+#include "debugIA/DebugConsole.h"
 
 
 //------------------------- ctor ----------------------------------------------
