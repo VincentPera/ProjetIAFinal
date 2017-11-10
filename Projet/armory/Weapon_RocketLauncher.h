@@ -32,6 +32,4 @@ public:
   double GetDesirability(double DistToTarget);
 };
 
-int intpart(double x);
-
 #endif
