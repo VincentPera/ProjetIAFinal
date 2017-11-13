@@ -57,7 +57,7 @@ private:
   PathManager<Raven_PathPlanner>*  m_pPathManager;
 
   //We implement for this game a human player
-  Raven_Bot*			   m_ThePlayer;
+  Raven_Bot*				       m_ThePlayer;
 
 
   //if true the game will be paused
