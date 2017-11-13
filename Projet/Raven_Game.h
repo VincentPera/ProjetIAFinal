@@ -103,6 +103,7 @@ public:
   void AddRailGunSlug(Raven_Bot* shooter, Vector2D target);
   void AddShotGunPellet(Raven_Bot* shooter, Vector2D target);
   void AddBolt(Raven_Bot* shooter, Vector2D target);
+  void AddBomb(Raven_Bot* shooter, Vector2D target);
 
   //removes the last bot to be added
   void RemoveBot();
@@ -148,6 +149,8 @@ public:
   //this method is called when the user clicks the left mouse button. If there
   //is a possessed bot, this fires the weapon, else does nothing
   void        ClickLeftMouseButton(POINTS p);
+
+  void		ScrollMouseButton(bool scrollUp);
 
   //when called will release any possessed bot from user control
   void        ExorciseAnyPossessedBot();

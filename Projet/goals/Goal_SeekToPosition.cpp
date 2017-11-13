@@ -7,7 +7,7 @@
 
 
 
-#include "debug/DebugConsole.h"
+#include "Debug/DebugConsole.h"
 
 
 

@@ -19,7 +19,6 @@
 #include "goals/Raven_Goal_Types.h"
 #include "goals/Goal_Think.h"
 
-
 #include "Debug/DebugConsole.h"
 
 //-------------------------- ctor ---------------------------------------------
@@ -157,9 +156,11 @@ void Raven_Bot::Update()
       m_pWeaponSys->SelectWeapon();       
     }
 
+	double angle = m_pWeaponSys->GetBotAim();
+
     //this method aims the bot's current weapon at the current target
     //and takes a shot if a shot is possible
-    m_pWeaponSys->TakeAimAndShoot();
+    m_pWeaponSys->TakeAimAndShoot(angle);
   }
 }
 
@@ -384,7 +385,8 @@ void Raven_Bot::ChangeWeapon(unsigned int type)
 //-----------------------------------------------------------------------------
 void Raven_Bot::FireWeapon(Vector2D pos)
 {
-  m_pWeaponSys->ShootAt(pos);
+	// Fire with the position
+	m_pWeaponSys->ShootAt(pos);
 }
 
 //----------------- CalculateExpectedTimeToReachPosition ----------------------

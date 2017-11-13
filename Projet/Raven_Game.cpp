@@ -22,11 +22,14 @@
 #include "armory/Projectile_Pellet.h"
 #include "armory/Projectile_Slug.h"
 #include "armory/Projectile_Bolt.h"
+#include "armory/Projectile_Bomb.h"
 
 #include "goals/Goal_Think.h"
 #include "goals/Raven_Goal_Types.h"
 
+#include "armory/Raven_Weapon.h"
 
+#include "Debug/DebugConsole.h"
 
 //uncomment to write object creation/deletion to debug console
 //#define  LOG_CREATIONAL_STUFF
@@ -358,6 +361,18 @@ void Raven_Game::AddShotGunPellet(Raven_Bot* shooter, Vector2D target)
 #endif
 }
 
+//------------------------------ AddBomb --------------------------------
+void Raven_Game::AddBomb(Raven_Bot* shooter, Vector2D target)
+{
+	Raven_Projectile* rp = new Bomb(shooter, target);
+
+	m_Projectiles.push_back(rp);
+
+#ifdef LOG_CREATIONAL_STUFF
+	debug_con << "Adding a grenade bomb " << rp->ID() << " at pos " << rp->Pos() << "";
+#endif
+}
+
 
 //----------------------------- GetBotAtPosition ------------------------------
 //
@@ -502,6 +517,33 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
   }
 }
 
+//---------------------- ScrollMouseButton ---------------------------------
+//-----------------------------------------------------------------------------
+void Raven_Game::ScrollMouseButton(bool scrollUp)
+{
+	// New weapons should be add at the end of the vector !
+	std::vector<unsigned int> armes = { type_rail_gun, type_rocket_launcher, type_shotgun, type_blaster, type_grenade };
+
+	if (m_pSelectedBot && m_pSelectedBot->isPossessed())
+	{
+		// Get the ref of the current weapon
+		Raven_Weapon* current_weapon = PossessedBot()->GetWeaponSys()->GetCurrentWeapon();
+		int indice = (current_weapon->GetType() - 6);
+		do
+		{
+			// Get the next weapon on the vector
+			if (scrollUp)
+				indice++;
+			else
+				indice--;
+			indice %= armes.size();
+		} while (PossessedBot()->GetWeaponSys()->GetWeaponFromInventory(armes.at(indice)) == NULL);
+
+		// Change the weapon
+		PossessedBot()->ChangeWeapon(armes.at(indice));
+	}
+}
+
 //------------------------ GetPlayerInput -------------------------------------
 //
 //  if a bot is possessed the keyboard is polled for user input and any 
@@ -542,6 +584,10 @@ void Raven_Game::ChangeWeaponOfPossessedBot(unsigned int weapon)const
     case type_rail_gun:
       
       PossessedBot()->ChangeWeapon(type_rail_gun); return;
+
+	case type_grenade:
+
+	  PossessedBot()->ChangeWeapon(type_grenade); return;
 
     }
   }

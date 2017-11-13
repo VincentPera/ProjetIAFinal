@@ -17,7 +17,6 @@
 #include "misc/utils.h"
 #include "Raven_TargetingSystem.h"
 
-
 class Raven_PathPlanner;
 class Raven_Steering;
 class Raven_Game;
@@ -110,7 +109,6 @@ protected:
   //the buffer for the transformed vertices
   std::vector<Vector2D>              m_vecBotVBTrans;
 
-
   //bots shouldn't be copied, only created or respawned
   Raven_Bot(const Raven_Bot&);
   Raven_Bot& operator=(const Raven_Bot&);
@@ -197,7 +195,6 @@ public:
   bool          canStepRight(Vector2D& PositionOfStep)const;
   bool          canStepForward(Vector2D& PositionOfStep)const;
   bool          canStepBackward(Vector2D& PositionOfStep)const;
-
   
   Raven_Game* const                  GetWorld(){return m_pWorld;} 
   Raven_Steering* const              GetSteering(){return m_pSteering;}
