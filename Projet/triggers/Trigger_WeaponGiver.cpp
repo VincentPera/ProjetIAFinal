@@ -86,12 +86,11 @@ void Trigger_WeaponGiver::Render()
 
       case type_shotgun:
         {
-
           gdi->BlackBrush();
           gdi->BrownPen();
-          const double sz = 3.0;
-          gdi->Circle(Pos().x-sz,Pos().y, sz);
-          gdi->Circle(Pos().x+sz,Pos().y, sz);
+		  const double sz = 3.0;
+		  gdi->Circle(Pos().x - sz, Pos().y, sz);
+		  gdi->Circle(Pos().x + sz, Pos().y, sz);
         }
 
         break;
@@ -112,6 +111,18 @@ void Trigger_WeaponGiver::Render()
         }
       
         break;
+
+	  case type_grenade:
+	  {
+		  gdi->WhiteBrush();
+		  gdi->PurplePen();
+		  const double sz = 4.0;
+		  const double sa = 1.0;
+		  gdi->Circle(Pos().x, Pos().y, sz);
+		  gdi->Circle(Pos().x, Pos().y-5.0, sa);
+	  }
+
+	  break;
 
     }//end switch
   }

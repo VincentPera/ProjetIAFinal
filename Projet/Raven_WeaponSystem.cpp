@@ -3,6 +3,7 @@
 #include "armory/Weapon_RailGun.h"
 #include "armory/Weapon_ShotGun.h"
 #include "armory/Weapon_Blaster.h"
+#include "armory/Weapon_Grenade.h"
 #include "Raven_Bot.h"
 #include "misc/utils.h"
 #include "lua/Raven_Scriptor.h"
@@ -57,6 +58,7 @@ void Raven_WeaponSystem::Initialize()
   m_WeaponMap[type_shotgun]         = 0;
   m_WeaponMap[type_rail_gun]        = 0;
   m_WeaponMap[type_rocket_launcher] = 0;
+  m_WeaponMap[type_grenade]			= 0;
 
   //setup the fuzzy module
   InitializeFuzzyModule();
@@ -197,6 +199,10 @@ void  Raven_WeaponSystem::AddWeapon(unsigned int weapon_type)
 
     w = new RocketLauncher(m_pOwner); break;
 
+  case type_grenade:
+
+	w = new Grenade(m_pOwner); break;
+
   }//end switch
   
 
@@ -320,11 +326,11 @@ double Raven_WeaponSystem::GetBotAim()
 		(m_pOwner->GetTargetSys()->GetTimeTargetHasBeenOutOfView() <
 			m_dAimPersistance))
 	{
-		debug_con << "-------" << "";
+		/*debug_con << "-------" << "";
 		debug_con << (m_pOwner->GetTargetBot()->Pos() - m_pOwner->Pos()).Length() << "";
 		debug_con << (double)m_pOwner->GetTargetBot()->Velocity().Length() << "";
 		debug_con << (double)m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible() << "";
-		debug_con << "-------" << "";
+		debug_con << "-------" << "";*/
 
 		//fuzzify distance and velocity and "visible time".
 		m_FuzzyModule.Fuzzify("DistToTarget", (m_pOwner->GetTargetBot()->Pos() - m_pOwner->Pos()).Length());
