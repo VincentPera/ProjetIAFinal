@@ -70,6 +70,21 @@ private:
   //class manages the graves
   GraveMarkers*                    m_pGraveMarkers;
 
+  //current mode used in the game
+  int                              m_mode;
+  //if there are a human player
+  int                              m_human;
+  //if there are a learning bot
+  int                              m_learning_bot;
+  //strategie of the player1
+  int                              m_strategy_j1;
+  //strategie of the player2
+  int                              m_strategy_j2;
+  //strategie of the team1
+  int                              m_strategy_t1;
+  //strategie of the team2
+  int                              m_strategy_t2;
+
   //this iterates through each trigger, testing each one against each bot
   void  UpdateTriggers();
 
@@ -84,10 +99,14 @@ private:
   //must be notified so that they can remove any references to that bot from
   //their memory
   void NotifyAllBotsOfRemoval(Raven_Bot* pRemovedBot)const;
+
+  int mod(int a, int b);
   
 public:
   
   Raven_Game();
+  Raven_Game(int mode, int human, int grenades, int learning_bot, int strategie_j1,
+			 int strategie_j2, int strategie_t1, int strategie_t2);
   ~Raven_Game();
 
   //the usual suspects

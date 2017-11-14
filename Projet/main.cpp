@@ -17,7 +17,7 @@
 #include <commctrl.h>
 #pragma comment(lib, "comctl32.lib")
 
-
+#define DB_OK 1 // Useful for the parameters windows
 
 //--------------------------------- Globals ------------------------------
 //------------------------------------------------------------------------
@@ -25,8 +25,21 @@
 char* g_szApplicationName = "Raven";
 char*	g_szWindowClassName = "MyWindowClass";
 
-
 Raven_Game* g_pRaven;
+
+HINSTANCE hinst;
+
+UINT human;		// 0 : no human agent. 1 : human agent.
+UINT mode;			// current mode used
+UINT grenades;			// 0 : no grenade spawn. 1 : grenade spawn available.
+UINT learning_bot;		// 0 : no learning bot. 1 : a learning bot.
+UINT strategy_j1;
+UINT strategy_j2;
+UINT strategy_t1;
+UINT strategy_t2;
+
+// Maybe useful
+BOOL APIENTRY Dialog1Proc(HWND, UINT, WPARAM, LPARAM);
 
 //---------------------------- WindowProc ---------------------------------
 //	
@@ -61,16 +74,23 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 		//created
     case WM_CREATE:
       {
+		// initial parameters
+		human = 0;
+		grenades = 0;
+		learning_bot = 0;
+
+		// Ask user to enter informations for the application
+		if (DialogBox(hinst, "DIALOG1", hwnd, (DLGPROC)Dialog1Proc) == DB_OK)
+			InvalidateRect(hwnd, NULL, TRUE);
+
          //to get get the size of the client window first we need  to create
          //a RECT and then ask Windows to fill in our RECT structure with
          //the client window size. Then we assign to cxClient and cyClient 
          //accordingly
-			   RECT rect;
-
-			   GetClientRect(hwnd, &rect);
-
-			   cxClient = rect.right;
-			   cyClient = rect.bottom;
+		RECT rect;
+		GetClientRect(hwnd, &rect);
+		cxClient = rect.right;
+		cyClient = rect.bottom;
 
          //seed random number generator
          srand((unsigned) time(NULL));
@@ -90,13 +110,14 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
 			  
          //select the bitmap into the memory device context
-			   hOldBitmap = (HBITMAP)SelectObject(hdcBackBuffer, hBitmap);
+		 hOldBitmap = (HBITMAP)SelectObject(hdcBackBuffer, hBitmap);
 
          //don't forget to release the DC
          ReleaseDC(hwnd, hdc);  
-              
+
          //create the game
-         g_pRaven = new Raven_Game();
+         g_pRaven = new Raven_Game(mode, human, grenades, learning_bot, strategy_j1, strategy_j2,
+			 strategy_t1, strategy_t2);
 
         //make sure the menu items are ticked/unticked accordingly
         CheckMenuItemAppropriately(hwnd, IDM_NAVIGATION_SHOW_NAVGRAPH, UserOptions->m_bShowGraph);
@@ -204,7 +225,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 		WPARAM fwKeys = GET_KEYSTATE_WPARAM(wParam);
 		WPARAM zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
 		//WPARAM zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
-		debug_con << "Action !" << "";
+		debug_con << "Changement d'arme !" << "";
 		g_pRaven->ScrollMouseButton(zDelta == 120);
 
 		//MScrollUp = HIWORD(pMouseStruct->mouseData) == 120;
@@ -445,6 +466,98 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
      //this is where all the messages not specifically handled by our 
 		 //winproc are sent to be processed
 		 return DefWindowProc (hwnd, msg, wParam, lParam);
+}
+
+BOOL APIENTRY Dialog1Proc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	switch (uMsg)
+	{
+	case WM_INITDIALOG:
+	{
+		// Settings of the comboBox mode
+		SendDlgItemMessage(hDlg, ID_MODE, CB_ADDSTRING, 0, (LONG)"Deathmatch");
+		SendDlgItemMessage(hDlg, ID_MODE, CB_ADDSTRING, 0, (LONG)"Team Deathmatch");
+		SendDlgItemMessage(hDlg, ID_MODE, CB_ADDSTRING, 0, (LONG)"1 vs 1");
+		SendDlgItemMessage(hDlg, ID_MODE, CB_SETCURSEL, mode, 0);
+
+		// Settings of the comboBox players strategies
+		SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Burnhead");
+		SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Coward");
+		SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Camper");
+		SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_SETCURSEL, strategy_j1, 0);
+
+		SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Burnhead");
+		SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Coward");
+		SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Camper");
+		SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_SETCURSEL, strategy_j2, 0);
+
+		// Settings of the comboBox team strategies
+		SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_ADDSTRING, 0, (LONG)"divideAndRule");
+		SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_ADDSTRING, 0, (LONG)"TestudoFormation");
+		SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_ADDSTRING, 0, (LONG)"LeaderFollowing");
+		SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_SETCURSEL, strategy_j1, 0);
+
+		SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_ADDSTRING, 0, (LONG)"divideAndRule");
+		SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_ADDSTRING, 0, (LONG)"TestudoFormation");
+		SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_ADDSTRING, 0, (LONG)"LeaderFollowing");
+		SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_SETCURSEL, strategy_j2, 0);
+		
+		// Settings des boutons radio
+		CheckDlgButton(hDlg, ID_NO_HUMAN, BST_CHECKED);
+		CheckDlgButton(hDlg, ID_NO_BOT_APPRE, BST_CHECKED);
+		CheckDlgButton(hDlg, ID_NO_GRENADE, BST_CHECKED);
+		return TRUE;
+	}
+	case WM_COMMAND:
+
+		if (HIWORD(wParam) == CBN_SELCHANGE) {
+			// Retrieve the choice of method
+			int ItemIndex = SendMessage((HWND)lParam, (UINT)CB_GETCURSEL,
+				(WPARAM)0, (LPARAM)0);
+			TCHAR  ListItem[256];
+			(TCHAR)SendMessage((HWND)lParam, (UINT)CB_GETLBTEXT,
+				(WPARAM)ItemIndex, (LPARAM)ListItem);
+			//MessageBox(hDlg, (LPCWSTR)ListItem, TEXT("Item Selected"), MB_OK);
+
+			/*if (strcmp(ListItem, "LeaderFollowing") == 0)
+				LeaderFollowingField(hDlg, true);
+			else
+				LeaderFollowingField(hDlg, false);*/
+		}
+
+		if (HIWORD(wParam) == BN_CLICKED) {
+			switch (LOWORD(wParam)) {
+				case ID_BOT_APPRE:
+				{ learning_bot = 1; break; }
+				case ID_NO_BOT_APPRE:
+				{ learning_bot = 0; break; }
+				case ID_GRENADE:
+				{ grenades = 1; break; }
+				case ID_NO_GRENADE:
+				{ grenades = 0; break; }
+				case ID_HUMAN:
+				{ human = 1; break; }
+				case ID_NO_HUMAN:
+				{ human = 0; break; }
+			}
+		}
+		if (LOWORD(wParam) == DB_OK || LOWORD(wParam) == IDCANCEL)
+		{
+			// get the behavior wanted
+			mode = SendDlgItemMessage(hDlg, ID_MODE, CB_GETCURSEL, 0, 0);
+			// get the number of stadard agent 
+			strategy_j1 = GetDlgItemInt(hDlg, ID_STRAT_J1, NULL, FALSE);
+			strategy_j2 = GetDlgItemInt(hDlg, ID_STRAT_J2, NULL, FALSE);
+			// get the number of pursuiver for the leader1
+			strategy_t1 = GetDlgItemInt(hDlg, ID_STRAT_T1, NULL, FALSE);
+			strategy_t2 = GetDlgItemInt(hDlg, ID_STRAT_T2, NULL, FALSE);
+
+			EndDialog(hDlg, DB_OK);
+			return TRUE;
+		}
+	default:
+		return FALSE;
+	}
 }
 
 //-------------------------------- WinMain -------------------------------

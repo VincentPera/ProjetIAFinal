@@ -44,8 +44,37 @@ Raven_Game::Raven_Game():m_pSelectedBot(NULL),
                          m_pPathManager(NULL),
                          m_pGraveMarkers(NULL)
 {
-  //load in the default map
-  LoadMap(script->GetString("StartMap"));
+	m_mode, m_human, m_learning_bot = 0;
+	m_strategy_j1, m_strategy_j2 = 0;
+	m_strategy_t1, m_strategy_t2 = 0;
+
+	//load in the default map
+	LoadMap(script->GetString("StartMap"));
+}
+
+Raven_Game::Raven_Game(int mode, int human, int grenades, int learning_bot, int strategie_j1, 
+						int strategie_j2, int strategie_t1, int strategie_t2):m_pSelectedBot(NULL),
+							m_bPaused(false),
+							m_bRemoveABot(false),
+							m_pMap(NULL),
+							m_pPathManager(NULL),
+							m_pGraveMarkers(NULL)
+{
+	m_mode = mode;
+	m_human = human;
+	m_learning_bot = learning_bot;
+	m_strategy_j1 = strategie_j1;
+	m_strategy_j2 = strategie_j1;
+	m_strategy_t1 = strategie_t1;
+	m_strategy_t2 = strategie_t2;
+
+	if (grenades) {
+		//load in the map with grenades in it.
+		LoadMap(script->GetString("GrenadeMap"));
+	} else {
+		//load in the default map
+		LoadMap(script->GetString("StartMap"));
+	}
 }
 
 
@@ -425,8 +454,10 @@ bool Raven_Game::LoadMap(const std::string& filename)
   if (m_pMap->LoadMap(filename))
   { 
     AddBots(script->GetInt("NumBots"));
-	AddHumanPlayer();
-	
+	if (m_human) {
+		AddHumanPlayer();
+		m_pSelectedBot = m_ThePlayer;
+	}
     return true;
   }
 
@@ -488,22 +519,23 @@ void Raven_Game::ClickRightMouseButton(POINTS p)
 
   //if the bot is possessed then a right click moves the bot to the cursor
   //position
-  m_pSelectedBot = m_ThePlayer;
-  if (m_pSelectedBot->isPossessed())
-  {
-    //if the shift key is pressed down at the same time as clicking then the
-    //movement command will be queued
-    if (IS_KEY_PRESSED('Q'))
-    {
-      m_pSelectedBot->GetBrain()->QueueGoal_MoveToPosition(POINTStoVector(p));
-    }
-    else
-    {
-      //clear any current goals
-      m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
+  if (m_human) {
+	  if (m_pSelectedBot->isPossessed())
+	  {
+		  //if the shift key is pressed down at the same time as clicking then the
+		  //movement command will be queued
+		  if (IS_KEY_PRESSED('Q'))
+		  {
+			  m_pSelectedBot->GetBrain()->QueueGoal_MoveToPosition(POINTStoVector(p));
+		  }
+		  else
+		  {
+			  //clear any current goals
+			  m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
 
-      m_pSelectedBot->GetBrain()->AddGoal_MoveToPosition(POINTStoVector(p));
-    }
+			  m_pSelectedBot->GetBrain()->AddGoal_MoveToPosition(POINTStoVector(p));
+		  }
+	  }
   }
 }
 
@@ -524,7 +556,7 @@ void Raven_Game::ScrollMouseButton(bool scrollUp)
 	// New weapons should be add at the end of the vector !
 	std::vector<unsigned int> armes = { type_rail_gun, type_rocket_launcher, type_shotgun, type_blaster, type_grenade };
 
-	if (m_pSelectedBot && m_pSelectedBot->isPossessed())
+	if (m_human)
 	{
 		// Get the ref of the current weapon
 		Raven_Weapon* current_weapon = PossessedBot()->GetWeaponSys()->GetCurrentWeapon();
@@ -532,16 +564,21 @@ void Raven_Game::ScrollMouseButton(bool scrollUp)
 		do
 		{
 			// Get the next weapon on the vector
-			if (scrollUp)
+			if (scrollUp) {
 				indice++;
-			else
+			} else {
 				indice--;
-			indice %= armes.size();
+			}
+			indice = mod(indice, armes.size());
 		} while (PossessedBot()->GetWeaponSys()->GetWeaponFromInventory(armes.at(indice)) == NULL);
 
 		// Change the weapon
 		PossessedBot()->ChangeWeapon(armes.at(indice));
 	}
+}
+
+int Raven_Game::mod(int a, int b) {
+	return a >= 0 ? a % b : (b - abs(a%b)) % b;
 }
 
 //------------------------ GetPlayerInput -------------------------------------
