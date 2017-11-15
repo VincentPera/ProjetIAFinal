@@ -16,6 +16,7 @@
 #include "game/MovingEntity.h"
 #include "misc/utils.h"
 #include "Raven_TargetingSystem.h"
+#include "TeamSimple.h"
 
 class Raven_PathPlanner;
 class Raven_Steering;
@@ -120,6 +121,9 @@ protected:
   //initializes the bot's VB with its geometry
   void          SetUpVertexBuffer();
 
+  //Team
+  TeamSimple* current_team;
+
 
 public:
   Raven_Bot(Raven_Game* world, Vector2D pos);
@@ -206,6 +210,10 @@ public:
   Raven_WeaponSystem* const          GetWeaponSys()const{return m_pWeaponSys;}
   Raven_SensoryMemory* const         GetSensoryMem()const{return m_pSensoryMem;}
 
+  //return the name team
+  std::string GetTeamName() { return current_team->GetName(); }
+
+  bool HasTeam() { return current_team != 0 };
 
 };
 

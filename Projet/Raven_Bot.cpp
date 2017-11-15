@@ -133,8 +133,11 @@ void Raven_Bot::Update()
     //examine all the opponents in the bots sensory memory and select one
     //to be the current target
     if (m_pTargetSelectionRegulator->isReady())
-    {      
-      m_pTargSys->Update();
+    { 
+		if (current_team->GetTarget() != 0) { // si pas de target déjà présente 
+			m_pTargSys->Update();
+			current_team->UpdateNewTarget(m_pTargSys->GetTarget(),ID()); // on donne la nouvelle target aux membres de l'équipe
+		}
     }
 
     //appraise and arbitrate between all possible high level goals
@@ -249,7 +252,14 @@ bool Raven_Bot::HandleMessage(const Telegram& msg)
     IncrementScore();
     
     //the bot this bot has just killed should be removed as the target
-    m_pTargSys->ClearTarget();
+	if (current_team != 0) {
+		current_team->ClearTarget(ID());
+	}
+	else {
+		m_pTargSys->ClearTarget();
+	}
+
+
 
     return true;
 
@@ -275,6 +285,17 @@ bool Raven_Bot::HandleMessage(const Telegram& msg)
 
       return true;
     }
+
+  case Msg_UpdatingTarget : 
+  {
+	  m_pTargSys->SerTarget(current_team->GetTarget()); // modifier la target
+	  return true;
+  }
+
+  case Msg_TargetKilled: {
+	  m_pTargSys->ClearTarget();
+	  return true;
+  }
 
 
   default: return false;
