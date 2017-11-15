@@ -212,6 +212,7 @@ public:
 
   //return the name team
   std::string GetTeamName() { return current_team->GetName(); }
+  void SetTeam(TeamSimple* team) { current_team = team; }
 
   bool HasTeam() { return current_team != 0; }
 

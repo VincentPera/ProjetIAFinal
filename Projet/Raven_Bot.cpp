@@ -45,6 +45,7 @@ Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
                  m_iScore(0),
                  m_Status(spawning),
                  m_bPossessed(false),
+				 current_team(0),
                  m_dFieldOfView(DegsToRads(script->GetDouble("Bot_FOV")))
            
 {
@@ -134,10 +135,16 @@ void Raven_Bot::Update()
     //to be the current target
     if (m_pTargetSelectionRegulator->isReady())
     { 
-		if (current_team->GetTarget() != 0) { // si pas de target déjà présente 
-			m_pTargSys->Update();
-			current_team->UpdateNewTarget(m_pTargSys->GetTarget(),ID()); // on donne la nouvelle target aux membres de l'équipe
+		if (this->HasTeam()) { // if has a team
+			if (current_team->GetTarget() == 0) { // if no current target
+				m_pTargSys->Update();
+				current_team->UpdateNewTarget(m_pTargSys->GetTarget(), ID()); // we give new taret to other member of the team
+			}
 		}
+		else {
+			m_pTargSys->Update();
+		}
+		
     }
 
     //appraise and arbitrate between all possible high level goals
@@ -252,7 +259,7 @@ bool Raven_Bot::HandleMessage(const Telegram& msg)
     IncrementScore();
     
     //the bot this bot has just killed should be removed as the target
-	if (current_team != 0) {
+	if (this->HasTeam() ) {
 		current_team->ClearTarget(ID());
 	}
 	else {
@@ -288,12 +295,12 @@ bool Raven_Bot::HandleMessage(const Telegram& msg)
 
   case Msg_UpdatingTarget : 
   {
-	  m_pTargSys->SerTarget(current_team->GetTarget()); // modifier la target
+	  m_pTargSys->SerTarget(current_team->GetTarget()); // modify target
 	  return true;
   }
 
   case Msg_TargetKilled: {
-	  m_pTargSys->ClearTarget();
+	  m_pTargSys->ClearTarget(); //clear target
 	  return true;
   }
 
