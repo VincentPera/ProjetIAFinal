@@ -213,7 +213,7 @@ public:
   //return the name team
   std::string GetTeamName() { return current_team->GetName(); }
 
-  bool HasTeam() { return current_team != 0 };
+  bool HasTeam() { return current_team != 0; }
 
 };
 
