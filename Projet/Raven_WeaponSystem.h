@@ -122,6 +122,8 @@ public:
 
   void          RenderCurrentWeapon()const;
   void          RenderDesirabilities()const;
+
+  int GetNumberOfWeapon() {return  m_WeaponMap.size(); }
 };
 
 #endif

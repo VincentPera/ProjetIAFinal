@@ -123,6 +123,7 @@ protected:
 
   //Team
   TeamSimple* current_team;
+  int team_type;
 
 
 public:
@@ -212,9 +213,11 @@ public:
 
   //return the name team
   std::string GetTeamName() { return current_team->GetName(); }
-  void SetTeam(TeamSimple* team) { current_team = team; }
+  void SetTeam(TeamSimple* team, int type) { current_team = team; team_type = type; }
 
   bool HasTeam() { return current_team != 0; }
+
+  void DropWeapon();
 
 };
 

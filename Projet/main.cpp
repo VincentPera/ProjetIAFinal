@@ -1,4 +1,6 @@
 #pragma warning (disable:4786)
+#include <string>
+#include <iostream>
 #include <windows.h>
 #include <time.h>
 #include "constants.h"
@@ -115,9 +117,15 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
          //don't forget to release the DC
          ReleaseDC(hwnd, hdc);  
 
+		 //TestTeamSimple
+		 mode = 1;
+		 strategy_t1 = 0;
+		 strategy_t2 = 0;
          //create the game
          g_pRaven = new Raven_Game(mode, human, grenades, learning_bot, strategy_j1, strategy_j2,
 			 strategy_t1, strategy_t2);
+
+		 debug_con << "strategy t1 !" << strategy_t1 << "";
 
         //make sure the menu items are ticked/unticked accordingly
         CheckMenuItemAppropriately(hwnd, IDM_NAVIGATION_SHOW_NAVGRAPH, UserOptions->m_bShowGraph);

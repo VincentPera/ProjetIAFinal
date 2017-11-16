@@ -4,8 +4,13 @@
 #include "Messaging/MessageDispatcher.h"
 #include "raven_bot.h"
 
+TeamSimple::TeamSimple()
+{
+}
+
 TeamSimple::TeamSimple(Vector2D lootposition,std::string name)
 {
+	members = std::list<Raven_Bot*>();
 	name_team = name;
 	lootingLocation = lootposition;
 	target = 0;
@@ -13,8 +18,9 @@ TeamSimple::TeamSimple(Vector2D lootposition,std::string name)
 
 void TeamSimple::UpdateNewTarget(Raven_Bot* new_target,int id_sender) {
 	target = new_target; //Add target
-	for (int i = 0; i < members.size();i++) { //dispatch message to all members
-		Raven_Bot* bot_courant = members[i];
+	std::list<Raven_Bot*>::iterator curBot = members.begin();
+	for (curBot; curBot != members.end(); ++curBot) { //dispatch message to all members
+		Raven_Bot* bot_courant = *curBot;
 		Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
 			id_sender,
 			bot_courant->ID(),
@@ -25,8 +31,9 @@ void TeamSimple::UpdateNewTarget(Raven_Bot* new_target,int id_sender) {
 
 void TeamSimple::ClearTarget(int id_sender) {
 	target = 0;
-	for (int i = 0; i < members.size(); i++) { //dispatch message to all members
-		Raven_Bot* bot_courant = members[i];
+	std::list<Raven_Bot*>::iterator curBot = members.begin();
+	for (curBot; curBot != members.end(); ++curBot) { //dispatch message to all members
+		Raven_Bot* bot_courant = *curBot;
 		Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
 			id_sender,
 			bot_courant->ID(),
@@ -36,6 +43,12 @@ void TeamSimple::ClearTarget(int id_sender) {
 }
 
 
+
+
+void TeamSimple::Addmember(Raven_Bot * new_memeber)
+{
+	members.push_back(new_memeber);
+}
 
 TeamSimple::~TeamSimple()
 {

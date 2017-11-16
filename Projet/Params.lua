@@ -4,7 +4,7 @@
 
 --the number of bots the game instantiates
 
-NumBots   = 3
+NumBots   = 6
 
 --this is the maximum number of search cycles allocated to *all* current path
 -- planning searches per update
@@ -22,6 +22,7 @@ NumCellsY = 10
 
 --how long the graves remain on screen
 GraveLifetime = 5
+
 
 
 -------------------------[[ bot parameters ]]----------------------------------

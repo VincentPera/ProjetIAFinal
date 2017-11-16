@@ -16,6 +16,7 @@
 #include "messaging/MessageDispatcher.h"
 #include "Raven_Messages.h"
 #include "GraveMarkers.h"
+#include "TeamSimple.h"
 
 #include "armory/Raven_Projectile.h"
 #include "armory/Projectile_Rocket.h"
@@ -67,6 +68,18 @@ Raven_Game::Raven_Game(int mode, int human, int grenades, int learning_bot, int 
 	m_strategy_j2 = strategie_j1;
 	m_strategy_t1 = strategie_t1;
 	m_strategy_t2 = strategie_t2;
+
+
+	if (m_mode == 1) { //Creation of both teams
+		if (m_strategy_t2 == 0) { //TeamSimple
+			Vector2D loot = Vector2D(0, 0);
+			m_alpha = new TeamSimple(loot, "Alpha");
+		}
+		if (m_strategy_t2 == 0) { //TeamSimple
+			Vector2D loot = Vector2D(0, 0);
+			m_beta = new TeamSimple(loot, "Beta");
+		}
+	}
 
 	if (grenades) {
 		//load in the map with grenades in it.
@@ -278,12 +291,27 @@ bool Raven_Game::AttemptToAddBot(Raven_Bot* pBot)
 //-----------------------------------------------------------------------------
 void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 { 
+	
+  bool addToFirstteam = true;
   while (NumBotsToAdd--)
   {
     //create a bot. (its position is irrelevant at this point because it will
     //not be rendered until it is spawned)
     Raven_Bot* rb = new Raven_Bot(this, Vector2D());
+	if (m_mode == 1) {
+		if (addToFirstteam) {
+			rb->SetTeam(m_alpha,0); //Add to the team
+			m_alpha->Addmember(rb);
 
+			addToFirstteam = false;
+		}
+		else {
+			rb->SetTeam(m_beta,0); //Add to the team
+			m_beta->Addmember(rb);
+
+			addToFirstteam = true;
+		}
+	}
     //switch the default steering behaviors on
     rb->GetSteering()->WallAvoidanceOn();
     rb->GetSteering()->SeparationOn();

@@ -26,6 +26,7 @@
 #include "Raven_Bot.h"
 #include "navigation/pathmanager.h"
 #include "Raven_HumanPlayer.h"
+#include "TeamSimple.h"
 
 
 class BaseGameEntity;
@@ -84,6 +85,10 @@ private:
   int                              m_strategy_t1;
   //strategie of the team2
   int                              m_strategy_t2;
+
+  //teamms
+  TeamSimple* m_alpha;
+  TeamSimple* m_beta;
 
   //this iterates through each trigger, testing each one against each bot
   void  UpdateTriggers();
