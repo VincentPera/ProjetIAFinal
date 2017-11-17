@@ -54,7 +54,7 @@ double GetWeaponGoal_Evaluator::CalculateDesirability(Raven_Bot* pBot)
 //------------------------------ SetGoal --------------------------------------
 void GetWeaponGoal_Evaluator::SetGoal(Raven_Bot* pBot)
 {
-  pBot->GetBrain()->AddGoal_GetItem(m_iWeaponType); 
+  pBot->GetBrain()->AddGoal_GetItemWithDodge(m_iWeaponType); 
 }
 
 //-------------------------- RenderInfo ---------------------------------------
