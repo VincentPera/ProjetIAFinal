@@ -164,6 +164,8 @@ void Raven_Map::AddWeapon_Giver(int type_of_weapon, std::ifstream& in)
 }
 
 
+
+
 //------------------------- LoadMap ------------------------------------
 //
 //  sets up the game environment from map file

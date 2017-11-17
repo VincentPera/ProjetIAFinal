@@ -1,8 +1,20 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Developer Studio generated include file.
-// Used by Script1.rc
+// fichier Include Microsoft Visual C++.
+// Utilisé par Script1.rc
 //
 #define IDR_MENU1                       101
+#define ID_HUMAN                        1001
+#define ID_NO_HUMAN                     1002
+#define ID_BOT_APPRE                    1003
+#define ID_NO_BOT_APPRE                 1004
+#define ID_MODE                         1005
+#define ID_GRENADE                      1006
+#define ID_NO_GRENADE                   1007
+#define ID_STRAT_J1                     1008
+#define ID_NB_GROUP                     1009
+#define ID_STRAT_J2                     1010
+#define ID_STRAT_T1                     1011
+#define ID_STRAT_T2                     1012
 #define ID_MENU_LOAD                    40001
 #define IDM_MAP_LOAD                    40001
 #define IDM_GAME_LOAD                   40001
@@ -28,9 +40,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        111
+#define _APS_NEXT_RESOURCE_VALUE        112
 #define _APS_NEXT_COMMAND_VALUE         40018
-#define _APS_NEXT_CONTROL_VALUE         1000
+#define _APS_NEXT_CONTROL_VALUE         1007
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

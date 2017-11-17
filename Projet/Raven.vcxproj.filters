@@ -77,6 +77,9 @@
     <Filter Include="Common">
       <UniqueIdentifier>{f3f5ab42-49d8-4348-aa63-66655abd9be1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="AI\Team">
+      <UniqueIdentifier>{2639f5d1-5c53-4055-b9ac-32c9dd3771d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -276,6 +279,12 @@
     </ClCompile>
     <ClCompile Include="armory\Projectile_Bomb.cpp">
       <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="TeamSimple.cpp">
+      <Filter>AI\Team</Filter>
+    </ClCompile>
+    <ClCompile Include="goals\Goal_GetItemWithDodge.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -624,6 +633,10 @@
     <ClInclude Include="armory\Projectile_Bomb.h">
       <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
     </ClInclude>
+    <ClInclude Include="TeamSimple.h">
+      <Filter>AI\Team</Filter>
+    </ClInclude>
+    <ClInclude Include="goals\Goal_GetItemWithDodge.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Params.lua">

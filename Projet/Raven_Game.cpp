@@ -16,6 +16,7 @@
 #include "messaging/MessageDispatcher.h"
 #include "Raven_Messages.h"
 #include "GraveMarkers.h"
+#include "TeamSimple.h"
 
 #include "armory/Raven_Projectile.h"
 #include "armory/Projectile_Rocket.h"
@@ -44,8 +45,49 @@ Raven_Game::Raven_Game():m_pSelectedBot(NULL),
                          m_pPathManager(NULL),
                          m_pGraveMarkers(NULL)
 {
-  //load in the default map
-  LoadMap(script->GetString("StartMap"));
+	m_mode, m_human, m_learning_bot = 0;
+	m_strategy_j1, m_strategy_j2 = 0;
+	m_strategy_t1, m_strategy_t2 = 0;
+
+	//load in the default map
+	LoadMap(script->GetString("StartMap"));
+}
+
+Raven_Game::Raven_Game(int mode, int human, int grenades, int learning_bot, int strategie_j1, 
+						int strategie_j2, int strategie_t1, int strategie_t2):m_pSelectedBot(NULL),
+							m_bPaused(false),
+							m_bRemoveABot(false),
+							m_pMap(NULL),
+							m_pPathManager(NULL),
+							m_pGraveMarkers(NULL)
+{
+	m_mode = mode;
+	m_human = human;
+	m_learning_bot = learning_bot;
+	m_strategy_j1 = strategie_j1;
+	m_strategy_j2 = strategie_j1;
+	m_strategy_t1 = strategie_t1;
+	m_strategy_t2 = strategie_t2;
+
+
+	if (m_mode == 1) { //Creation of both teams
+		if (m_strategy_t2 == 0) { //TeamSimple
+			Vector2D loot = Vector2D(0, 0);
+			m_alpha = new TeamSimple(loot, "Alpha");
+		}
+		if (m_strategy_t2 == 0) { //TeamSimple
+			Vector2D loot = Vector2D(0, 0);
+			m_beta = new TeamSimple(loot, "Beta");
+		}
+	}
+
+	if (grenades) {
+		//load in the map with grenades in it.
+		LoadMap(script->GetString("GrenadeMap"));
+	} else {
+		//load in the default map
+		LoadMap(script->GetString("StartMap"));
+	}
 }
 
 
@@ -249,12 +291,27 @@ bool Raven_Game::AttemptToAddBot(Raven_Bot* pBot)
 //-----------------------------------------------------------------------------
 void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 { 
+	
+  bool addToFirstteam = true;
   while (NumBotsToAdd--)
   {
     //create a bot. (its position is irrelevant at this point because it will
     //not be rendered until it is spawned)
     Raven_Bot* rb = new Raven_Bot(this, Vector2D());
+	if (m_mode == 1) {
+		if (addToFirstteam) {
+			rb->SetTeam(m_alpha,0); //Add to the team
+			m_alpha->Addmember(rb);
 
+			addToFirstteam = false;
+		}
+		else {
+			rb->SetTeam(m_beta,0); //Add to the team
+			m_beta->Addmember(rb);
+
+			addToFirstteam = true;
+		}
+	}
     //switch the default steering behaviors on
     rb->GetSteering()->WallAvoidanceOn();
     rb->GetSteering()->SeparationOn();
@@ -270,6 +327,19 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 #endif
   }
 }
+
+//------------------------ InstanciatePlayer------------------------------------
+// instanciate a single human player controlled by default by the user in the game
+//------------------------------------------------------------------------------
+void Raven_Game::AddHumanPlayer()
+{
+	Raven_HumanPlayer* hP = new Raven_HumanPlayer(this, Vector2D());
+	m_Bots.push_back(hP);
+	m_ThePlayer = hP;
+	EntityMgr->RegisterEntity(hP);
+}
+
+
 
 //---------------------------- NotifyAllBotsOfRemoval -------------------------
 //
@@ -412,7 +482,10 @@ bool Raven_Game::LoadMap(const std::string& filename)
   if (m_pMap->LoadMap(filename))
   { 
     AddBots(script->GetInt("NumBots"));
-  
+	if (m_human) {
+		AddHumanPlayer();
+		m_pSelectedBot = m_ThePlayer;
+	}
     return true;
   }
 
@@ -442,48 +515,55 @@ void Raven_Game::ExorciseAnyPossessedBot()
 //-----------------------------------------------------------------------------
 void Raven_Game::ClickRightMouseButton(POINTS p)
 {
-  Raven_Bot* pBot = GetBotAtPosition(POINTStoVector(p));
+  Raven_Bot* pBot = m_ThePlayer;
 
   //if there is no selected bot just return;
-  if (!pBot && m_pSelectedBot == NULL) return;
+  //if (!pBot && m_pSelectedBot == NULL) return;
 
   //if the cursor is over a different bot to the existing selection,
   //change selection
-  if (pBot && pBot != m_pSelectedBot)
+
+  //-------------------------------------------------------------
+  //With a human player we assume you cannot select another bot
+  //-------------------------------------------------------------
+
+  /*if (pBot && pBot != m_pSelectedBot)
   { 
     if (m_pSelectedBot) m_pSelectedBot->Exorcise();
     m_pSelectedBot = pBot;
 
     return;
-  }
+  }*/
 
   //if the user clicks on a selected bot twice it becomes possessed(under
   //the player's control)
-  if (pBot && pBot == m_pSelectedBot)
-  {
-    m_pSelectedBot->TakePossession();
+  //if (pBot && pBot == m_pSelectedBot)
+  //{
+  //  m_pSelectedBot->TakePossession();
 
-    //clear any current goals
-    m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
-  }
+  //  //clear any current goals
+  //  m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
+  //}
 
   //if the bot is possessed then a right click moves the bot to the cursor
   //position
-  if (m_pSelectedBot->isPossessed())
-  {
-    //if the shift key is pressed down at the same time as clicking then the
-    //movement command will be queued
-    if (IS_KEY_PRESSED('Q'))
-    {
-      m_pSelectedBot->GetBrain()->QueueGoal_MoveToPosition(POINTStoVector(p));
-    }
-    else
-    {
-      //clear any current goals
-      m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
+  if (m_human) {
+	  if (m_pSelectedBot->isPossessed())
+	  {
+		  //if the shift key is pressed down at the same time as clicking then the
+		  //movement command will be queued
+		  if (IS_KEY_PRESSED('Q'))
+		  {
+			  m_pSelectedBot->GetBrain()->QueueGoal_MoveToPosition(POINTStoVector(p));
+		  }
+		  else
+		  {
+			  //clear any current goals
+			  m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
 
-      m_pSelectedBot->GetBrain()->AddGoal_MoveToPosition(POINTStoVector(p));
-    }
+			  m_pSelectedBot->GetBrain()->AddGoal_MoveToPosition(POINTStoVector(p));
+		  }
+	  }
   }
 }
 
@@ -504,7 +584,7 @@ void Raven_Game::ScrollMouseButton(bool scrollUp)
 	// New weapons should be add at the end of the vector !
 	std::vector<unsigned int> armes = { type_rail_gun, type_rocket_launcher, type_shotgun, type_blaster, type_grenade };
 
-	if (m_pSelectedBot && m_pSelectedBot->isPossessed())
+	if (m_human)
 	{
 		// Get the ref of the current weapon
 		Raven_Weapon* current_weapon = PossessedBot()->GetWeaponSys()->GetCurrentWeapon();
@@ -512,16 +592,21 @@ void Raven_Game::ScrollMouseButton(bool scrollUp)
 		do
 		{
 			// Get the next weapon on the vector
-			if (scrollUp)
+			if (scrollUp) {
 				indice++;
-			else
+			} else {
 				indice--;
-			indice %= armes.size();
+			}
+			indice = mod(indice, armes.size());
 		} while (PossessedBot()->GetWeaponSys()->GetWeaponFromInventory(armes.at(indice)) == NULL);
 
 		// Change the weapon
 		PossessedBot()->ChangeWeapon(armes.at(indice));
 	}
+}
+
+int Raven_Game::mod(int a, int b) {
+	return a >= 0 ? a % b : (b - abs(a%b)) % b;
 }
 
 //------------------------ GetPlayerInput -------------------------------------

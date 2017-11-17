@@ -17,6 +17,7 @@
 #include "GetHealthGoal_Evaluator.h"
 #include "ExploreGoal_Evaluator.h"
 #include "AttackTargetGoal_Evaluator.h"
+#include "Goal_GetItemWithDodge.h"
 
 
 Goal_Think::Goal_Think(Raven_Bot* pBot):Goal_Composite<Raven_Bot>(pBot, goal_think)
@@ -160,6 +161,13 @@ void Goal_Think::AddGoal_GetItem(unsigned int ItemType)
   }
 }
 
+void Goal_Think::AddGoal_GetItemWithDodge( unsigned int ItemType ) {
+    if ( notPresent( ItemTypeToGoalType( ItemType ) ) ) {
+        RemoveAllSubgoals();
+        AddSubgoal( new Goal_GetItemWithDodge( m_pOwner, ItemType ) );
+    }
+}
+
 void Goal_Think::AddGoal_AttackTarget()
 {
   if (notPresent(goal_attack_target))
@@ -201,6 +209,3 @@ void Goal_Think::Render()
     (*curG)->Render();
   }
 }
-
-
-   

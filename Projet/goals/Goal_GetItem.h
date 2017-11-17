@@ -14,7 +14,7 @@ int ItemTypeToGoalType(int gt);
 
 class Goal_GetItem : public Goal_Composite<Raven_Bot>
 {
-private:
+protected:
 
   int                     m_iItemToGet;
 
