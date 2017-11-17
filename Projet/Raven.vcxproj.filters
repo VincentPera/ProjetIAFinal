@@ -283,6 +283,9 @@
     <ClCompile Include="TeamSimple.cpp">
       <Filter>AI\Team</Filter>
     </ClCompile>
+    <ClCompile Include="goals\Goal_GetItemWithDodge.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -633,6 +636,7 @@
     <ClInclude Include="TeamSimple.h">
       <Filter>AI\Team</Filter>
     </ClInclude>
+    <ClInclude Include="goals\Goal_GetItemWithDodge.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Params.lua">

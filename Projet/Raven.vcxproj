@@ -218,6 +218,7 @@
   <ItemGroup>
     <ClCompile Include="armory\Projectile_Bomb.cpp" />
     <ClCompile Include="armory\Weapon_Grenade.cpp" />
+    <ClCompile Include="goals\Goal_GetItemWithDodge.cpp" />
     <ClCompile Include="main.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -539,6 +540,7 @@
   <ItemGroup>
     <ClInclude Include="armory\Projectile_Bomb.h" />
     <ClInclude Include="armory\Weapon_Grenade.h" />
+    <ClInclude Include="goals\Goal_GetItemWithDodge.h" />
     <ClInclude Include="Raven_Bot.h" />
     <ClInclude Include="Raven_Game.h" />
     <ClInclude Include="Raven_HumanPlayer.h" />
