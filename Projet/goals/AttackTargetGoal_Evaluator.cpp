@@ -8,7 +8,7 @@
 #include "Raven_Feature.h"
 
 
-#include "debug/DebugConsole.h"
+#include "Debug/DebugConsole.h"
 
 //------------------ CalculateDesirability ------------------------------------
 //

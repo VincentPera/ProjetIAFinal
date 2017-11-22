@@ -16,7 +16,7 @@
 #include "game/MovingEntity.h"
 #include "misc/utils.h"
 #include "Raven_TargetingSystem.h"
-
+#include "TeamSimple.h"
 
 class Raven_PathPlanner;
 class Raven_Steering;
@@ -110,7 +110,6 @@ protected:
   //the buffer for the transformed vertices
   std::vector<Vector2D>              m_vecBotVBTrans;
 
-
   //bots shouldn't be copied, only created or respawned
   Raven_Bot(const Raven_Bot&);
   Raven_Bot& operator=(const Raven_Bot&);
@@ -121,6 +120,10 @@ protected:
 
   //initializes the bot's VB with its geometry
   void          SetUpVertexBuffer();
+
+  //Team
+  TeamSimple* current_team;
+  int team_type;
 
 
 public:
@@ -197,7 +200,6 @@ public:
   bool          canStepRight(Vector2D& PositionOfStep)const;
   bool          canStepForward(Vector2D& PositionOfStep)const;
   bool          canStepBackward(Vector2D& PositionOfStep)const;
-
   
   Raven_Game* const                  GetWorld(){return m_pWorld;} 
   Raven_Steering* const              GetSteering(){return m_pSteering;}
@@ -209,6 +211,13 @@ public:
   Raven_WeaponSystem* const          GetWeaponSys()const{return m_pWeaponSys;}
   Raven_SensoryMemory* const         GetSensoryMem()const{return m_pSensoryMem;}
 
+  //return the name team
+  std::string GetTeamName() { return current_team->GetName(); }
+  void SetTeam(TeamSimple* team, int type) { current_team = team; team_type = type; }
+
+  bool HasTeam() { return current_team != 0; }
+
+  void DropWeapon();
 
 };
 

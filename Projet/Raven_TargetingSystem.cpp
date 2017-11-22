@@ -27,16 +27,34 @@ void Raven_TargetingSystem::Update()
   std::list<Raven_Bot*>::const_iterator curBot = SensedBots.begin();
   for (curBot; curBot != SensedBots.end(); ++curBot)
   {
+	  Raven_Bot* courant = *curBot;
     //make sure the bot is alive and that it is not the owner
     if ((*curBot)->isAlive() && (*curBot != m_pOwner) )
     {
       double dist = Vec2DDistanceSq((*curBot)->Pos(), m_pOwner->Pos());
-
-      if (dist < ClosestDistSoFar)
-      {
-        ClosestDistSoFar = dist;
-        m_pCurrentTarget = *curBot;
-      }
+	  if (m_pOwner->HasTeam() ) {
+		  if (courant->HasTeam() ) {
+			  if (dist < ClosestDistSoFar && (m_pOwner->GetTeamName() != courant->GetTeamName() ) ) // Check if they are not in the same team
+			  {
+				  ClosestDistSoFar = dist;
+				  m_pCurrentTarget = *curBot;
+			  }
+		  }
+		  else {
+			  if (dist < ClosestDistSoFar ) // just Check distance
+			  {
+				  ClosestDistSoFar = dist;
+				  m_pCurrentTarget = *curBot;
+			  }
+		  }
+	  }
+	  else {
+		  if (dist < ClosestDistSoFar) // just Check distance
+		  {
+			  ClosestDistSoFar = dist;
+			  m_pCurrentTarget = *curBot;
+		  }
+	  }
     }
   }
 }
@@ -68,3 +86,5 @@ double Raven_TargetingSystem::GetTimeTargetHasBeenOutOfView()const
 {
   return m_pOwner->GetSensoryMem()->GetTimeOpponentHasBeenOutOfView(m_pCurrentTarget);
 }
+
+

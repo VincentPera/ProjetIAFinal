@@ -26,6 +26,7 @@
 #include "Raven_Bot.h"
 #include "navigation/pathmanager.h"
 #include "Raven_HumanPlayer.h"
+#include "TeamSimple.h"
 
 
 class BaseGameEntity;
@@ -56,6 +57,9 @@ private:
   //this class manages all the path planning requests
   PathManager<Raven_PathPlanner>*  m_pPathManager;
 
+  //We implement for this game a human player
+  Raven_Bot*				       m_ThePlayer;
+
 
   //if true the game will be paused
   bool                             m_bPaused;
@@ -66,6 +70,25 @@ private:
   //when a bot is killed a "grave" is displayed for a few seconds. This
   //class manages the graves
   GraveMarkers*                    m_pGraveMarkers;
+
+  //current mode used in the game
+  int                              m_mode;
+  //if there are a human player
+  int                              m_human;
+  //if there are a learning bot
+  int                              m_learning_bot;
+  //strategie of the player1
+  int                              m_strategy_j1;
+  //strategie of the player2
+  int                              m_strategy_j2;
+  //strategie of the team1
+  int                              m_strategy_t1;
+  //strategie of the team2
+  int                              m_strategy_t2;
+
+  //teamms
+  TeamSimple* m_alpha;
+  TeamSimple* m_beta;
 
   //this iterates through each trigger, testing each one against each bot
   void  UpdateTriggers();
@@ -81,10 +104,14 @@ private:
   //must be notified so that they can remove any references to that bot from
   //their memory
   void NotifyAllBotsOfRemoval(Raven_Bot* pRemovedBot)const;
+
+  int mod(int a, int b);
   
 public:
   
   Raven_Game();
+  Raven_Game(int mode, int human, int grenades, int learning_bot, int strategie_j1,
+			 int strategie_j2, int strategie_t1, int strategie_t2);
   ~Raven_Game();
 
   //the usual suspects
@@ -100,6 +127,7 @@ public:
   void AddRailGunSlug(Raven_Bot* shooter, Vector2D target);
   void AddShotGunPellet(Raven_Bot* shooter, Vector2D target);
   void AddBolt(Raven_Bot* shooter, Vector2D target);
+  void AddBomb(Raven_Bot* shooter, Vector2D target);
 
   //removes the last bot to be added
   void RemoveBot();
@@ -145,6 +173,8 @@ public:
   //this method is called when the user clicks the left mouse button. If there
   //is a possessed bot, this fires the weapon, else does nothing
   void        ClickLeftMouseButton(POINTS p);
+
+  void		ScrollMouseButton(bool scrollUp);
 
   //when called will release any possessed bot from user control
   void        ExorciseAnyPossessedBot();

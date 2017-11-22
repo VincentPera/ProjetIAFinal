@@ -4,7 +4,7 @@
 
 --the number of bots the game instantiates
 
-NumBots   = 3
+NumBots   = 6
 
 --this is the maximum number of search cycles allocated to *all* current path
 -- planning searches per update
@@ -13,12 +13,16 @@ MaxSearchCyclesPerUpdateStep = 1000
 --the name of the default map
 StartMap = "maps/Raven_DM1.map"
 
+--the name of the grenade map
+GrenadeMap = "maps/Raven_DM2.map"
+
 --cell space partitioning defaults
 NumCellsX = 10
 NumCellsY = 10
 
 --how long the graves remain on screen
 GraveLifetime = 5
+
 
 
 -------------------------[[ bot parameters ]]----------------------------------
@@ -179,5 +183,19 @@ Pellet_Scale       = Bot_Scale
 Pellet_Persistance = 0.1
 Pellet_Damage      = 1
 
+
+Grenade_FiringFreq       = 1
+Grenade_DefaultRounds    = 15
+Grenade_MaxRoundsCarried = 50
+Grenade_IdealRange  = 400
+Grenade_SoundRange  = 700
+
+Bomb_BlastRadius = 100
+Bomb_MaxSpeed    = 2
+Bomb_Mass        = 2
+Bomb_MaxForce    = 10.0
+Bomb_Scale       = Bot_Scale
+Bomb_Damage      = 20
+Bomb_ExplosionDecayRate = 2.0   --how fast the explosion occurs (in secs)
 
   

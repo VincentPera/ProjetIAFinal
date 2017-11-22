@@ -19,7 +19,6 @@
 #include "goals/Raven_Goal_Types.h"
 #include "goals/Goal_Think.h"
 
-
 #include "Debug/DebugConsole.h"
 
 //-------------------------- ctor ---------------------------------------------
@@ -46,6 +45,7 @@ Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
                  m_iScore(0),
                  m_Status(spawning),
                  m_bPossessed(false),
+				 current_team(0),
                  m_dFieldOfView(DegsToRads(script->GetDouble("Bot_FOV")))
            
 {
@@ -134,8 +134,24 @@ void Raven_Bot::Update()
     //examine all the opponents in the bots sensory memory and select one
     //to be the current target
     if (m_pTargetSelectionRegulator->isReady())
-    {      
-      m_pTargSys->Update();
+    { 
+		if (this->HasTeam()) { // if has a team
+			if (current_team->GetTarget() == 0) { // if no current target
+				m_pTargSys->Update();
+				if (m_pTargSys->GetTarget() != 0) { //if found a target
+					current_team->UpdateNewTarget(m_pTargSys->GetTarget(), ID()); // we give new taret to other member of the team
+				}
+			}
+			else {
+				if (m_pTargSys->GetTarget() == 0) {//if his team has a target but he dont we give to him (case if bot respawn)
+					m_pTargSys->SerTarget(current_team->GetTarget());
+				}
+			}
+		}
+		else {
+			m_pTargSys->Update();
+		}
+		
     }
 
     //appraise and arbitrate between all possible high level goals
@@ -157,9 +173,11 @@ void Raven_Bot::Update()
       m_pWeaponSys->SelectWeapon();       
     }
 
+	double angle = m_pWeaponSys->GetBotAim();
+
     //this method aims the bot's current weapon at the current target
     //and takes a shot if a shot is possible
-    m_pWeaponSys->TakeAimAndShoot();
+    m_pWeaponSys->TakeAimAndShoot(angle);
   }
 }
 
@@ -234,6 +252,7 @@ bool Raven_Bot::HandleMessage(const Telegram& msg)
     //if this bot is now dead let the shooter know
     if (isDead())
     {
+		DropWeapon();
       Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
                               ID(),
                               msg.Sender,
@@ -248,7 +267,14 @@ bool Raven_Bot::HandleMessage(const Telegram& msg)
     IncrementScore();
     
     //the bot this bot has just killed should be removed as the target
-    m_pTargSys->ClearTarget();
+	if (this->HasTeam() ) {
+		current_team->ClearTarget(ID());
+	}
+	else {
+		m_pTargSys->ClearTarget();
+	}
+
+
 
     return true;
 
@@ -274,6 +300,17 @@ bool Raven_Bot::HandleMessage(const Telegram& msg)
 
       return true;
     }
+
+  case Msg_UpdatingTarget : 
+  {
+	  m_pTargSys->SerTarget(current_team->GetTarget()); // modify target
+	  return true;
+  }
+
+  case Msg_TargetKilled: {
+	  m_pTargSys->ClearTarget(); //clear target
+	  return true;
+  }
 
 
   default: return false;
@@ -384,7 +421,8 @@ void Raven_Bot::ChangeWeapon(unsigned int type)
 //-----------------------------------------------------------------------------
 void Raven_Bot::FireWeapon(Vector2D pos)
 {
-  m_pWeaponSys->ShootAt(pos);
+	// Fire with the position
+	m_pWeaponSys->ShootAt(pos);
 }
 
 //----------------- CalculateExpectedTimeToReachPosition ----------------------
@@ -486,7 +524,18 @@ void Raven_Bot::Render()
 
   if (isDead() || isSpawning()) return;
   
-  gdi->BluePen();
+  if (this->HasTeam()) {
+	  if (this->GetTeamName() == "Alpha") { //Team Alpha rouge
+		  gdi->BluePen();
+	  }
+	  if (this->GetTeamName() == "Beta") { //Team beta bleue
+		  gdi->RedPen();
+	  }
+  }
+  else {
+	  gdi->GreenPen(); //Sans équipe vert
+  }
+
   
   m_vecBotVBTrans = WorldTransform(m_vecBotVB,
                                    Pos(),
@@ -576,4 +625,27 @@ void Raven_Bot::IncreaseHealth(unsigned int val)
 {
   m_iHealth+=val; 
   Clamp(m_iHealth, 0, m_iMaxHealth);
+}
+
+
+void Raven_Bot::DropWeapon() {
+	if (this->HasTeam() && this->team_type ==0){ //TeamSimple
+		for (int i = 0; i < m_pWeaponSys->GetNumberOfWeapon(); i++) {
+			Raven_Weapon* current_weapon = m_pWeaponSys->GetWeaponFromInventory(0);
+			if (current_weapon != NULL) {
+				switch (i) {
+				case 1: //shotgun
+					break;
+				case 2: //railgun
+					break;
+				case 3: //rocket_launcher
+					break;
+				case 4: //grenade
+					break;
+
+				}
+			}
+		}
+		
+	}
 }

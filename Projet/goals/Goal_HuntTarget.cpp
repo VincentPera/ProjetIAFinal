@@ -6,7 +6,7 @@
 
 
 
-#include "debug/DebugConsole.h"
+#include "Debug/DebugConsole.h"
 #include "misc/cgdi.h"
 
 //---------------------------- Initialize -------------------------------------

@@ -54,7 +54,7 @@ double GetWeaponGoal_Evaluator::CalculateDesirability(Raven_Bot* pBot)
 //------------------------------ SetGoal --------------------------------------
 void GetWeaponGoal_Evaluator::SetGoal(Raven_Bot* pBot)
 {
-  pBot->GetBrain()->AddGoal_GetItem(m_iWeaponType); 
+  pBot->GetBrain()->AddGoal_GetItemWithDodge(m_iWeaponType); 
 }
 
 //-------------------------- RenderInfo ---------------------------------------
@@ -70,6 +70,8 @@ void GetWeaponGoal_Evaluator::RenderInfo(Vector2D Position, Raven_Bot* pBot)
     s="RL: "; break;
   case type_shotgun:
     s="SG: "; break;
+  case type_grenade:
+	s = "G: "; break;
   }
   
   gdi->TextAtPos(Position, s + ttos(CalculateDesirability(pBot), 2));
