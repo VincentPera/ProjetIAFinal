@@ -53,7 +53,7 @@ Raven_Game::Raven_Game():m_pSelectedBot(NULL),
 	LoadMap(script->GetString("StartMap"));
 }
 
-Raven_Game::Raven_Game(int mode, int human, int grenades, int learning_bot, int strategie_j1, 
+Raven_Game::Raven_Game(int mode, int human, int grenades, int learning_bot, int strategie_j1,
 						int strategie_j2, int strategie_t1, int strategie_t2):m_pSelectedBot(NULL),
 							m_bPaused(false),
 							m_bRemoveABot(false),
@@ -61,7 +61,7 @@ Raven_Game::Raven_Game(int mode, int human, int grenades, int learning_bot, int 
 							m_pPathManager(NULL),
 							m_pGraveMarkers(NULL)
 {
-	m_mode = mode;
+	m_mode = static_cast<GAME_MODE>(mode);
 	m_human = human;
 	m_learning_bot = learning_bot;
 	m_strategy_j1 = strategie_j1;
@@ -69,8 +69,7 @@ Raven_Game::Raven_Game(int mode, int human, int grenades, int learning_bot, int 
 	m_strategy_t1 = strategie_t1;
 	m_strategy_t2 = strategie_t2;
 
-
-	if (m_mode == 1) { //Creation of both teams
+	if (m_mode == TEAM_MATCH) { //Creation of both teams
 		if (m_strategy_t2 == 0) { //TeamSimple
 			Vector2D loot = Vector2D(0, 0);
 			m_alpha = new TeamSimple(loot, "Alpha");
@@ -118,6 +117,7 @@ void Raven_Game::Clear()
   for (it; it != m_Bots.end(); ++it)
   {
 #ifdef LOG_CREATIONAL_STUFF
+
     debug_con << "deleting entity id: " << (*it)->ID() << " of type "
               << GetNameOfType((*it)->EntityType()) << "(" << (*it)->EntityType() << ")" <<"";
 #endif
@@ -298,7 +298,7 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
     //create a bot. (its position is irrelevant at this point because it will
     //not be rendered until it is spawned)
     Raven_Bot* rb = new Raven_Bot(this, Vector2D());
-	if (m_mode == 1) {
+	if (m_mode == TEAM_MATCH) {
 		if (addToFirstteam) {
 			rb->SetTeam(m_alpha,0); //Add to the team
 			m_alpha->Addmember(rb);
@@ -481,7 +481,12 @@ bool Raven_Game::LoadMap(const std::string& filename)
   //load the new map data
   if (m_pMap->LoadMap(filename))
   { 
-    AddBots(script->GetInt("NumBots"));
+	  char * numbots;
+	  numbots = (char *) malloc(strlen("NumBots") + 1);
+	  strcpy(numbots, "NumBots");
+	  strcat(numbots, std::to_string(m_mode).c_str());
+
+    AddBots(script->GetInt(numbots));
 	if (m_human) {
 		AddHumanPlayer();
 		m_pSelectedBot = m_ThePlayer;

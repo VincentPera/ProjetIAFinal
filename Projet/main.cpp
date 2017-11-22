@@ -31,8 +31,8 @@ Raven_Game* g_pRaven;
 
 HINSTANCE hinst;
 
-UINT human;		// 0 : no human agent. 1 : human agent.
-UINT mode;			// current mode used
+UINT human;				// 0 : no human agent. 1 : human agent.
+UINT mode;				// current mode used
 UINT grenades;			// 0 : no grenade spawn. 1 : grenade spawn available.
 UINT learning_bot;		// 0 : no learning bot. 1 : a learning bot.
 UINT strategy_j1;
@@ -118,7 +118,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
          ReleaseDC(hwnd, hdc);  
 
 		 //TestTeamSimple
-		 mode = 1;
+		 //mode = TEAM_MATCH;
 		 strategy_t1 = 0;
 		 strategy_t2 = 0;
          //create the game

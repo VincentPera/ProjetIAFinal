@@ -6,6 +6,10 @@
 
 NumBots   = 6
 
+NumBots0   = 6
+NumBots1   = 6
+NumBots2   = 2
+
 --this is the maximum number of search cycles allocated to *all* current path
 -- planning searches per update
 MaxSearchCyclesPerUpdateStep = 1000

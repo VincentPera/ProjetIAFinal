@@ -34,7 +34,7 @@ class Raven_Projectile;
 class Raven_Map;
 class GraveMarkers;
 
-
+enum GAME_MODE {DEATH_MATCH = 0, TEAM_MATCH = 1, SOLO = 2};
 
 class Raven_Game
 {
@@ -72,7 +72,7 @@ private:
   GraveMarkers*                    m_pGraveMarkers;
 
   //current mode used in the game
-  int                              m_mode;
+  GAME_MODE                        m_mode;
   //if there are a human player
   int                              m_human;
   //if there are a learning bot
