@@ -268,6 +268,17 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
   }
 }
 
+//------------------------ InstanciatePlayer------------------------------------
+// instanciate a single human player controlled by default by the user in the game
+//------------------------------------------------------------------------------
+void Raven_Game::AddHumanPlayer()
+{
+	Raven_HumanPlayer::SetInstance(this);
+	m_Bots.push_back(Raven_HumanPlayer::GetInstance());
+}
+
+
+
 //---------------------------- NotifyAllBotsOfRemoval -------------------------
 //
 //  when a bot is removed from the game by a user all remianing bots
@@ -397,7 +408,8 @@ bool Raven_Game::LoadMap(const std::string& filename)
   if (m_pMap->LoadMap(filename))
   { 
     AddBots(script->GetInt("NumBots"));
-  
+	AddHumanPlayer();
+	
     return true;
   }
 
