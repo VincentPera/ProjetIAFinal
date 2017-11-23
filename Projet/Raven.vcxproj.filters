@@ -271,6 +271,9 @@
     <ClCompile Include="Raven_HumanPlayer.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Raven_BotApprenant.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -612,6 +615,7 @@
     <ClInclude Include="Raven_HumanPlayer.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="Raven_BotApprenant.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Params.lua">
