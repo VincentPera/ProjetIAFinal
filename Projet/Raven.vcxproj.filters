@@ -274,6 +274,12 @@
     <ClCompile Include="Raven_BotApprenant.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Net.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Neuron.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -615,7 +621,15 @@
     <ClInclude Include="Raven_HumanPlayer.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Raven_BotApprenant.h" />
+    <ClInclude Include="Raven_BotApprenant.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Neuron.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Net.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Params.lua">
