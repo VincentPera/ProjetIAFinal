@@ -15,5 +15,8 @@ public:
 	~Net();
 private:
 	vector<Layer> m_Layers; // m_layers[layersNum][neuronNum]
+	double m_error;
+	double m_recentAverageError;
+	double m_recentAverageSmoothingFactor;
 };
 
