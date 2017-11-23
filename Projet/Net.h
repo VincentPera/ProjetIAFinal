@@ -1,12 +1,9 @@
 #pragma once
 #include "Neuron.h"
 #include <vector>
-
+#include "main.h"
 using namespace std;
 
-class Neuron;
-
-typedef vector<Neuron> Layer;
 
 class Net
 {

@@ -630,6 +630,7 @@
     <ClInclude Include="Net.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Params.lua">
