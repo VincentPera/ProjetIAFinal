@@ -224,11 +224,14 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="Net.cpp" />
+    <ClCompile Include="Neuron.cpp" />
     <ClCompile Include="Raven_Bot.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="Raven_BotApprenant.cpp" />
     <ClCompile Include="Raven_Game.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -538,10 +541,17 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClInclude Include="armory\Projectile_Bomb.h" />
     <ClInclude Include="armory\Weapon_Grenade.h" />
     <ClInclude Include="goals\Goal_GetItemWithDodge.h" />
+=======
+    <ClInclude Include="main.h" />
+    <ClInclude Include="Net.h" />
+    <ClInclude Include="Neuron.h" />
+>>>>>>> fa79bd82fd77fd03ea7c84f190916b3e0fd5277e
     <ClInclude Include="Raven_Bot.h" />
+    <ClInclude Include="Raven_BotApprenant.h" />
     <ClInclude Include="Raven_Game.h" />
     <ClInclude Include="Raven_HumanPlayer.h" />
     <ClInclude Include="Raven_Map.h" />

@@ -274,6 +274,7 @@
     <ClCompile Include="Raven_HumanPlayer.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="armory\Weapon_Grenade.cpp">
       <Filter>Game\weapons &amp; projectiles\weapons</Filter>
     </ClCompile>
@@ -284,6 +285,15 @@
       <Filter>AI\Team</Filter>
     </ClCompile>
     <ClCompile Include="goals\Goal_GetItemWithDodge.cpp">
+=======
+    <ClCompile Include="Raven_BotApprenant.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Net.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Neuron.cpp">
+>>>>>>> fa79bd82fd77fd03ea7c84f190916b3e0fd5277e
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -627,6 +637,7 @@
     <ClInclude Include="Raven_HumanPlayer.h">
       <Filter>Game</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="armory\Weapon_Grenade.h">
       <Filter>Game\weapons &amp; projectiles\weapons</Filter>
     </ClInclude>
@@ -637,6 +648,18 @@
       <Filter>AI\Team</Filter>
     </ClInclude>
     <ClInclude Include="goals\Goal_GetItemWithDodge.h" />
+=======
+    <ClInclude Include="Raven_BotApprenant.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Neuron.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Net.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h" />
+>>>>>>> fa79bd82fd77fd03ea7c84f190916b3e0fd5277e
   </ItemGroup>
   <ItemGroup>
     <None Include="Params.lua">
