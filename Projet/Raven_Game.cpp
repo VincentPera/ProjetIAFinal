@@ -507,6 +507,33 @@ void Raven_Game::ExorciseAnyPossessedBot()
   if (m_pSelectedBot) m_pSelectedBot->Exorcise();
 }
 
+void Raven_Game::MoveForward(Vector2D p)
+{
+	//clear any current goals
+	m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
+	m_pSelectedBot->GetBrain()->AddGoal_MoveToPosition(Vector2D(m_pSelectedBot->Pos().x, m_pSelectedBot->Pos().y + 1.0));
+}
+
+void Raven_Game::MoveBackward(Vector2D p)
+{
+	//clear any current goals
+	m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
+	m_pSelectedBot->GetBrain()->AddGoal_MoveToPosition(Vector2D(m_pSelectedBot->Pos().x, m_pSelectedBot->Pos().y - 1.0));
+}
+
+void Raven_Game::MoveRight(Vector2D p)
+{
+	//clear any current goals
+	m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
+	m_pSelectedBot->GetBrain()->AddGoal_MoveToPosition(p);
+}
+
+void Raven_Game::MoveLeft(Vector2D p)
+{
+	//clear any current goals
+	m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
+	m_pSelectedBot->GetBrain()->AddGoal_MoveToPosition(p);
+}
 
 //-------------------------- ClickRightMouseButton -----------------------------
 //

@@ -157,7 +157,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
           break;
 
          case 'P':
-
+			debug_con << "PAUSE !" << "";
            g_pRaven->TogglePause();
 
            break;
@@ -213,6 +213,37 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
     break;
 
+	case WM_KEYDOWN:
+	{
+		switch (wParam)
+		{
+		case 'Z':
+			debug_con << "Forward !" << lParam << "";
+			g_pRaven->MoveForward(Vector2D(0, 5));
+
+			break;
+
+		case 'Q':
+			debug_con << "Left !" << "";
+			g_pRaven->MoveLeft(Vector2D(-5, 0));
+
+			break;
+
+		case 'S':
+			debug_con << "Backward !" << "";
+			g_pRaven->MoveBackward(Vector2D(0, -5));
+
+			break;
+
+		case 'D':
+			debug_con << "Right !" << "";
+			g_pRaven->MoveRight(Vector2D(0, 1));
+
+			break;
+		}
+	}
+
+	break;
 
     case WM_LBUTTONDOWN:
     {
@@ -223,6 +254,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
    case WM_RBUTTONDOWN:
     {
+	   debug_con << "Click !" << lParam << "";
       g_pRaven->ClickRightMouseButton(MAKEPOINTS(lParam));
     }
     
