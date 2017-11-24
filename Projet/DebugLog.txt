@@ -73,16 +73,10 @@ Creating a shotgun
 Creating a shotgun
 Creating a rocket_launcher
 maps/Raven_DM1.map loaded okay
-<<<<<<< HEAD
 strategy t1 !0
-=======
->>>>>>> fa79bd82fd77fd03ea7c84f190916b3e0fd5277e
 deleting raven bot (id = 401)
 deleting raven bot (id = 402)
 deleting raven bot (id = 403)
 deleting raven bot (id = 404)
-<<<<<<< HEAD
 deleting raven bot (id = 405)
 deleting raven bot (id = 406)
-=======
->>>>>>> fa79bd82fd77fd03ea7c84f190916b3e0fd5277e
