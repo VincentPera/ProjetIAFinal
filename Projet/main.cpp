@@ -215,32 +215,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
 	case WM_KEYDOWN:
 	{
-		switch (wParam)
-		{
-		case 'Z':
-			debug_con << "Forward !" << lParam << "";
-			g_pRaven->MoveForward(Vector2D(0, 5));
-
-			break;
-
-		case 'Q':
-			debug_con << "Left !" << "";
-			g_pRaven->MoveLeft(Vector2D(-5, 0));
-
-			break;
-
-		case 'S':
-			debug_con << "Backward !" << "";
-			g_pRaven->MoveBackward(Vector2D(0, -5));
-
-			break;
-
-		case 'D':
-			debug_con << "Right !" << "";
-			g_pRaven->MoveRight(Vector2D(0, 1));
-
-			break;
-		}
+		
 	}
 
 	break;
@@ -254,7 +229,6 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
    case WM_RBUTTONDOWN:
     {
-	   debug_con << "Click !" << lParam << "";
       g_pRaven->ClickRightMouseButton(MAKEPOINTS(lParam));
     }
     
@@ -434,8 +408,26 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
                 NULL,
                 NULL,
                 WHITENESS);
-          
          
+		 // Use to move the human player
+		 if (human) {
+			 Vector2D direction = Vector2D(0, 0);
+			 if (GetAsyncKeyState('Z')) {
+				 direction += Vector2D(0, -5);
+			 }
+			 if (GetAsyncKeyState('Q')) {
+				 direction += Vector2D(-5, 0);
+			 }
+			 if (GetAsyncKeyState('S')) {
+				 direction += Vector2D(0, 5);
+			 }
+			 if (GetAsyncKeyState('D')) {
+				 direction += Vector2D(5, 0);
+			 }
+			 g_pRaven->MoveToward(direction);
+		 }
+
+		 // Use for render the game
          gdi->StartDrawing(hdcBackBuffer);
 
          g_pRaven->Render();

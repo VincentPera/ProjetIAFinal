@@ -165,10 +165,7 @@ public:
   void        TogglePause(){m_bPaused = !m_bPaused;}
 
   // Give the possibility to move with key instead of clicking with the mouse
-  void Raven_Game::MoveForward(Vector2D p);
-  void Raven_Game::MoveBackward(Vector2D p);
-  void Raven_Game::MoveRight(Vector2D p);
-  void Raven_Game::MoveLeft(Vector2D p);
+  void Raven_Game::MoveToward(Vector2D dir);
   
   //this method is called when the user clicks the right mouse button.
   //The method checks to see if a bot is beneath the cursor. If so, the bot
