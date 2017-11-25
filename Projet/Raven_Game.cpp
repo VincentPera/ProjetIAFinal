@@ -572,7 +572,6 @@ void Raven_Game::ClickRightMouseButton(POINTS p)
 		  {
 			  //clear any current goals
 			  m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
-
 			  m_pSelectedBot->GetBrain()->AddGoal_MoveToPosition(POINTStoVector(p));
 		  }
 	  }
