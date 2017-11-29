@@ -86,7 +86,8 @@ private:
   //strategie of the team2
   int                              m_strategy_t2;
 
-  //teamms
+  //teams
+  std::vector<TeamSimple*> teams;
   TeamSimple* m_alpha;
   TeamSimple* m_beta;
 
@@ -100,10 +101,15 @@ private:
   //if unsuccessful 
   bool AttemptToAddBot(Raven_Bot* pBot);
 
+  bool AttemptToAddBotTeam(Raven_Bot* pBot);
+
   //when a bot is removed from the game by a user all remaining bots
   //must be notified so that they can remove any references to that bot from
   //their memory
   void NotifyAllBotsOfRemoval(Raven_Bot* pRemovedBot)const;
+
+  //used when we want to assign spawnpoints to teams
+  void AddSpawnPointsTeams();
 
   int mod(int a, int b);
   
@@ -122,6 +128,11 @@ public:
   bool LoadMap(const std::string& FileName); 
 
   void AddBots(unsigned int NumBotsToAdd);
+  void AddBotsTeam(unsigned int NumBotsToAdd);
+
+  //used for refactoring when introducing teams
+  void AddBot(Raven_Bot* rb);
+
   void AddHumanPlayer();
   void AddRocket(Raven_Bot* shooter, Vector2D target);
   void AddRailGunSlug(Raven_Bot* shooter, Vector2D target);

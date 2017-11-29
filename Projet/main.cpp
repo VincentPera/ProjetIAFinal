@@ -424,7 +424,9 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 			 if (GetAsyncKeyState('D')) {
 				 direction += Vector2D(5, 0);
 			 }
-			 g_pRaven->MoveToward(direction);
+			 if (direction != Vector2D(0, 0)) {
+				 g_pRaven->MoveToward(direction);
+			 }
 		 }
 
 		 // Use for render the game

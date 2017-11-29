@@ -17,6 +17,9 @@ MaxSearchCyclesPerUpdateStep = 1000
 --the name of the default map
 StartMap = "maps/Raven_DM1.map"
 
+--the name of the duel map (1vs1)
+DuelMap = "maps/Raven_Rust_Test.map"
+
 --the name of the grenade map
 GrenadeMap = "maps/Raven_DM2.map"
 

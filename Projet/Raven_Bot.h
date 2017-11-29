@@ -212,10 +212,10 @@ public:
   Raven_SensoryMemory* const         GetSensoryMem()const{return m_pSensoryMem;}
 
   //return the name team
-  std::string GetTeamName() { return current_team->GetName(); }
-  void SetTeam(TeamSimple* team, int type) { current_team = team; team_type = type; }
-
-  bool HasTeam() { return current_team != 0; }
+  std::string			GetTeamName() { return current_team->GetName(); }
+  void					SetTeam(TeamSimple* team, int type) { current_team = team; team_type = type; }
+  bool					HasTeam() { return current_team != 0; }
+  TeamSimple* const		GetTeam() { return current_team; }
 
   void DropWeapon();
 
