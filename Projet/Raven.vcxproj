@@ -224,6 +224,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="ManipulateurFichier.cpp" />
     <ClCompile Include="Net.cpp" />
     <ClCompile Include="Neuron.cpp" />
     <ClCompile Include="Raven_Bot.cpp">
@@ -545,6 +546,7 @@
     <ClInclude Include="armory\Weapon_Grenade.h" />
     <ClInclude Include="goals\Goal_GetItemWithDodge.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="ManipulateurFichier.h" />
     <ClInclude Include="Net.h" />
     <ClInclude Include="Neuron.h" />
     <ClInclude Include="Raven_Bot.h" />
