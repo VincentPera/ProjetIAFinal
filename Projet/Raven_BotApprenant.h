@@ -32,6 +32,7 @@ public:
 	void Update();
 private:
 	//Net neuralNet;
+	Net* m_neuralNet;
 
 };
 

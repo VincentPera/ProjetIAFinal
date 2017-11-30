@@ -136,6 +136,7 @@ public:
   void WriteLine();
 
   void AddHumanPlayer();
+  void AddBotApprenant();
   void AddRocket(Raven_Bot* shooter, Vector2D target);
   void AddRailGunSlug(Raven_Bot* shooter, Vector2D target);
   void AddShotGunPellet(Raven_Bot* shooter, Vector2D target);

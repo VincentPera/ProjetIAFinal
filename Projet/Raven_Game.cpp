@@ -457,6 +457,14 @@ void Raven_Game::AddHumanPlayer()
 	EntityMgr->RegisterEntity(hP);
 }
 
+//------------------ AddBotApprenant ----------------------------------------
+// Create a new BotApprenant
+//---------------------------------------------------------------------------
+void Raven_Game::AddBotApprenant()
+{
+
+}
+
 //---------------------------- NotifyAllBotsOfRemoval -------------------------
 //
 //  when a bot is removed from the game by a user all remianing bots

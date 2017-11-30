@@ -26,12 +26,17 @@ void ManipulateurFichier::FillInputValues(vector<vector<double>> &trainValues)
 		{
 			//split the actual line into a array of string (not double yet)
 			vector<string> parsedLine;
+			vector<double> strToDoubleArray;
 			split(contenu, ";", parsedLine);
 			//need to convert a vector of string into a vector of double (x.xx) (4 chars)
-
+			for each (string s in parsedLine)
+			{
+				strToDoubleArray.push_back(stod(s));
+			}
+			// push the converted array to the training value
+			trainValues.push_back(strToDoubleArray);
 		}
 	}
-
 }
 
 void ManipulateurFichier::split(const string &s, const char* delim, vector<string> &v)
