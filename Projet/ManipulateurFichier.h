@@ -14,6 +14,7 @@ public:
 	ManipulateurFichier(const string _filepath);
 	~ManipulateurFichier();
 	//[numOfFileLine][indexOfInput/output]
-	void FillInputValues(vector<vector<double>> &inputValues);
+	// format [[<inputValue>,<inputValue>,.......,<OutputValue>],.....]
+	void FillInputValues(vector<vector<double>> &trainValues);
 };
 

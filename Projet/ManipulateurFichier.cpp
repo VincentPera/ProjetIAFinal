@@ -12,8 +12,10 @@ ManipulateurFichier::~ManipulateurFichier()
 {
 }
 
-void ManipulateurFichier::FillInputValues(vector<vector<double>> &inputValues)
+void ManipulateurFichier::FillInputValues(vector<vector<double>> &trainValues)
 {
+	// clear of the container before inserting the new values or reread the training file 
+	trainValues.clear();
 	string contenu;
 	ifstream file(m_filepath, ios::in);
 	if (file)
@@ -25,6 +27,8 @@ void ManipulateurFichier::FillInputValues(vector<vector<double>> &inputValues)
 			//split the actual line into a array of string (not double yet)
 			vector<string> parsedLine;
 			split(contenu, ";", parsedLine);
+			//need to convert a vector of string into a vector of double (x.xx) (4 chars)
+
 		}
 	}
 
