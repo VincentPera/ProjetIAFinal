@@ -73,23 +73,20 @@ private:
 
   //current mode used in the game
   GAME_MODE                        m_mode;
-  //if there are a human player
-  int                              m_human;
-  //if there are a learning bot
-  int                              m_learning_bot;
-  //strategie of the player1
-  int                              m_strategy_j1;
-  //strategie of the player2
-  int                              m_strategy_j2;
-  //strategie of the team1
-  int                              m_strategy_t1;
-  //strategie of the team2
-  int                              m_strategy_t2;
+  int                              m_human;			//if there are a human player
+  int                              m_learning_bot;	//if there are a learning bot
+  int                              m_strategy_j1;	  //strategie of the player1
+  int                              m_strategy_j2;	  //strategie of the player2
+  int                              m_strategy_t1;	  //strategie of the team1
+  int                              m_strategy_t2;	  //strategie of the team2
+  int							   m_isRecording;
 
   //teams
-  std::vector<TeamSimple*> teams;
-  TeamSimple* m_alpha;
-  TeamSimple* m_beta;
+  std::vector<TeamSimple*> m_teams;
+
+  //output for the neural network
+  std::ofstream m_outputFile;
+  bool			hasShot;
 
   //this iterates through each trigger, testing each one against each bot
   void  UpdateTriggers();
@@ -117,7 +114,7 @@ public:
   
   Raven_Game();
   Raven_Game(int mode, int human, int grenades, int learning_bot, int strategie_j1,
-			 int strategie_j2, int strategie_t1, int strategie_t2);
+			 int strategie_j2, int strategie_t1, int strategie_t2, int isRecording);
   ~Raven_Game();
 
   //the usual suspects
@@ -127,11 +124,16 @@ public:
   //loads an environment from a file
   bool LoadMap(const std::string& FileName); 
 
+  //used for refactoring when introducing teams
   void AddBots(unsigned int NumBotsToAdd);
   void AddBotsTeam(unsigned int NumBotsToAdd);
-
-  //used for refactoring when introducing teams
   void AddBot(Raven_Bot* rb);
+
+  //Neural network methods
+  void OpenFile(std::string fileName);
+  void CloseFile();
+  // method used to write a line of the current game into a file
+  void WriteLine();
 
   void AddHumanPlayer();
   void AddRocket(Raven_Bot* shooter, Vector2D target);

@@ -39,6 +39,7 @@ UINT strategy_j1;
 UINT strategy_j2;
 UINT strategy_t1;
 UINT strategy_t2;
+UINT isRecording;
 
 // Maybe useful
 BOOL APIENTRY Dialog1Proc(HWND, UINT, WPARAM, LPARAM);
@@ -78,8 +79,11 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
       {
 		// initial parameters
 		human = 0;
+		strategy_t1 = 0;
+		strategy_t2 = 0;
 		grenades = 0;
 		learning_bot = 0;
+		isRecording = 0;
 
 		// Ask user to enter informations for the application
 		if (DialogBox(hinst, "DIALOG1", hwnd, (DLGPROC)Dialog1Proc) == DB_OK)
@@ -117,13 +121,9 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
          //don't forget to release the DC
          ReleaseDC(hwnd, hdc);  
 
-		 //TestTeamSimple
-		 //mode = TEAM_MATCH;
-		 strategy_t1 = 0;
-		 strategy_t2 = 0;
          //create the game
          g_pRaven = new Raven_Game(mode, human, grenades, learning_bot, strategy_j1, strategy_j2,
-			 strategy_t1, strategy_t2);
+			 strategy_t1, strategy_t2, isRecording);
 
 		 debug_con << "strategy t1 !" << strategy_t1 << "";
 
@@ -573,6 +573,8 @@ BOOL APIENTRY Dialog1Proc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				{ human = 1; break; }
 				case ID_NO_HUMAN:
 				{ human = 0; break; }
+				case IDC_LEARNING:
+				{ isRecording = !isRecording; break; }
 			}
 		}
 		if (LOWORD(wParam) == DB_OK || LOWORD(wParam) == IDCANCEL)
@@ -668,6 +670,12 @@ int WINAPI WinMain (HINSTANCE hInstance,
 
     //enter the message loop
     bool bDone = false;
+	int periodRecordTime = 10;
+	int currFrame = 1;
+
+	if (isRecording) {
+		g_pRaven->OpenFile(script->GetString("TrainingFile"));
+	}
 
     while(!bDone)
     {
@@ -694,10 +702,22 @@ int WINAPI WinMain (HINSTANCE hInstance,
         RedrawWindow(hWnd);
       }
 
+	  if (currFrame == periodRecordTime && isRecording) {
+		  g_pRaven->WriteLine();
+		  currFrame = 1;
+	  }
+	  else
+	  {
+		  currFrame++;
+	  }
+
       //give the OS a little time
       Sleep(2);
-     					
+
     }//end while
+	if (isRecording) {
+		g_pRaven->CloseFile();
+	}
 
   }//end try block
 
@@ -715,5 +735,3 @@ int WINAPI WinMain (HINSTANCE hInstance,
  delete g_pRaven;
  return msg.wParam;
 }
-
-

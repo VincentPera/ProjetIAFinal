@@ -11,7 +11,7 @@
 #define ID_GRENADE                      1006
 #define ID_NO_GRENADE                   1007
 #define ID_STRAT_J1                     1008
-#define ID_NB_GROUP                     1009
+#define IDC_LEARNING                    1009
 #define ID_STRAT_J2                     1010
 #define ID_STRAT_T1                     1011
 #define ID_STRAT_T2                     1012
@@ -42,7 +42,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        112
 #define _APS_NEXT_COMMAND_VALUE         40018
-#define _APS_NEXT_CONTROL_VALUE         1007
+#define _APS_NEXT_CONTROL_VALUE         1010
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

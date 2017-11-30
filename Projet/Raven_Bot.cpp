@@ -110,7 +110,9 @@ void Raven_Bot::Spawn(Vector2D pos)
 {
     SetAlive();
     m_pBrain->RemoveAllSubgoals();
-    m_pTargSys->ClearTarget();
+	//if the bot is under AI control but not scripted
+	if (!isPossessed())
+		m_pTargSys->ClearTarget();
     SetPos(pos);
     m_pWeaponSys->Initialize();
     RestoreHealthToMaximum();
@@ -144,7 +146,7 @@ void Raven_Bot::Update()
 			}
 			else {
 				if (m_pTargSys->GetTarget() == 0) {//if his team has a target but he dont we give to him (case if bot respawn)
-					m_pTargSys->SerTarget(current_team->GetTarget());
+					m_pTargSys->SetTarget(current_team->GetTarget());
 				}
 			}
 		}
@@ -178,6 +180,14 @@ void Raven_Bot::Update()
     //this method aims the bot's current weapon at the current target
     //and takes a shot if a shot is possible
     m_pWeaponSys->TakeAimAndShoot(angle);
+  }
+  else
+  {
+	  //update the sensory memory with any visual stimulus
+	  if (m_pVisionUpdateRegulator->isReady())
+	  {
+		  m_pSensoryMem->UpdateVision();
+	  }
   }
 }
 
@@ -303,7 +313,7 @@ bool Raven_Bot::HandleMessage(const Telegram& msg)
 
   case Msg_UpdatingTarget : 
   {
-	  m_pTargSys->SerTarget(current_team->GetTarget()); // modify target
+	  m_pTargSys->SetTarget(current_team->GetTarget()); // modify target
 	  return true;
   }
 

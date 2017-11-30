@@ -23,6 +23,9 @@ DuelMap = "maps/Raven_Rust_Test.map"
 --the name of the grenade map
 GrenadeMap = "maps/Raven_DM2.map"
 
+--the name of the output file of the game
+TrainingFile = "OutputHumanAgentFile.txt"
+
 --cell space partitioning defaults
 NumCellsX = 10
 NumCellsY = 10

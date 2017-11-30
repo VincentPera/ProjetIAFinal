@@ -54,13 +54,14 @@ Raven_Game::Raven_Game():m_pSelectedBot(NULL),
 }
 
 Raven_Game::Raven_Game(int mode, int human, int grenades, int learning_bot, int strategie_j1,
-						int strategie_j2, int strategie_t1, int strategie_t2):m_pSelectedBot(NULL),
+						int strategie_j2, int strategie_t1, int strategie_t2, int isRecording):m_pSelectedBot(NULL),
 							m_bPaused(false),
 							m_bRemoveABot(false),
 							m_pMap(NULL),
 							m_pPathManager(NULL),
 							m_pGraveMarkers(NULL)
 {
+	hasShot = false;
 	m_mode = static_cast<GAME_MODE>(mode);
 	m_human = human;
 	m_learning_bot = learning_bot;
@@ -68,15 +69,16 @@ Raven_Game::Raven_Game(int mode, int human, int grenades, int learning_bot, int 
 	m_strategy_j2 = strategie_j1;
 	m_strategy_t1 = strategie_t1;
 	m_strategy_t2 = strategie_t2;
+	m_isRecording = isRecording;
 
 	if (m_mode == TEAM_MATCH) { //Creation of both teams
 		if (m_strategy_t1 == 0) { // TeamSimple
 			Vector2D loot = Vector2D(0, 0); // TODO Change that.
-			teams.push_back(new TeamSimple(loot, "Alpha"));
+			m_teams.push_back(new TeamSimple(loot, "Alpha"));
 		}
 		if (m_strategy_t2 == 0) { // TeamSimple
 			Vector2D loot = Vector2D(0, 0); // TODO change that.
-			teams.push_back(new TeamSimple(loot, "Beta"));
+			m_teams.push_back(new TeamSimple(loot, "Beta"));
 		}
 	}
 
@@ -231,7 +233,7 @@ void Raven_Game::Update()
 
   //if the user has requested that the number of bots be decreased, remove
   //one
-  if (m_bRemoveABot)
+  /*if (m_bRemoveABot)
   { 
     if (!m_Bots.empty())
     {
@@ -244,7 +246,34 @@ void Raven_Game::Update()
     }
 
     m_bRemoveABot = false;
-  }
+  }*/
+}
+
+void Raven_Game::OpenFile(std::string fileName) {
+	m_outputFile.open(fileName);
+}
+
+void Raven_Game::CloseFile() {
+	m_outputFile.close();
+}
+
+void Raven_Game::WriteLine() {
+	// first column : visibility
+	// 0 : if the ennemy is not visible
+	// 1 : if the ennemy is visible
+	m_outputFile << m_ThePlayer->GetTargetSys()->isTargetWithinFOV() << ";";
+	// second column : ennemy life
+	// float that represent the ennemy's life
+	m_outputFile << m_ThePlayer->GetTargetBot()->Health() << ";";
+	// third column : player life
+	// float that represent the ennemy's life
+	m_outputFile << m_ThePlayer->Health() << ";";
+
+	// last column : if the player shot
+	m_outputFile << hasShot << "\n";
+
+	// Reset variables
+	hasShot = false;
 }
 
 
@@ -350,8 +379,8 @@ void Raven_Game::AddBotsTeam(unsigned int NumBotsToAdd)
 		//create a bot. (its position is irrelevant at this point because it will
 		//not be rendered until it is spawned)
 		Raven_Bot* rb = new Raven_Bot(this, Vector2D());
-		teams.at(currTeamId)->Addmember(rb); //Add to the team
-		rb->SetTeam(teams.at(currTeamId), 0); //Let the player know his team
+		m_teams.at(currTeamId)->Addmember(rb); //Add to the team
+		rb->SetTeam(m_teams.at(currTeamId), 0); //Let the player know his team
 
 		// Add the current bot to the game
 		AddBot(rb);
@@ -364,7 +393,6 @@ void Raven_Game::AddBotsTeam(unsigned int NumBotsToAdd)
 	}
 
 }
-
 
 //-------------------------- AddBots --------------------------------------
 //
@@ -403,24 +431,31 @@ void Raven_Game::AddBot(Raven_Bot* rb)
 }
 
 
-//------------------------ InstanciatePlayer------------------------------------
+//------------------------ AddHumanPlayer-----------------------------------------
 // instanciate a single human player controlled by default by the user in the game
-//------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
 void Raven_Game::AddHumanPlayer()
 {
 	Raven_HumanPlayer* hP = new Raven_HumanPlayer(this, Vector2D());
 	// If the team mode is on
 	if (m_mode == TEAM_MATCH) {
 		// Add the humain to the alpha team
-		teams.at(0)->Addmember(hP);
+		m_teams.at(0)->Addmember(hP);
+		hP->SetTeam(m_teams.at(0), 0); //Let the humain know his team
 	}
-	
+	else if (m_mode == SOLO && m_isRecording)
+	{
+		//get the only bot in the map
+		std::list<Raven_Bot*>::const_iterator curBot = m_Bots.begin();
+
+		for (curBot; curBot != m_Bots.end(); ++curBot)
+			if((*curBot) != hP)
+				hP->GetTargetSys()->SetTarget((*curBot));
+	}
 	m_Bots.push_back(hP);
 	m_ThePlayer = hP;
 	EntityMgr->RegisterEntity(hP);
 }
-
-
 
 //---------------------------- NotifyAllBotsOfRemoval -------------------------
 //
@@ -567,17 +602,18 @@ bool Raven_Game::LoadMap(const std::string& filename)
 	  strcpy(numbots, "NumBots");
 	  strcat(numbots, std::to_string(m_mode).c_str());
 
-	if (m_mode == TEAM_MATCH) {
-		// AddSpawnPoints to each team
-		AddSpawnPointsTeams();
-		AddBotsTeam(script->GetInt(numbots));
-	} else {
-		AddBots(script->GetInt(numbots));
-	}
-	if (m_human) {
-		AddHumanPlayer();
-		m_pSelectedBot = m_ThePlayer;
-	}
+		  if (m_mode == TEAM_MATCH) {
+			  // AddSpawnPoints to each team
+			  AddSpawnPointsTeams();
+			  AddBotsTeam(script->GetInt(numbots) - m_human);
+		  }
+		  else {
+			  AddBots(script->GetInt(numbots) - m_human);
+		  }
+		  if (m_human) {
+			  AddHumanPlayer();
+			  m_pSelectedBot = m_ThePlayer;
+		  }
     return true;
   }
 
@@ -596,7 +632,7 @@ void Raven_Game::AddSpawnPointsTeams() {
 	while (NumSpawnPoints--)
 	{
 		//assign the current SpawnPoint to the team
-		teams.at(currTeamId)->AddSpawnPoint(m_pMap->GetSpawnPoints().at(NumSpawnPoints)); //Add to the team
+		m_teams.at(currTeamId)->AddSpawnPoint(m_pMap->GetSpawnPoints().at(NumSpawnPoints)); //Add to the team
 
 #ifdef LOG_CREATIONAL_STUFF
 		debug_con << "Adding spawn point (" << m_pMap->GetSpawnPoints().at(NumSpawnPoints).x << "," <<
@@ -695,6 +731,7 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
 {
   if (m_pSelectedBot && m_pSelectedBot->isPossessed())
   {
+	hasShot = true;
     m_pSelectedBot->FireWeapon(POINTStoVector(p));
   }
 }
