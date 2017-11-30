@@ -39,6 +39,7 @@ public:
 	void							AddSpawnPoint(Vector2D spawnPoint);
 	const std::vector<Vector2D>&	GetSpawnPoints()const { return m_SpawnPoints; }
 	Vector2D                        GetRandomSpawnPoint() { return m_SpawnPoints[RandInt(0, m_SpawnPoints.size() - 1)]; }
+	Vector2D                        GetLootingLocation() {return lootingLocation;}
 
 	// Destructor
 	~TeamSimple();

@@ -644,14 +644,39 @@ void Raven_Bot::DropWeapon() {
 			Raven_Weapon* current_weapon = m_pWeaponSys->GetWeaponFromInventory(0);
 			if (current_weapon != NULL) {
 				switch (i) {
-				case 1: //shotgun
+				case 1: {
+					//shotgun mais 8 sur la map
+					std::ifstream test;
+					m_pWorld->GetMap()->lastgraphnodeindex += 1;
+					int index = m_pWorld->GetMap()->lastgraphnodeindex;
+					test = (std::ifstream) (std::to_string(current_team->GetLootingLocation().x) + " " + std::to_string(current_team->GetLootingLocation().y)+" 7 "+ std::to_string(index));
+					m_pWorld->GetMap()->AddWeapon_Giver(8, test);
 					break;
-				case 2: //railgun
+				}
+				case 2: {//railgun 6 sur la map 
+					std::ifstream test;
+					m_pWorld->GetMap()->lastgraphnodeindex += 1;
+					int index = m_pWorld->GetMap()->lastgraphnodeindex;
+					test = (std::ifstream) (std::to_string(current_team->GetLootingLocation().x) + " " + std::to_string(current_team->GetLootingLocation().y) + " 7 " + std::to_string(index));
+					m_pWorld->GetMap()->AddWeapon_Giver(6, test);
 					break;
-				case 3: //rocket_launcher
+				}
+				case 3: {//rocket_launcher 7 sur la map 
+					std::ifstream test;
+					m_pWorld->GetMap()->lastgraphnodeindex += 1;
+					int index = m_pWorld->GetMap()->lastgraphnodeindex;
+					test = (std::ifstream) (std::to_string(current_team->GetLootingLocation().x) + " " + std::to_string(current_team->GetLootingLocation().y) + " 7 " + std::to_string(index));
+					m_pWorld->GetMap()->AddWeapon_Giver(7, test);
 					break;
-				case 4: //grenade
+				}
+				case 4: {//grenade 10 sur a map 
+					std::ifstream test;
+					m_pWorld->GetMap()->lastgraphnodeindex += 1;
+					int index = m_pWorld->GetMap()->lastgraphnodeindex;
+					test = (std::ifstream) (std::to_string(current_team->GetLootingLocation().x) + " " + std::to_string(current_team->GetLootingLocation().y) + " 7 " + std::to_string(index));
+					m_pWorld->GetMap()->AddWeapon_Giver(10, test);
 					break;
+				}
 
 				}
 			}
