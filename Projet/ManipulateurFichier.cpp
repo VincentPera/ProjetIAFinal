@@ -3,6 +3,8 @@
 ManipulateurFichier::ManipulateurFichier(const string _filepath)
 {
 	m_filepath = _filepath;
+	ifstream file(_filepath, ios::in);
+	assert(file);
 }
 
 
@@ -10,8 +12,21 @@ ManipulateurFichier::~ManipulateurFichier()
 {
 }
 
-void ManipulateurFichier::FillInputValues(vector<double> &inputValues)
+void ManipulateurFichier::FillInputValues(vector<vector<double>> &inputValues)
 {
+	string contenu;
+	ifstream file(m_filepath, ios::in);
+	if (file)
+	{
+		string ligne = contenu;
+
+		while (getline(file, contenu))
+		{
+			//split the actual line into a array of string (not double yet)
+			vector<string> parsedLine;
+			split(contenu, ";", parsedLine);
+		}
+	}
 
 }
 
