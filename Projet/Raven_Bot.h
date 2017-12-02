@@ -104,6 +104,8 @@ protected:
 
   //set to true when a human player takes over control of the bot
   bool                               m_bPossessed;
+  //set to true when the bot is learning how to shoot
+  bool								m_bLearner;
 
   //a vertex buffer containing the bot's geometry
   std::vector<Vector2D>              m_vecBotVB;
@@ -155,6 +157,7 @@ public:
   double        FieldOfView()const{return m_dFieldOfView;}
 
   bool          isPossessed()const{return m_bPossessed;}
+  bool          isLearning()const { return m_bLearner; }
   bool          isDead()const{return m_Status == dead;}
   bool          isAlive()const{return m_Status == alive;}
   bool          isSpawning()const{return m_Status == spawning;}
@@ -175,6 +178,7 @@ public:
   void          FireWeapon(Vector2D pos);
   void          ChangeWeapon(unsigned int type);
   void          TakePossession();
+  void          BecomeLearner();
   void          Exorcise();
 
   //spawns the bot at the given position

@@ -460,12 +460,23 @@ void Raven_Game::AddHumanPlayer()
 //------------------ AddBotApprenant ----------------------------------------
 // Create a new BotApprenant
 //---------------------------------------------------------------------------
-void Raven_Game::AddBotApprenant()
-{
+void Raven_Game::AddBotApprenant() {
+	// Create the learning bot
 	Raven_BotApprenant* rBa = new Raven_BotApprenant(this, Vector2D());
-	rBa->READER_FICHIER.InitFile("TRAINING_FILE.txt");
-	vector<vector<double>> trainValues;
-	rBa->READER_FICHIER.FillInputValues(trainValues);
+
+	rBa->BecomeLearner();
+
+	if (m_isRecording) {
+		// Take care of the training
+		rBa->READER_FICHIER.InitFile("TRAINING_FILE.txt");
+		vector<vector<double>> trainValues;
+		rBa->READER_FICHIER.FillInputValues(trainValues);
+	} else {
+		// Retrieve weight from the training to play
+		// TODO
+	}
+	
+	// Add the bot into the context
 	m_Bots.push_back(rBa);
 	EntityMgr->RegisterEntity(rBa);
 }
@@ -608,25 +619,27 @@ bool Raven_Game::LoadMap(const std::string& filename)
 
 
   //load the new map data
-  if (m_pMap->LoadMap(filename))
-  { 
+  if (m_pMap->LoadMap(filename)) {
 	  char * numbots;
-	  numbots = (char *) malloc(strlen("NumBots") + 1);
+	  numbots = (char *)malloc(strlen("NumBots") + 1);
 	  strcpy(numbots, "NumBots");
 	  strcat(numbots, std::to_string(m_mode).c_str());
 
-		  if (m_mode == TEAM_MATCH) {
-			  // AddSpawnPoints to each team
-			  AddSpawnPointsTeams();
-			  AddBotsTeam(script->GetInt(numbots) - m_human);
-		  }
-		  else {
-			  AddBots(script->GetInt(numbots) - m_human);
-		  }
-		  if (m_human) {
-			  AddHumanPlayer();
-			  m_pSelectedBot = m_ThePlayer;
-		  }
+	  if (m_mode == TEAM_MATCH) {
+		  // AddSpawnPoints to each team
+		  AddSpawnPointsTeams();
+		  AddBotsTeam(script->GetInt(numbots) - m_human);
+	  }
+	  else {
+		  AddBots(script->GetInt(numbots) - m_human);
+	  }
+	  if (m_human) {
+		  AddHumanPlayer();
+		  m_pSelectedBot = m_ThePlayer;
+	  }
+	  if (m_learning_bot) {
+		  AddBotApprenant();
+	  }
     return true;
   }
 

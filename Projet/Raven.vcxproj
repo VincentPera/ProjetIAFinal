@@ -163,6 +163,8 @@
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>..\Common\lua-5.3.4;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
