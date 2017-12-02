@@ -269,8 +269,9 @@ void Raven_Game::WriteLine() {
 	// float that represent the ennemy's life
 	m_outputFile << m_ThePlayer->Health() << ";";
 
+	m_outputFile << m_ThePlayer->GetTargetSys()->isTargetWithinFOV() << "\n";
 	// last column : if the player shot
-	m_outputFile << hasShot << "\n";
+	// TODO LATER : m_outputFile << hasShot << "\n";
 
 	// Reset variables
 	hasShot = false;
@@ -381,6 +382,7 @@ void Raven_Game::AddBotsTeam(unsigned int NumBotsToAdd)
 		Raven_Bot* rb = new Raven_Bot(this, Vector2D());
 		m_teams.at(currTeamId)->Addmember(rb); //Add to the team
 		rb->SetTeam(m_teams.at(currTeamId), 0); //Let the player know his team
+		rb->SetBotNumber((NumBotsToAdd % 3) + 1);
 
 		// Add the current bot to the game
 		AddBot(rb);
@@ -466,15 +468,49 @@ void Raven_Game::AddBotApprenant() {
 
 	rBa->BecomeLearner();
 
-	if (m_isRecording) {
-		// Take care of the training
-		rBa->READER_FICHIER.InitFile("TRAINING_FILE.txt");
-		vector<vector<double>> trainValues;
-		rBa->READER_FICHIER.FillInputValues(trainValues);
-	} else {
-		// Retrieve weight from the training to play
-		// TODO
+	// Take care of the training
+	rBa->READER_FICHIER.InitFile(script->GetString("TrainingFile"));
+	vector<vector<double>> trainValues;
+	rBa->READER_FICHIER.FillInputValues(trainValues);
+
+	// Create the topology of the net
+	vector<unsigned> topology;
+	for (unsigned i = (trainValues.at(0).size() - 1); i >= 1; i--) {
+		topology.push_back(i);
 	}
+	// Give the topology to the learning agent
+	rBa->SetNetTopology(topology);
+
+	// Open a file to print results inside it
+	OpenFile("TrainingResults.txt");
+	int trainingPass = 0;
+	vector<double> resultVals, targetVals;
+
+	for (int i = 1; i < trainValues.size(); i++) {
+		++trainingPass;
+		m_outputFile << endl << "Pass " << trainingPass << "\n";
+
+		m_outputFile << "Inputs: ";
+		for (int y = 0; y < trainValues.at(i).size()-1 ; y++) {
+			m_outputFile << trainValues.at(i).at(y) << ", ";
+		}
+		m_outputFile << "\n";
+
+		m_outputFile << "Target: " << trainValues.at(i).at(trainValues.at(i).size()-1) << "\n";
+
+		targetVals.push_back(trainValues.at(i).at(trainValues.at(i).size() - 1));
+		trainValues.at(i).pop_back();
+
+		rBa->GetNet()->FeedForward(trainValues.at(i));
+		rBa->GetNet()->GetResult(resultVals);
+
+		m_outputFile << "Output: " << resultVals.at(0) << "\n";
+
+		rBa->GetNet()->BackProp(targetVals);
+		targetVals.clear();
+	}
+
+	CloseFile();
 	
 	// Add the bot into the context
 	m_Bots.push_back(rBa);

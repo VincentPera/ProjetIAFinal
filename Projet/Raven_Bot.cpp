@@ -1,3 +1,5 @@
+#include <string>
+#include <locale>
 #include "Raven_Bot.h"
 #include "misc/Cgdi.h"
 #include "misc/utils.h"
@@ -18,8 +20,10 @@
 
 #include "goals/Raven_Goal_Types.h"
 #include "goals/Goal_Think.h"
+#include "Raven_Bot.h"
 
 #include "Debug/DebugConsole.h"
+
 
 //-------------------------- ctor ---------------------------------------------
 Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
@@ -242,6 +246,18 @@ bool Raven_Bot::isReadyForTriggerUpdate()const
   return m_pTriggerTestRegulator->isReady();
 }
 
+// Used to make an uppercase word
+std::string Convert(std::string& str)
+{
+	std::locale settings;
+	std::string converted;
+
+	for (short i = 0; i < str.size(); ++i)
+		converted += (std::toupper(str[i], settings));
+
+	return converted;
+}
+
 //--------------------------- HandleMessage -----------------------------------
 //-----------------------------------------------------------------------------
 bool Raven_Bot::HandleMessage(const Telegram& msg)
@@ -276,9 +292,15 @@ bool Raven_Bot::HandleMessage(const Telegram& msg)
   case Msg_YouGotMeYouSOB:
     
     IncrementScore();
-    
+
     //the bot this bot has just killed should be removed as the target
 	if (this->HasTeam() ) {
+		// Update the score of the current bot
+		//"IDC_SCORE" + current_team->GetName() + 'J' + ttos(m_bNumber);
+		//std::string id = "IDC_SCORE_" + Convert(current_team->GetName()) + 'J' + ttos(m_bNumber));
+		//debug_con << ("IDC_SCORE_" + Convert(current_team->GetName()) + 'J' + ttos(m_bNumber)) << "";
+		//SetDlgItemText(IDC_STATIC, "New text here.");
+		// Clear the target
 		current_team->ClearTarget(ID());
 	}
 	else {
