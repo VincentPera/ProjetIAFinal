@@ -107,6 +107,8 @@ protected:
   //set to true when the bot is learning how to shoot
   bool								m_bLearner;
 
+  int								m_bNumber;
+
   //a vertex buffer containing the bot's geometry
   std::vector<Vector2D>              m_vecBotVB;
   //the buffer for the transformed vertices
@@ -165,6 +167,7 @@ public:
   void          SetSpawning(){m_Status = spawning;}
   void          SetDead(){m_Status = dead;}
   void          SetAlive(){m_Status = alive;}
+  void			SetBotNumber(int number) { m_bNumber = number; }
 
   //returns a value indicating the time in seconds it will take the bot
   //to reach the given position at its current speed.

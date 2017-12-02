@@ -95,36 +95,42 @@ BEGIN
     CONTROL         "Enable",IDC_LEARNING,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,19,163,41,10
 END
 
-DIALOG2 DIALOGEX 60, 70, 337, 199
+DIALOG2 DIALOGEX 60, 70, 337, 159
 STYLE DS_SETFONT | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Parametrage de l'application"
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    GROUPBOX        " Deathmatch par equipe ",IDC_STATIC,8,11,321,132,WS_GROUP
-    GROUPBOX        " Stratégie ",IDC_STATIC,172,25,151,90,WS_GROUP
-    LTEXT           "Stratégie joueur1 :",IDC_STATIC,26,66,62,11
-    LTEXT           "Stratégie joueur1 :",IDC_STATIC,26,91,62,11
-    LTEXT           "Stratégie joueur1 :",IDC_STATIC,26,39,62,11
-    GROUPBOX        " Stratégie ",IDC_STATIC,13,25,148,90,WS_GROUP
-    LTEXT           "Static",IDC_STATIC,86,50,18,8
-    LTEXT           "Static",IDC_STATIC,86,39,18,8
-    LTEXT           "Static",IDC_STATIC,86,66,18,8
-    LTEXT           "Static",IDC_STATIC,86,77,18,8
-    LTEXT           "Static",IDC_STATIC,86,91,18,8
-    LTEXT           "Static",IDC_STATIC,86,102,18,8
-    LTEXT           "Stratégie joueur1 :",IDC_STATIC,186,66,62,11
-    LTEXT           "Stratégie joueur1 :",IDC_STATIC,186,91,62,11
-    LTEXT           "Stratégie joueur1 :",IDC_STATIC,186,39,62,11
-    LTEXT           "Static",IDC_STATIC,246,50,18,8
-    LTEXT           "Static",IDC_STATIC,246,39,18,8
-    LTEXT           "Static",IDC_STATIC,246,66,18,8
-    LTEXT           "Static",IDC_STATIC,246,77,18,8
-    LTEXT           "Static",IDC_STATIC,246,91,18,8
-    LTEXT           "Static",IDC_STATIC,246,102,18,8
-    LTEXT           "Static",IDC_STATIC,26,117,39,16
-    LTEXT           "Static",IDC_STATIC,187,117,39,16
-    LTEXT           "Static",IDC_STATIC,229,117,18,8
-    LTEXT           "Static",IDC_STATIC,67,118,18,8
+    GROUPBOX        " Deathmatch par equipe ",IDC_STATIC,8,11,321,126,WS_GROUP
+    GROUPBOX        " Equipe Beta ",IDC_STATIC,172,25,151,92,WS_GROUP
+    LTEXT           "joueur 2 :",IDC_STATIC,26,67,28,11
+    LTEXT           "joueur 3 :",IDC_STATIC,26,93,29,11
+    LTEXT           "joueur 1 :",IDC_STATIC,26,39,28,11
+    LTEXT           "Static",IDC_STATE_ALPHAJ1,57,50,98,8
+    LTEXT           "Static",IDC_STATE_ALPHAJ2,57,77,98,8
+    LTEXT           "Static",IDC_STATE_ALPHAJ3,57,104,98,8
+    GROUPBOX        " Equipe Alpha ",IDC_STATIC,13,25,148,92,WS_GROUP
+    LTEXT           "joueur 2 :",IDC_STATIC,186,66,28,11
+    LTEXT           "joueur 3 :",IDC_STATIC,186,92,28,11
+    LTEXT           "joueur 1 :",IDC_STATIC,186,39,30,11
+    LTEXT           "Static",IDC_STATE_BETAJ1,217,50,101,8
+    LTEXT           "Static",IDC_STATE_BETAJ2,217,77,100,8
+    LTEXT           "Static",IDC_STATE_BETAJ3,217,103,101,8
+    LTEXT           "Total Points :",IDC_STATIC,26,120,39,10
+    LTEXT           "0",IDC_PTS_BETA,229,120,18,8
+    LTEXT           "Total Points :",IDC_STATIC,187,120,39,11
+    LTEXT           "0",IDC_PTS_ALPHA,67,120,18,8
+    LTEXT           "Static",IDC_ID_BETAJ1,217,39,42,8
+    LTEXT           "Static",IDC_ID_ALPHAJ2,57,67,50,8
+    LTEXT           "Static",IDC_SCORE_ALPHAJ2,113,67,42,8
+    LTEXT           "Static",IDC_STATIC,57,93,50,8
+    LTEXT           "Static",IDC_SCORE_ALPHAJ3,113,93,42,8
+    LTEXT           "Static",IDC_SCORE_BETAJ1,276,39,42,8
+    LTEXT           "Static",IDC_ID_BETAJ2,217,66,42,8
+    LTEXT           "Static",IDC_SCORE_BETAJ2,276,66,42,8
+    LTEXT           "Static",IDC_ID_BETAJ3,217,92,42,8
+    LTEXT           "Static",IDC_SCORE_BETAJ3,276,92,42,8
+    LTEXT           "Static",IDC_ID_ALPHAJ1,57,39,50,8
+    LTEXT           "Static",IDC_SCORE_ALPHAJ1,113,39,42,8
 END
 
 
@@ -208,7 +214,7 @@ BEGIN
 
     "DIALOG2", DIALOG
     BEGIN
-        BOTTOMMARGIN, 189
+        BOTTOMMARGIN, 149
     END
 END
 #endif    // APSTUDIO_INVOKED

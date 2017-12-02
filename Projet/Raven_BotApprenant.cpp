@@ -25,7 +25,9 @@ Raven_BotApprenant::~Raven_BotApprenant()
 {
 }
 
-
+void Raven_BotApprenant::SetNetTopology(vector<unsigned int> topology) {
+	this->m_neuralNet = new Net(topology);
+}
 
 //function to override to fit with neural net
 void Raven_BotApprenant::Update() 

@@ -31,6 +31,7 @@ public:
 	ManipulateurFichier READER_FICHIER;
 	Raven_BotApprenant(Raven_Game* world, Vector2D v);
 	~Raven_BotApprenant();
+	void SetNetTopology(vector<unsigned int> topology);
 	void Update();
 	Net* GetNet() { return m_neuralNet; }
 private:

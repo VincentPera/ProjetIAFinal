@@ -127,6 +127,9 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
 		 debug_con << "strategy t1 !" << strategy_t1 << "";
 
+		 // Ask user to enter informations for the application
+		 // TODO LATER CreateDialog(hinst, "DIALOG2", 0, NULL);
+
         //make sure the menu items are ticked/unticked accordingly
         CheckMenuItemAppropriately(hwnd, IDM_NAVIGATION_SHOW_NAVGRAPH, UserOptions->m_bShowGraph);
         CheckMenuItemAppropriately(hwnd, IDM_NAVIGATION_SHOW_PATH, UserOptions->m_bShowPathOfSelectedBot);
