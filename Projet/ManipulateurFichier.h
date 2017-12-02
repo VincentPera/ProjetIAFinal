@@ -11,10 +11,11 @@ private:
 	string m_filepath;
 	void split(const string &s, const char* delim, vector<string> &v);
 public:
-	ManipulateurFichier(const string _filepath);
+	ManipulateurFichier();
 	~ManipulateurFichier();
 	//[numOfFileLine][indexOfInput/output]
 	// format [[<inputValue>,<inputValue>,.......,<OutputValue>],.....]
 	void FillInputValues(vector<vector<double>> &trainValues);
+	void InitFile(string _filepath);
 };
 

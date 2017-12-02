@@ -462,7 +462,12 @@ void Raven_Game::AddHumanPlayer()
 //---------------------------------------------------------------------------
 void Raven_Game::AddBotApprenant()
 {
-
+	Raven_BotApprenant* rBa = new Raven_BotApprenant(this, Vector2D());
+	rBa->READER_FICHIER.InitFile("TRAINING_FILE.txt");
+	vector<vector<double>> trainValues;
+	rBa->READER_FICHIER.FillInputValues(trainValues);
+	m_Bots.push_back(rBa);
+	EntityMgr->RegisterEntity(rBa);
 }
 
 //---------------------------- NotifyAllBotsOfRemoval -------------------------

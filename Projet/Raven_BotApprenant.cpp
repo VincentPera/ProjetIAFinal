@@ -25,6 +25,8 @@ Raven_BotApprenant::~Raven_BotApprenant()
 {
 }
 
+
+
 //function to override to fit with neural net
 void Raven_BotApprenant::Update() 
 {

@@ -26,6 +26,7 @@
 #include "Raven_Bot.h"
 #include "navigation/pathmanager.h"
 #include "Raven_HumanPlayer.h"
+#include "Raven_BotApprenant.h"
 #include "TeamSimple.h"
 
 

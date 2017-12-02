@@ -1,10 +1,7 @@
 #include "ManipulateurFichier.h"
 
-ManipulateurFichier::ManipulateurFichier(const string _filepath)
+ManipulateurFichier::ManipulateurFichier()
 {
-	m_filepath = _filepath;
-	ifstream file(_filepath, ios::in);
-	assert(file);
 }
 
 
@@ -52,4 +49,11 @@ void ManipulateurFichier::split(const string &s, const char* delim, vector<strin
 		token = strtok(NULL, delim);
 	}
 	free(dup);
+}
+
+void ManipulateurFichier::InitFile(string _filepath)
+{
+	m_filepath = _filepath;
+	ifstream file(_filepath, ios::in);
+	assert(file);
 }

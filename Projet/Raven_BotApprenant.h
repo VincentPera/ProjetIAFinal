@@ -9,6 +9,7 @@
 #include "Raven_TargetingSystem.h"
 
 #include "Net.h"
+#include "ManipulateurFichier.h"
 
 
 class Raven_PathPlanner;
@@ -27,9 +28,11 @@ class Raven_BotApprenant :
 	public Raven_Bot
 {
 public:
+	static ManipulateurFichier READER_FICHIER;
 	Raven_BotApprenant(Raven_Game* world, Vector2D v);
 	~Raven_BotApprenant();
 	void Update();
+	Net* GetNet() { return m_neuralNet; }
 private:
 	//Net neuralNet;
 	Net* m_neuralNet;
