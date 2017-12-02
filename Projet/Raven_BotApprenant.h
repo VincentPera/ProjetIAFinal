@@ -28,7 +28,7 @@ class Raven_BotApprenant :
 	public Raven_Bot
 {
 public:
-	static ManipulateurFichier READER_FICHIER;
+	ManipulateurFichier READER_FICHIER;
 	Raven_BotApprenant(Raven_Game* world, Vector2D v);
 	~Raven_BotApprenant();
 	void Update();
