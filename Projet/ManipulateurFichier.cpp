@@ -33,7 +33,9 @@ void ManipulateurFichier::FillInputValues(vector<vector<double>> &trainValues)
 			// push the converted array to the training value
 			trainValues.push_back(strToDoubleArray);
 		}
+		file.close();
 	}
+
 }
 
 void ManipulateurFichier::split(const string &s, const char* delim, vector<string> &v)

@@ -33,7 +33,7 @@ public:
 	~Raven_BotApprenant();
 	void SetNetTopology(vector<unsigned int> topology);
 	void Update();
-	Net* GetNet() { return m_neuralNet; }
+	Net* GetNet();
 private:
 	//Net neuralNet;
 	Net* m_neuralNet;

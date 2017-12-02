@@ -13,13 +13,7 @@
 
 Raven_BotApprenant::Raven_BotApprenant(Raven_Game* world, Vector2D v) :Raven_Bot(world, v)
 {
-	vector<unsigned int> topology;
-	topology.push_back(3);
-	topology.push_back(2);
-	topology.push_back(1);
-	this->m_neuralNet = new Net(topology);
 }
-
 
 Raven_BotApprenant::~Raven_BotApprenant()
 {
@@ -73,4 +67,9 @@ void Raven_BotApprenant::Update()
 		//and takes a shot if a shot is possible
 		//m_pWeaponSys->TakeAimAndShoot();
 	}
+}
+
+Net* Raven_BotApprenant::GetNet()
+{
+	return m_neuralNet;
 }
