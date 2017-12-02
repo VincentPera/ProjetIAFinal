@@ -15,7 +15,6 @@ Neuron::Neuron(unsigned numOutputs, unsigned myIndex)
 		m_outputWeights.push_back(Connection());
 		m_outputWeights.back().weight = RandomWeight();
 	}
-
 	m_myIndex = myIndex;
 }
 
