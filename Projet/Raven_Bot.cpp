@@ -45,6 +45,7 @@ Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
                  m_iScore(0),
                  m_Status(spawning),
                  m_bPossessed(false),
+				 m_bLearner(false),
 				 current_team(0),
                  m_dFieldOfView(DegsToRads(script->GetDouble("Bot_FOV")))
            
@@ -417,6 +418,16 @@ void Raven_Bot::Exorcise()
   debug_con << "Player is exorcised from bot " << this->ID() << "";
 }
 
+//--------------------------- Learning -----------------------------------------
+//
+//  this is called to allow a bot to learn how to shoot
+//-----------------------------------------------------------------------------
+void Raven_Bot::BecomeLearner()
+{
+	m_bLearner = true;
+	debug_con << "Bot " << this->ID() << " is learning how to shoot!";
+}
+
 
 //----------------------- ChangeWeapon ----------------------------------------
 void Raven_Bot::ChangeWeapon(unsigned int type)
@@ -483,7 +494,7 @@ bool Raven_Bot::canWalkBetween(Vector2D from, Vector2D to)const
 //
 //  returns true if there is space enough to step in the indicated direction
 //  If true PositionOfStep will be assigned the offset position
-//-----------------------------------------------------------------------------
+//---------------------------TakePossession--------------------------------------------------
 bool Raven_Bot::canStepLeft(Vector2D& PositionOfStep)const
 {
   static const double StepDistance = BRadius() * 2;
@@ -541,9 +552,13 @@ void Raven_Bot::Render()
 	  if (this->GetTeamName() == "Beta") { //Team beta bleue
 		  gdi->RedPen();
 	  }
-  }
-  else {
-	  gdi->GreenPen(); //Sans équipe vert
+  } else {
+	  if (m_bLearner) {
+		  gdi->BlackPen(); // learning = pink
+	  } else {
+		  gdi->GreenPen(); //Sans équipe et non apprenant = vert
+	  }
+	  
   }
 
   
@@ -577,8 +592,18 @@ void Raven_Bot::Render()
   }
 
   gdi->TransparentText();
-  gdi->TextColor(0,255,0);
-
+  if (this->HasTeam()) {
+	  if (this->GetTeamName() == "Alpha")
+		  gdi->TextColor(0, 0, 255);
+	  if (this->GetTeamName() == "Beta")
+		  gdi->TextColor(255, 0, 0);
+  } else {
+	  if (m_bLearner)
+		  gdi->TextColor(0, 0, 0);
+	  else
+		  gdi->TextColor(0, 255, 0);
+  }
+  
   if (UserOptions->m_bShowBotIDs)
   {
     gdi->TextAtPos(Pos().x -10, Pos().y-20, ttos(ID()));
