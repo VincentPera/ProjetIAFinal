@@ -139,7 +139,7 @@ void Raven_BotApprenant::StartTraining(string inputFileName) {
 
 void Raven_BotApprenant::LoadTraining(string inputFileName) {
 	// Load weights from a previous training
-	READER_FICHIER.InitFile(READER_FICHIER.PATH + "TrainingData/" + inputFileName);
+	READER_FICHIER.InitFile(READER_FICHIER.PATH + "WeightsData/" + inputFileName);
 	vector<vector< vector<double>>> weightsValues;
 	READER_FICHIER.FillWeightsValues(weightsValues);
 

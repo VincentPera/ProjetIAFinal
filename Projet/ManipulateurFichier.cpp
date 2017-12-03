@@ -11,7 +11,38 @@ ManipulateurFichier::~ManipulateurFichier()
 
 void ManipulateurFichier::FillWeightsValues(vector<vector<vector<double>>> &weightsValues)
 {
+	vector<vector<vector<double>>> result;
 	// TODO
+	weightsValues.clear();
+	string contenu;
+	ifstream file(m_filepath, ios::in);
+	if (file)
+	{
+		string ligne = contenu;
+
+		while (getline(file, contenu))
+		{
+			vector<string> rawLine;
+			vector<string> parsedSlashLine;
+			vector<vector<double>> parsedSlashAndWeightDouble;
+			split(contenu, "/", parsedSlashLine);
+			for each (string s in parsedSlashLine)
+			{
+				vector<string> parsedWeight;
+				vector<double> parsedWeightDouble;
+				split(s, ";", parsedWeight);
+				for each (string s in parsedWeight)
+				{
+					parsedWeightDouble.push_back(stod(s));
+				}
+				parsedSlashAndWeightDouble.push_back(parsedWeightDouble);
+			}
+			result.push_back(parsedSlashAndWeightDouble);
+		}
+		weightsValues = result;
+	}
+
+
 }
 
 void ManipulateurFichier::FillInputValues(vector<vector<double>> &trainValues)
