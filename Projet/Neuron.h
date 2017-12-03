@@ -27,6 +27,9 @@ public:
 
 	void UpdateInputWeights(Layer &prevLayer);
 
+	vector<double>	GetWeight() const;
+	void			SetWeight(vector<double> weights);
+
 private:
 	static double RandomWeight(void) { return rand() / double(RAND_MAX); }
 	

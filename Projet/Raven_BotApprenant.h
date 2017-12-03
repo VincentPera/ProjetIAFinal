@@ -28,12 +28,16 @@ class Raven_BotApprenant :
 	public Raven_Bot
 {
 public:
-	ManipulateurFichier READER_FICHIER;
 	Raven_BotApprenant(Raven_Game* world, Vector2D v);
 	~Raven_BotApprenant();
-	void SetNetTopology(vector<unsigned int> topology);
-	void Update();
-	Net* GetNet();
+
+	ManipulateurFichier READER_FICHIER;
+
+	void		SetNetTopology(vector<unsigned int> topology);
+	void		Update();
+	Net*		GetNet();
+	void		StartTraining(string inputFileName);
+	void		LoadTraining(string inputFileName);
 private:
 	//Net neuralNet;
 	Net* m_neuralNet;

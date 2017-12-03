@@ -99,3 +99,19 @@ double Neuron::SumDOW(const Layer &nextLayer) const
 
 	return sum;
 }
+
+vector<double> Neuron::GetWeight() const
+{
+	vector<double> weights;
+	for (unsigned c = 0; c < m_outputWeights.size(); ++c) {
+		weights.push_back(m_outputWeights.at(c).weight);
+	}
+	return weights;
+}
+
+void Neuron::SetWeight(vector<double> weights)
+{
+	for (unsigned c = 0; c < m_outputWeights.size(); ++c) {
+		m_outputWeights.at(c).weight = weights.at(c);
+	}
+}

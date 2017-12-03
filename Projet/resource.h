@@ -11,12 +11,15 @@
 #define ID_GRENADE                      1006
 #define ID_NO_GRENADE                   1007
 #define ID_STRAT_J1                     1008
-#define IDC_LEARNING                    1009
+#define IDC_WRITE                       1009
 #define ID_STRAT_J2                     1010
 #define ID_STRAT_T1                     1011
 #define ID_STRAT_T2                     1012
 #define IDC_ID_ALPHAJ2                  1013
+#define IDC_LEARNING                    1013
 #define IDC_ID_ALPHAJ1                  1014
+#define IDC_LEARNING2                   1014
+#define IDC_WEIGHT                      1014
 #define IDC_SCORE_ALPHAJ1               1015
 #define IDC_SCORE_ALPHAJ2               1016
 #define IDC_SCORE_ALPHAJ3               1017
@@ -34,6 +37,9 @@
 #define IDC_STATE_BETAJ3                1029
 #define IDC_PTS_ALPHA                   1030
 #define IDC_PTS_BETA                    1031
+#define IDC_FILENAME                    1032
+#define IDC_FILENAME3                   1033
+#define IDC_FILENAME2                   1034
 #define ID_MENU_LOAD                    40001
 #define IDM_MAP_LOAD                    40001
 #define IDM_GAME_LOAD                   40001
@@ -61,7 +67,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        112
 #define _APS_NEXT_COMMAND_VALUE         40018
-#define _APS_NEXT_CONTROL_VALUE         1032
+#define _APS_NEXT_CONTROL_VALUE         1033
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

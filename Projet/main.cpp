@@ -40,9 +40,16 @@ UINT strategy_j2;
 UINT strategy_t1;
 UINT strategy_t2;
 UINT isRecording;
+UINT isLearning;
+UINT isUsingWeights;
+string outputFileName;
+string inputFileName;
+string weightFileName;
 
 // Maybe useful
 BOOL APIENTRY Dialog1Proc(HWND, UINT, WPARAM, LPARAM);
+
+HWND hwndGoto = NULL;
 
 //---------------------------- WindowProc ---------------------------------
 //	
@@ -84,6 +91,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 		grenades = 0;
 		learning_bot = 0;
 		isRecording = 0;
+		isLearning = 0;
 
 		// Ask user to enter informations for the application
 		if (DialogBox(hinst, "DIALOG1", hwnd, (DLGPROC)Dialog1Proc) == DB_OK)
@@ -123,7 +131,8 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
          //create the game
          g_pRaven = new Raven_Game(mode, human, grenades, learning_bot, strategy_j1, strategy_j2,
-			 strategy_t1, strategy_t2, isRecording);
+			 strategy_t1, strategy_t2, isRecording, isLearning, isUsingWeights, inputFileName, 
+			 outputFileName, weightFileName);
 
 		 debug_con << "strategy t1 !" << strategy_t1 << "";
 
@@ -505,98 +514,139 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 		 return DefWindowProc (hwnd, msg, wParam, lParam);
 }
 
-BOOL APIENTRY Dialog1Proc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+void OneVsOneField(HWND hDlg, bool enable)
 {
-	switch (uMsg)
-	{
-	case WM_INITDIALOG:
-	{
-		// Settings of the comboBox mode
-		SendDlgItemMessage(hDlg, ID_MODE, CB_ADDSTRING, 0, (LONG)"Deathmatch");
-		SendDlgItemMessage(hDlg, ID_MODE, CB_ADDSTRING, 0, (LONG)"Team Deathmatch");
-		SendDlgItemMessage(hDlg, ID_MODE, CB_ADDSTRING, 0, (LONG)"1 vs 1");
-		SendDlgItemMessage(hDlg, ID_MODE, CB_SETCURSEL, mode, 0);
+	// Enable TextFields
+	HWND TextFieldNbLeader = GetDlgItem(hDlg, ID_STRAT_J1);
+	EnableWindow(TextFieldNbLeader, enable);
+	TextFieldNbLeader = GetDlgItem(hDlg, ID_STRAT_J2);
+	EnableWindow(TextFieldNbLeader, enable);
+}
 
-		// Settings of the comboBox players strategies
-		SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Burnhead");
-		SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Coward");
-		SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Camper");
-		SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_SETCURSEL, strategy_j1, 0);
+void TeamField(HWND hDlg, bool enable)
+{
+	// Enable TextFields
+	HWND TextFieldNbLeader = GetDlgItem(hDlg, ID_STRAT_T1);
+	EnableWindow(TextFieldNbLeader, enable);
+	TextFieldNbLeader = GetDlgItem(hDlg, ID_STRAT_T2);
+	EnableWindow(TextFieldNbLeader, enable);
+}
 
-		SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Burnhead");
-		SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Coward");
-		SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Camper");
-		SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_SETCURSEL, strategy_j2, 0);
 
-		// Settings of the comboBox team strategies
-		SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_ADDSTRING, 0, (LONG)"divideAndRule");
-		SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_ADDSTRING, 0, (LONG)"TestudoFormation");
-		SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_ADDSTRING, 0, (LONG)"LeaderFollowing");
-		SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_SETCURSEL, strategy_j1, 0);
 
-		SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_ADDSTRING, 0, (LONG)"divideAndRule");
-		SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_ADDSTRING, 0, (LONG)"TestudoFormation");
-		SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_ADDSTRING, 0, (LONG)"LeaderFollowing");
-		SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_SETCURSEL, strategy_j2, 0);
-		
-		// Settings des boutons radio
-		CheckDlgButton(hDlg, ID_NO_HUMAN, BST_CHECKED);
-		CheckDlgButton(hDlg, ID_NO_BOT_APPRE, BST_CHECKED);
-		CheckDlgButton(hDlg, ID_NO_GRENADE, BST_CHECKED);
-		return TRUE;
-	}
-	case WM_COMMAND:
+BOOL CALLBACK Dialog1Proc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	switch (uMsg) {
+		case WM_INITDIALOG:
+			// Settings of the comboBox mode
+			SendDlgItemMessage(hDlg, ID_MODE, CB_ADDSTRING, 0, (LONG)"Deathmatch");
+			SendDlgItemMessage(hDlg, ID_MODE, CB_ADDSTRING, 0, (LONG)"Team Deathmatch");
+			SendDlgItemMessage(hDlg, ID_MODE, CB_ADDSTRING, 0, (LONG)"1 vs 1");
+			SendDlgItemMessage(hDlg, ID_MODE, CB_SETCURSEL, mode, 0);
 
-		if (HIWORD(wParam) == CBN_SELCHANGE) {
-			// Retrieve the choice of method
-			int ItemIndex = SendMessage((HWND)lParam, (UINT)CB_GETCURSEL,
-				(WPARAM)0, (LPARAM)0);
-			TCHAR  ListItem[256];
-			(TCHAR)SendMessage((HWND)lParam, (UINT)CB_GETLBTEXT,
-				(WPARAM)ItemIndex, (LPARAM)ListItem);
-			//MessageBox(hDlg, (LPCWSTR)ListItem, TEXT("Item Selected"), MB_OK);
+			// Settings of the comboBox players strategies
+			SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Burnhead");
+			SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Coward");
+			SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Camper");
+			SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_SETCURSEL, strategy_j1, 0);
 
-			/*if (strcmp(ListItem, "LeaderFollowing") == 0)
-				LeaderFollowingField(hDlg, true);
-			else
-				LeaderFollowingField(hDlg, false);*/
-		}
+			SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Burnhead");
+			SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Coward");
+			SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Camper");
+			SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_SETCURSEL, strategy_j2, 0);
 
-		if (HIWORD(wParam) == BN_CLICKED) {
-			switch (LOWORD(wParam)) {
-				case ID_BOT_APPRE:
-				{ learning_bot = 1; break; }
-				case ID_NO_BOT_APPRE:
-				{ learning_bot = 0; break; }
-				case ID_GRENADE:
-				{ grenades = 1; break; }
-				case ID_NO_GRENADE:
-				{ grenades = 0; break; }
-				case ID_HUMAN:
-				{ human = 1; break; }
-				case ID_NO_HUMAN:
-				{ human = 0; break; }
-				case IDC_LEARNING:
-				{ isRecording = !isRecording; break; }
-			}
-		}
-		if (LOWORD(wParam) == DB_OK || LOWORD(wParam) == IDCANCEL)
-		{
-			// get the behavior wanted
-			mode = SendDlgItemMessage(hDlg, ID_MODE, CB_GETCURSEL, 0, 0);
-			// get the number of stadard agent 
-			strategy_j1 = GetDlgItemInt(hDlg, ID_STRAT_J1, NULL, FALSE);
-			strategy_j2 = GetDlgItemInt(hDlg, ID_STRAT_J2, NULL, FALSE);
-			// get the number of pursuiver for the leader1
-			strategy_t1 = GetDlgItemInt(hDlg, ID_STRAT_T1, NULL, FALSE);
-			strategy_t2 = GetDlgItemInt(hDlg, ID_STRAT_T2, NULL, FALSE);
+			// Settings of the comboBox team strategies
+			SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_ADDSTRING, 0, (LONG)"divideAndRule");
+			SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_ADDSTRING, 0, (LONG)"TestudoFormation");
+			SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_ADDSTRING, 0, (LONG)"LeaderFollowing");
+			SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_SETCURSEL, strategy_j1, 0);
 
-			EndDialog(hDlg, DB_OK);
+			SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_ADDSTRING, 0, (LONG)"divideAndRule");
+			SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_ADDSTRING, 0, (LONG)"TestudoFormation");
+			SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_ADDSTRING, 0, (LONG)"LeaderFollowing");
+			SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_SETCURSEL, strategy_j2, 0);
+
+			// Settings des boutons radio
+			CheckDlgButton(hDlg, ID_NO_HUMAN, BST_CHECKED);
+			CheckDlgButton(hDlg, ID_NO_BOT_APPRE, BST_CHECKED);
+			CheckDlgButton(hDlg, ID_NO_GRENADE, BST_CHECKED);
 			return TRUE;
+		case WM_COMMAND: {
+			switch (HIWORD(wParam)) {
+				case CBN_SELCHANGE:
+					// Retrieve the choice of method
+					int ItemIndex = SendMessage((HWND)lParam, (UINT)CB_GETCURSEL, (WPARAM)0, (LPARAM)0);
+					TCHAR  ListItem[256];
+					(TCHAR)SendMessage((HWND)lParam, (UINT)CB_GETLBTEXT,
+						(WPARAM)ItemIndex, (LPARAM)ListItem);
+
+					if (strcmp(ListItem, "Deathmatch") == 0) {
+						OneVsOneField(hDlg, false);
+						TeamField(hDlg, false);
+					}
+					if (strcmp(ListItem, "Team Deathmatch") == 0) {
+						OneVsOneField(hDlg, false);
+						TeamField(hDlg, true);
+					}
+					else if (strcmp(ListItem, "1 vs 1") == 0) {
+						OneVsOneField(hDlg, true);
+						TeamField(hDlg, false);
+					}
+					return TRUE;
+			}
+			switch (wParam) {
+				case ID_BOT_APPRE: { learning_bot = 1; break; }
+				case ID_NO_BOT_APPRE: { learning_bot = 0; break; }
+				case ID_GRENADE: { grenades = 1; break; }
+				case ID_NO_GRENADE: { grenades = 0; break; }
+				case ID_HUMAN: { human = 1; break; }
+				case ID_NO_HUMAN: { human = 0; break; }
+				case IDC_WRITE: { 
+					isRecording = !isRecording;
+					EnableWindow(GetDlgItem(hDlg, IDC_FILENAME), isRecording);
+					break; 
+				}
+				case IDC_LEARNING: { 
+					isLearning = !isLearning;
+					EnableWindow(GetDlgItem(hDlg, IDC_FILENAME3), isLearning);
+					break; 
+				}
+				case IDC_WEIGHT: {
+					isUsingWeights = !isUsingWeights;
+					EnableWindow(GetDlgItem(hDlg, IDC_FILENAME2), isUsingWeights);
+					break;
+				}
+				case DB_OK : {
+					// get the behavior wanted
+					mode = SendDlgItemMessage(hDlg, ID_MODE, CB_GETCURSEL, 0, 0);
+					// get the number of stadard agent 
+					strategy_j1 = GetDlgItemInt(hDlg, ID_STRAT_J1, NULL, FALSE);
+					strategy_j2 = GetDlgItemInt(hDlg, ID_STRAT_J2, NULL, FALSE);
+					// get the number of pursuiver for the leader1
+					strategy_t1 = GetDlgItemInt(hDlg, ID_STRAT_T1, NULL, FALSE);
+					strategy_t2 = GetDlgItemInt(hDlg, ID_STRAT_T2, NULL, FALSE);
+
+					int bufSize = 1024;
+					LPTSTR szText = new TCHAR[bufSize];
+					// Get the outputFileName
+					GetDlgItemText(hDlg, IDC_FILENAME, szText, 1024);
+					outputFileName = szText;
+					// Get the inputFileName
+					GetDlgItemText(hDlg, IDC_FILENAME3, szText, 1024);
+					inputFileName = szText;
+					// Get the weightFileName
+					GetDlgItemText(hDlg, IDC_FILENAME2, szText, 1024);
+					weightFileName = szText;
+
+					EndDialog(hDlg, DB_OK);
+					return TRUE;
+				}
+			}
+		} // end case
+		default: {
+			return FALSE;
 		}
-	default:
-		return FALSE;
-	}
+	} // end big switch
 }
 
 //-------------------------------- WinMain -------------------------------
@@ -677,7 +727,7 @@ int WINAPI WinMain (HINSTANCE hInstance,
 	int currFrame = 1;
 
 	if (isRecording) {
-		g_pRaven->OpenFile(script->GetString("TrainingFile"));
+		g_pRaven->OpenFile(outputFileName);
 	}
 
     while(!bDone)
