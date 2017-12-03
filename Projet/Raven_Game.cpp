@@ -48,13 +48,17 @@ Raven_Game::Raven_Game():m_pSelectedBot(NULL),
 	m_mode, m_human, m_learning_bot = 0;
 	m_strategy_j1, m_strategy_j2 = 0;
 	m_strategy_t1, m_strategy_t2 = 0;
+	m_isRecording, m_isLearning, m_isUsingWeights = 0;
+	m_inputFileName, m_weightFileName = "";
 
 	//load in the default map
 	LoadMap(script->GetString("StartMap"));
 }
 
 Raven_Game::Raven_Game(int mode, int human, int grenades, int learning_bot, int strategie_j1,
-						int strategie_j2, int strategie_t1, int strategie_t2, int isRecording):m_pSelectedBot(NULL),
+						int strategie_j2, int strategie_t1, int strategie_t2, int isRecording, 
+						int isLearning, int isUsingWeights, string inputFileName, string outputFileName,
+						string weightFileName):m_pSelectedBot(NULL),
 							m_bPaused(false),
 							m_bRemoveABot(false),
 							m_pMap(NULL),
@@ -70,6 +74,11 @@ Raven_Game::Raven_Game(int mode, int human, int grenades, int learning_bot, int 
 	m_strategy_t1 = strategie_t1;
 	m_strategy_t2 = strategie_t2;
 	m_isRecording = isRecording;
+	m_isLearning = isLearning;
+	m_isUsingWeights = isUsingWeights;
+	m_inputFileName = inputFileName;
+	m_outputFileName = outputFileName;
+	m_weightFileName = weightFileName;
 
 	if (m_mode == TEAM_MATCH) { //Creation of both teams
 		if (m_strategy_t1 == 0) { // TeamSimple
@@ -250,29 +259,31 @@ void Raven_Game::Update()
 }
 
 void Raven_Game::OpenFile(std::string fileName) {
-	m_outputFile.open(fileName);
+	FILE_CONTROL.OpenFile(m_outputFile, FILE_CONTROL.PATH + "TrainingData/"+fileName);
+	//m_outputFile.open("TrainingData/" + fileName);
 }
 
 void Raven_Game::CloseFile() {
-	m_outputFile.close();
+	FILE_CONTROL.CloseFile(m_outputFile);
 }
 
 void Raven_Game::WriteLine() {
-	// first column : visibility
-	// 0 : if the ennemy is not visible
-	// 1 : if the ennemy is visible
-	m_outputFile << m_ThePlayer->GetTargetSys()->isTargetWithinFOV() << ";";
-	// second column : ennemy life
-	// float that represent the ennemy's life
-	m_outputFile << m_ThePlayer->GetTargetBot()->Health() << ";";
-	// third column : player life
-	// float that represent the ennemy's life
-	m_outputFile << m_ThePlayer->Health() << ";";
+	if (m_ThePlayer->GetTargetBot() != NULL) {
+		// first column : visibility
+		// 0 : if the ennemy is not visible
+		// 1 : if the ennemy is visible
+		m_outputFile << m_ThePlayer->GetTargetSys()->isTargetWithinFOV() << ";";
+		// second column : ennemy life
+		// float that represent the ennemy's life
+		m_outputFile << m_ThePlayer->GetTargetBot()->Health() << ";";
+		// third column : player life
+		// float that represent the ennemy's life
+		m_outputFile << m_ThePlayer->Health() << ";";
 
-	m_outputFile << m_ThePlayer->GetTargetSys()->isTargetWithinFOV() << "\n";
-	// last column : if the player shot
-	// TODO LATER : m_outputFile << hasShot << "\n";
-
+		m_outputFile << m_ThePlayer->GetTargetSys()->isTargetWithinFOV() << "\n";
+		// last column : if the player shot
+		// TODO LATER : m_outputFile << hasShot << "\n";
+	}
 	// Reset variables
 	hasShot = false;
 }
@@ -466,54 +477,13 @@ void Raven_Game::AddBotApprenant() {
 	// Create the learning bot
 	Raven_BotApprenant* rBa = new Raven_BotApprenant(this, Vector2D());
 
-	rBa->BecomeLearner();
-
-	// Take care of the training
-	rBa->READER_FICHIER.InitFile(script->GetString("TrainingFile"));
-	vector<vector<double>> trainValues;
-	rBa->READER_FICHIER.FillInputValues(trainValues);
-
-	// Create the topology of the net
-	vector<unsigned> topology;
-	/*for (unsigned i = (trainValues.at(0).size() - 1); i >= 1; i--) {
-		topology.push_back(i);
-	}*/
-	topology.push_back(2);
-	topology.push_back(3);
-	topology.push_back(1);
-	// Give the topology to the learning agent
-	rBa->SetNetTopology(topology);
-
-	// Open a file to print results inside it
-	OpenFile("TrainingResults.txt");
-	int trainingPass = 0;
-	vector<double> resultVals, targetVals;
-
-	for (int i = 1; i < trainValues.size(); i++) {
-		++trainingPass;
-		m_outputFile << endl << "Pass " << trainingPass << "\n";
-
-		m_outputFile << "Inputs: ";
-		for (int y = 0; y < trainValues.at(i).size()-1 ; y++) {
-			m_outputFile << trainValues.at(i).at(y) << ", ";
-		}
-		m_outputFile << "\n";
-
-		m_outputFile << "Target: " << trainValues.at(i).at(trainValues.at(i).size()-1) << "\n";
-
-		targetVals.push_back(trainValues.at(i).at(trainValues.at(i).size() - 1));
-		trainValues.at(i).pop_back();
-
-		rBa->GetNet()->FeedForward(trainValues.at(i));
-		rBa->GetNet()->GetResult(resultVals);
-
-		m_outputFile << "Output: " << resultVals.at(0) << "\n";
-
-		rBa->GetNet()->BackProp(targetVals);
-		targetVals.clear();
+	if (m_isLearning) {
+		rBa->BecomeLearner();
+		rBa->StartTraining(m_inputFileName);
+	} else {
+		// Load weights to start the game right now
+		rBa->LoadTraining(m_weightFileName);
 	}
-
-	CloseFile();
 	
 	// Add the bot into the context
 	m_Bots.push_back(rBa);

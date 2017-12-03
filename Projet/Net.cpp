@@ -1,6 +1,6 @@
 #include "Net.h"
 #include <assert.h>
-
+#include <sstream>
 
 Net::Net(const vector<unsigned> &topology)
 {
@@ -110,6 +110,26 @@ void Net::GetResult(vector<double> &resultVals) const
 	{
 		resultVals.push_back(m_Layers.back()[n].GetOutputVal());
 	}
+}
+
+void Net::SetWeights(vector<vector<vector<double>>> weights) {
+	for (unsigned layerNum = 1; layerNum < m_Layers.size() - 1; ++layerNum) {
+		for (unsigned n = 0; n < m_Layers[layerNum].size(); ++n) {
+			m_Layers[layerNum][n].SetWeight(weights[layerNum][n]);
+		}
+	}
+}
+
+vector<vector<vector<double>>> Net::GetWeights() {
+	vector<vector<vector<double>>> weights;
+	for (unsigned layerNum = 0; layerNum < m_Layers.size() - 1; ++layerNum) {
+		vector <vector<double>> currentVector;
+		for (unsigned n = 0; n < m_Layers[layerNum].size(); ++n) {
+			currentVector.push_back(m_Layers[layerNum][n].GetWeight());
+		}
+		weights.push_back(currentVector);
+	}
+	return weights;
 }
 
 Net::~Net()

@@ -13,6 +13,9 @@ public:
 	void BackProp(const vector<double> &targetVals);
 	void GetResult(vector<double> &resultVals) const;
 	~Net();
+
+	void SetWeights(vector<vector<vector<double>>> weights);
+	vector<vector<vector<double>>> GetWeights();
 private:
 	vector<Layer> m_Layers; // m_layers[layersNum][neuronNum]
 	double m_error;

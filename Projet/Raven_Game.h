@@ -81,13 +81,21 @@ private:
   int                              m_strategy_t1;	  //strategie of the team1
   int                              m_strategy_t2;	  //strategie of the team2
   int							   m_isRecording;
+  int							   m_isLearning;
+  int							   m_isUsingWeights;
+  string						   m_inputFileName;
+  string						   m_outputFileName;
+  string						   m_weightFileName;
 
   //teams
-  std::vector<TeamSimple*> m_teams;
+  std::vector<TeamSimple*>	m_teams;
 
   //output for the neural network
-  std::ofstream m_outputFile;
-  bool			hasShot;
+  std::ofstream				m_outputFile;
+  bool						hasShot;
+
+  //used to open / close a file
+  ManipulateurFichier		FILE_CONTROL;
 
   //this iterates through each trigger, testing each one against each bot
   void  UpdateTriggers();
@@ -115,7 +123,9 @@ public:
   
   Raven_Game();
   Raven_Game(int mode, int human, int grenades, int learning_bot, int strategie_j1,
-			 int strategie_j2, int strategie_t1, int strategie_t2, int isRecording);
+			 int strategie_j2, int strategie_t1, int strategie_t2, int isRecording,
+			 int isLearning, int isUsingWeights, string inputFileName, string outputFileName,
+			 string weightFileName);
   ~Raven_Game();
 
   //the usual suspects

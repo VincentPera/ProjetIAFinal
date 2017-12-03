@@ -9,6 +9,11 @@ ManipulateurFichier::~ManipulateurFichier()
 {
 }
 
+void ManipulateurFichier::FillWeightsValues(vector<vector<vector<double>>> &weightsValues)
+{
+	// TODO
+}
+
 void ManipulateurFichier::FillInputValues(vector<vector<double>> &trainValues)
 {
 	// clear of the container before inserting the new values or reread the training file 
@@ -58,4 +63,12 @@ void ManipulateurFichier::InitFile(string _filepath)
 	m_filepath = _filepath;
 	ifstream file(_filepath, ios::in);
 	assert(file);
+}
+
+void ManipulateurFichier::OpenFile(std::ofstream& file, std::string fileName) {
+	file.open(fileName);
+}
+
+void ManipulateurFichier::CloseFile(std::ofstream& file) {
+	file.close();
 }
