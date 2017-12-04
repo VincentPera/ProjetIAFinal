@@ -120,7 +120,7 @@ void Raven_BotApprenant::StartTraining(string inputFileName) {
 		GetNet()->GetResult(resultVals);
 
 		resultFile << "Output: " << resultVals.at(0) << "\n";
-		double error = trainValues.at(i).at(trainValues.at(i).size() - 1) - resultVals.at(0);
+		double error = this->GetNet()->getError();
 		resultFile << "Erreur: " << error << "\n";
 		pythonFile << error << "\n";
 		// Use the backpropagation algorithm to adjust the weights of the net

@@ -17,7 +17,7 @@ for line in analysisFile:
 # plot graph
 plt.plot(absc, ordo, label = "Error(trainingNumber")
 plt.legend()
-plt.grid(color='b',linestyle='-',linewidth=0.5)
+plt.grid(color='b',linestyle='-',linewidth=0.001)
 plt.show()
 
 analysisFile.close()

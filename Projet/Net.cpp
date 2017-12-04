@@ -132,6 +132,11 @@ vector<vector<vector<double>>> Net::GetWeights() {
 	return weights;
 }
 
-Net::~Net()
+Net::~Net(){}
+
+double Net::getError()
 {
+	return m_error;
 }
+
+

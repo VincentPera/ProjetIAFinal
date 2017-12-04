@@ -3,7 +3,7 @@
 
 using namespace std;
 
-double Neuron::eta = 0.15; // overall net training rate
+double Neuron::eta = 0.015; // overall net training rate
 double Neuron::alpha = 0.5; // multiplier of last weight change (momentum)
 
 

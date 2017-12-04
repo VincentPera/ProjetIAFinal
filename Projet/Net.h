@@ -14,6 +14,8 @@ public:
 	void GetResult(vector<double> &resultVals) const;
 	~Net();
 
+	double getError();
+
 	void SetWeights(vector<vector<vector<double>>> weights);
 	vector<vector<vector<double>>> GetWeights();
 private:
