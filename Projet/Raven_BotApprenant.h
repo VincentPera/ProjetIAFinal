@@ -11,6 +11,9 @@
 #include "Net.h"
 #include "ManipulateurFichier.h"
 
+#include <iostream>
+#include <fstream>
+
 
 class Raven_PathPlanner;
 class Raven_Steering;

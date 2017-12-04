@@ -81,13 +81,17 @@ void Raven_BotApprenant::StartTraining(string inputFileName) {
 
 	// Load dataset from the human player
 	READER_FICHIER.InitFile(READER_FICHIER.PATH + "TrainingData/" + inputFileName);
+	//init another file for the python-analyzing data script (error)
+	ofstream pythonFile("Data/TrainingData/Error.txt", ios::out);
+
+
 	vector<vector<double>> trainValues;
 	READER_FICHIER.FillInputValues(trainValues);
 
 	// Create the topology of the net
 	vector<unsigned> topology;
 	topology.push_back(trainValues.at(0).size()-1);
-	topology.push_back(3);
+	topology.push_back(2);
 	topology.push_back(1);
 
 	// Give the topology to the learning agent
@@ -102,11 +106,11 @@ void Raven_BotApprenant::StartTraining(string inputFileName) {
 	// Start Training (and create an output file to see the training output)
 	for (int i = 1; i < trainValues.size(); i++) {
 		++trainingPass;
-		resultFile << endl << "Pass " << trainingPass << "\n Inputs: ";
+		resultFile << endl << "Pass " << trainingPass << "\nInputs: ";
 		for (int y = 0; y < trainValues.at(i).size() - 1; y++) {
 			resultFile << trainValues.at(i).at(y) << ", ";
 		}
-		resultFile << "\n Target: " << trainValues.at(i).at(trainValues.at(i).size() - 1) << "\n";
+		resultFile << "\nTarget: " << trainValues.at(i).at(trainValues.at(i).size() - 1) << "\n";
 		targetVals.push_back(trainValues.at(i).at(trainValues.at(i).size() - 1));
 		trainValues.at(i).pop_back();
 
@@ -116,11 +120,15 @@ void Raven_BotApprenant::StartTraining(string inputFileName) {
 		GetNet()->GetResult(resultVals);
 
 		resultFile << "Output: " << resultVals.at(0) << "\n";
-
+		double error = trainValues.at(i).at(trainValues.at(i).size() - 1) - resultVals.at(0);
+		resultFile << "Erreur: " << error << "\n";
+		pythonFile << error << "\n";
 		// Use the backpropagation algorithm to adjust the weights of the net
 		GetNet()->BackProp(targetVals);
 		targetVals.clear();
 	}
+	pythonFile.close();
+
 	// Close the results file
 	READER_FICHIER.CloseFile(resultFile);
 	
@@ -169,3 +177,4 @@ void Raven_BotApprenant::LoadTraining(string inputFileName) {
 	// instanciate weigths
 	GetNet()->SetWeights(weightsValues);
 }
+
