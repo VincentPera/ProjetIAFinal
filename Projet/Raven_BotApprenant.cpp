@@ -112,31 +112,43 @@ Net* Raven_BotApprenant::GetNet()
 void Raven_BotApprenant::StartTraining(string inputFileName) {
 	debug_con << "Bot " << this->ID() << " is learning how to shoot!" << "";
 
-	// Load dataset from the human player
+	// Load dataset to train the net
 	READER_FICHIER.InitFile(READER_FICHIER.PATH + "TrainingData/" + inputFileName);
-	//init another file for the python-analyzing data script (error)
-	ofstream pythonFile("Data/TrainingData/Error2.txt", ios::out);
-
-
 	vector<vector<double>> trainValues;
 	READER_FICHIER.FillInputValues(trainValues);
 
-	// Create the topology of the net
 	vector<unsigned> topology;
-	topology.push_back(trainValues.at(0).size()-1);
-	topology.push_back(2);
-	topology.push_back(1);
 
-	// Give the topology to the learning agent
-	SetNetTopology(topology);
+	// Usefull for testing
+	for (int i = 1; i < 5; i++) {
+
+		// Create the topology of the net
+		topology.push_back(trainValues.at(0).size()-1);
+		topology.push_back(i);
+		topology.push_back(1);
+
+		// Give the topology to the learning agent
+		SetNetTopology(topology);
+
+		// Start Training (and create an output file to see the training output)
+		TrainingFunction(i, READER_FICHIER.PATH + "ResultsData/results_" + inputFileName, trainValues);
+
+		WriteData(READER_FICHIER.PATH + "WeightsData/weights_" + inputFileName, topology);
+	}
+}
+
+void Raven_BotApprenant::TrainingFunction(int currentTestNumber, string filename, vector<vector<double>> trainValues) {
+	vector<double> resultVals, targetVals;
 
 	// Open a file to print results inside it
 	std::ofstream resultFile;
-	READER_FICHIER.OpenFile(resultFile, READER_FICHIER.PATH + "ResultsData/results_" + inputFileName);
-	int trainingPass = 0;
-	vector<double> resultVals, targetVals;
+	READER_FICHIER.OpenFile(resultFile, READER_FICHIER.PATH + filename);
 
-	// Start Training (and create an output file to see the training output)
+	//init another file for the error-analyzing script
+	ofstream pythonFile(READER_FICHIER.PATH + "TrainingData/Error" + ttos(currentTestNumber) + ".txt", ios::out);
+
+	// Start a training pass
+	int trainingPass = 0;
 	for (int i = 1; i < trainValues.size(); i++) {
 		++trainingPass;
 		resultFile << endl << "Pass " << trainingPass << "\nInputs: ";
@@ -160,13 +172,17 @@ void Raven_BotApprenant::StartTraining(string inputFileName) {
 		GetNet()->BackProp(targetVals);
 		targetVals.clear();
 	}
+	// Close the error file
 	pythonFile.close();
 
 	// Close the results file
 	READER_FICHIER.CloseFile(resultFile);
-	
+}
+
+void Raven_BotApprenant::WriteData(string filename, vector<unsigned> topology) {
 	// Change the pointer of the file
-	READER_FICHIER.OpenFile(resultFile, READER_FICHIER.PATH + "WeightsData/weights_" + inputFileName);
+	std::ofstream resultFile;
+	READER_FICHIER.OpenFile(resultFile, filename);
 
 	// Write the topology of the net first
 	for (int i = 0; i < topology.size(); i++) {

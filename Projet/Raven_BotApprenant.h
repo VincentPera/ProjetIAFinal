@@ -43,6 +43,8 @@ public:
 
 	void		StartTraining(string inputFileName);
 	void		LoadTraining(string inputFileName);
+	void		TrainingFunction(int currentTestNumber, string filename, vector<vector<double>> trainValues);
+	void		WriteData(string fileName, vector<unsigned> topology);
 private:
 	//Net neuralNet;
 	Net* m_neuralNet;
