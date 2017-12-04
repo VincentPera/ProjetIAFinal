@@ -18,7 +18,7 @@ public:
 	//[numOfFileLine][indexOfInput/output]
 	// format [[<inputValue>,<inputValue>,.......,<OutputValue>],.....]
 	void FillInputValues(vector<vector<double>> &trainValues);
-	void FillWeightsValues(vector<vector<vector<double>>> &weightsValues);
+	void FillWeightsValues(vector<vector<vector<double>>> &weightsValues, vector<unsigned> &topologyValues);
 	void InitFile(string _filepath);
 
 	static void ManipulateurFichier::OpenFile(std::ofstream& file, std::string fileName);

@@ -11,6 +11,8 @@
 #include "goals/Raven_Goal_Types.h"
 #include "goals/Goal_Think.h"
 
+#include "Debug/DebugConsole.h"
+
 Raven_BotApprenant::Raven_BotApprenant(Raven_Game* world, Vector2D v) :Raven_Bot(world, v)
 {
 }
@@ -75,6 +77,8 @@ Net* Raven_BotApprenant::GetNet()
 }
 
 void Raven_BotApprenant::StartTraining(string inputFileName) {
+	debug_con << "Bot " << this->ID() << " is learning how to shoot!" << "";
+
 	// Load dataset from the human player
 	READER_FICHIER.InitFile(READER_FICHIER.PATH + "TrainingData/" + inputFileName);
 	vector<vector<double>> trainValues;
@@ -120,17 +124,27 @@ void Raven_BotApprenant::StartTraining(string inputFileName) {
 	// Close the results file
 	READER_FICHIER.CloseFile(resultFile);
 	
-	// Write all the weight of the net
+	// Change the pointer of the file
 	READER_FICHIER.OpenFile(resultFile, READER_FICHIER.PATH + "WeightsData/weights_" + inputFileName);
+
+	// Write the topology of the net first
+	for (int i = 0; i < topology.size(); i++) {
+		resultFile << topology.at(i);
+		if (i != topology.size() - 1)
+			resultFile << ";";
+	}
+	resultFile << "\n";
+
+	// Write all the weight of the net
 	vector<vector<vector<double>>> weights = GetNet()->GetWeights();
 	for (int i = 0; i < weights.size(); ++i) {
 		for (int j = 0; j < weights.at(i).size(); ++j) {
 			for (int z = 0; z < weights.at(i).at(j).size(); ++z) {
 				resultFile << weights.at(i).at(j).at(z);
 				if (z != weights.at(i).at(j).size() - 1)
-					resultFile << " ; ";
+					resultFile << ";";
 			}
-			resultFile << " // ";
+			resultFile << "/";
 		}
 		resultFile << "\n";
 	}
@@ -138,10 +152,19 @@ void Raven_BotApprenant::StartTraining(string inputFileName) {
 }
 
 void Raven_BotApprenant::LoadTraining(string inputFileName) {
-	// Load weights from a previous training
+	debug_con << "Bot " << this->ID() << " is using prepared weights to shoot!" << "";
+	// Change the file pointer
 	READER_FICHIER.InitFile(READER_FICHIER.PATH + "WeightsData/" + inputFileName);
+
+	// Retrieve the topology of the net
+	vector<unsigned> topology;
+
+	// Load weights and the topology from a previous training
 	vector<vector< vector<double>>> weightsValues;
-	READER_FICHIER.FillWeightsValues(weightsValues);
+	READER_FICHIER.FillWeightsValues(weightsValues, topology);
+
+	// Give the topology to the learning agent
+	SetNetTopology(topology);
 
 	// instanciate weigths
 	GetNet()->SetWeights(weightsValues);

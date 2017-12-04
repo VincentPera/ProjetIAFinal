@@ -18,7 +18,6 @@
 #define IDC_ID_ALPHAJ2                  1013
 #define IDC_LEARNING                    1013
 #define IDC_ID_ALPHAJ1                  1014
-#define IDC_LEARNING2                   1014
 #define IDC_WEIGHT                      1014
 #define IDC_SCORE_ALPHAJ1               1015
 #define IDC_SCORE_ALPHAJ2               1016
@@ -65,7 +64,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        112
+#define _APS_NEXT_RESOURCE_VALUE        114
 #define _APS_NEXT_COMMAND_VALUE         40018
 #define _APS_NEXT_CONTROL_VALUE         1033
 #define _APS_NEXT_SYMED_VALUE           101

@@ -477,8 +477,8 @@ void Raven_Game::AddBotApprenant() {
 	// Create the learning bot
 	Raven_BotApprenant* rBa = new Raven_BotApprenant(this, Vector2D());
 
+	rBa->BecomeLearner();
 	if (m_isLearning) {
-		rBa->BecomeLearner();
 		rBa->StartTraining(m_inputFileName);
 	} else {
 		// Load weights to start the game right now
