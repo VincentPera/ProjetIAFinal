@@ -15,6 +15,7 @@ for line in analysisFile:
     currabsc+=1
     
 # plot graph
+print(ordo)
 plt.plot(absc, ordo, label = "Error(trainingNumber")
 plt.legend()
 plt.grid(color='b',linestyle='-',linewidth=0.001)

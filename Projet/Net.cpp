@@ -136,6 +136,10 @@ double Net::GetNetInputNumber() {
 	return m_Layers.at(0).size();
 }
 
+double Net::getError() {
+	return m_error;
+}
+
 Net::~Net()
 {
 }
