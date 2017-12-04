@@ -268,7 +268,7 @@ void Raven_Game::WriteLine() {
 		// first : if the ennemy is visible
 		m_outputFile << (m_ThePlayer->GetTargetSys()->isTargetWithinFOV()) << ";";
 		// second : ennemy life
-		m_outputFile << (m_ThePlayer->GetTargetBot()->Health() < 50) << ";";
+		m_outputFile << (m_ThePlayer->GetTargetBot()->Health() < 100) << ";";
 		// third : player life
 		//m_outputFile << (m_ThePlayer->Health() < 50) << ";";
 		// fourth : the current weapon used
@@ -418,6 +418,10 @@ void Raven_Game::AddBotsSolo(unsigned int NumBotsToAdd)
 		// Add the current bot to the game
 		AddBot(rb);
 
+		if (m_mode == SOLO && currentPlayer == 0) {
+			m_ThePlayer = rb;
+		}
+
 #ifdef LOG_CREATIONAL_STUFF
 		debug_con << "Adding bot with ID " << ttos(rb->ID()) << " with the behavior " << m_strategy_players[currentPlayer] << "";
 #endif
@@ -540,6 +544,9 @@ void Raven_Game::RemoveBot()
 //-----------------------------------------------------------------------------
 void Raven_Game::AddBolt(Raven_Bot* shooter, Vector2D target)
 {
+	if (shooter == m_ThePlayer) {
+		hasShot = true;
+	}
   Raven_Projectile* rp = new Bolt(shooter, target);
 
   m_Projectiles.push_back(rp);
@@ -552,6 +559,9 @@ void Raven_Game::AddBolt(Raven_Bot* shooter, Vector2D target)
 //------------------------------ AddRocket --------------------------------
 void Raven_Game::AddRocket(Raven_Bot* shooter, Vector2D target)
 {
+	if (shooter == m_ThePlayer) {
+		hasShot = true;
+	}
   Raven_Projectile* rp = new Rocket(shooter, target);
 
   m_Projectiles.push_back(rp);
@@ -564,6 +574,9 @@ void Raven_Game::AddRocket(Raven_Bot* shooter, Vector2D target)
 //------------------------- AddRailGunSlug -----------------------------------
 void Raven_Game::AddRailGunSlug(Raven_Bot* shooter, Vector2D target)
 {
+	if (shooter == m_ThePlayer) {
+		hasShot = true;
+	}
   Raven_Projectile* rp = new Slug(shooter, target);
 
   m_Projectiles.push_back(rp);
@@ -576,6 +589,9 @@ void Raven_Game::AddRailGunSlug(Raven_Bot* shooter, Vector2D target)
 //------------------------- AddShotGunPellet -----------------------------------
 void Raven_Game::AddShotGunPellet(Raven_Bot* shooter, Vector2D target)
 {
+	if (shooter == m_ThePlayer) {
+		hasShot = true;
+	}
   Raven_Projectile* rp = new Pellet(shooter, target);
 
   m_Projectiles.push_back(rp);
@@ -588,6 +604,9 @@ void Raven_Game::AddShotGunPellet(Raven_Bot* shooter, Vector2D target)
 //------------------------------ AddBomb --------------------------------
 void Raven_Game::AddBomb(Raven_Bot* shooter, Vector2D target)
 {
+	if (shooter == m_ThePlayer) {
+		hasShot = true;
+	}
 	Raven_Projectile* rp = new Bomb(shooter, target);
 
 	m_Projectiles.push_back(rp);
