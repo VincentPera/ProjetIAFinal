@@ -1,31 +1,31 @@
  # coding: utf-8
-import matplotlib
+import matplotlib, sys
 import matplotlib.pyplot as plt
 
-file1 = open("Error.txt", "r")
-file2 = open("Error2.txt", "r")
-# liste des abscisses et ordonnees succesives
-absc = []
-ordo = []
-ordo2 = []
-currabsc = 0
+listeFile = []
 
-#parcours du fichier
-for line in file1:
-    currabsc+=1
-    absc.append(currabsc)
-    ordo.append(float(line))
-    
-for lineOne in file2:
-    x = float(lineOne)
-    ordo2.append(x)
+##collecte des fichiers passes en arguments
+for arg in sys.argv:
+    print(arg)
+    listeFile.append(arg)
+## le nom du script ne doit pas etre pris en compte
+del listeFile[0]
 
-# plot graph
-plt.plot(absc,ordo, label = "Error(trainingNumber)")
-plt.plot(absc,ordo2, label = "Error(trainingNumber2)")
+
+
+for fileString in listeFile:
+    file = open(fileString, "r")
+    y = []
+    x=[]
+    cnt = 1
+    for line in file:
+        y.append(float(line))
+        x.append(cnt)
+        cnt+=1
+    plt.plot(x,y, label = "Error("+ fileString +")")
+    file.close()
+
 plt.legend()
 plt.grid(color='b',linestyle='-',linewidth=0.01)
 plt.show()
 
-file1.close()
-file2.close()
