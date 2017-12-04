@@ -98,6 +98,7 @@ public:
 
   //Modification for spawnin eapon
   void AddWeapon_Giver(int type_of_weapon, std::ifstream& in);
+  void AddWeapon_Giver_bis(int type_of_weapon, std::ifstream & in, bool f);
   int lastgraphnodeindex = 339;
 
   //loads an environment from a file

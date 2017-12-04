@@ -78,11 +78,11 @@ Raven_Game::Raven_Game(int mode, int human, int grenades, int learning_bot, int 
 
 	if (m_mode == TEAM_MATCH) { //Creation of both teams
 		if (m_strategy_teams[0] == 0) { // TeamSimple
-			Vector2D loot = Vector2D(0, 0); // TODO Change that.
+			Vector2D loot = Vector2D(360, 60); // TODO Change that.
 			m_teams.push_back(new TeamSimple(loot, "Alpha"));
 		}
 		if (m_strategy_teams[1] == 0) { // TeamSimple
-			Vector2D loot = Vector2D(0, 0); // TODO change that.
+			Vector2D loot = Vector2D(360, 60); // TODO change that.
 			m_teams.push_back(new TeamSimple(loot, "Beta"));
 		}
 	}

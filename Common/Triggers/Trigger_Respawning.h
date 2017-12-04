@@ -27,6 +27,7 @@ protected:
   //active once more.
   int   m_iNumUpdatesBetweenRespawns;
   int   m_iNumUpdatesRemainingUntilRespawn;
+  bool m_respawnable;
 
   //sets the trigger to be inactive for m_iNumUpdatesBetweenRespawns 
   //update-steps
@@ -40,7 +41,8 @@ public:
 
   Trigger_Respawning(int id):Trigger<entity_type>(id),
                              m_iNumUpdatesBetweenRespawns(0),
-                             m_iNumUpdatesRemainingUntilRespawn(0)
+                             m_iNumUpdatesRemainingUntilRespawn(0),
+							 m_respawnable(true)
   {}
 
   virtual ~Trigger_Respawning(){}
@@ -51,12 +53,16 @@ public:
   //this is called each game-tick to update the trigger's internal state
   virtual void Update()
   {
-    if ( (--m_iNumUpdatesRemainingUntilRespawn <= 0) && !isActive())
+    if ( (--m_iNumUpdatesRemainingUntilRespawn <= 0) && !isActive() && m_respawnable)
     {
       SetActive();
     }
   }
   
+  void setRespawanlable(bool r) {
+	  m_respawnable = r;
+  }
+
   void SetRespawnDelay(unsigned int numTicks)
   {m_iNumUpdatesBetweenRespawns = numTicks;}
 };
