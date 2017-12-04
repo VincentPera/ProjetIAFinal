@@ -115,7 +115,7 @@ void Raven_BotApprenant::StartTraining(string inputFileName) {
 	// Load dataset from the human player
 	READER_FICHIER.InitFile(READER_FICHIER.PATH + "TrainingData/" + inputFileName);
 	//init another file for the python-analyzing data script (error)
-	ofstream pythonFile("Data/TrainingData/Error.txt", ios::out);
+	ofstream pythonFile("Data/TrainingData/Error2.txt", ios::out);
 
 
 	vector<vector<double>> trainValues;

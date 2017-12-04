@@ -6,7 +6,7 @@
 #define RESTORE_DEBUG
 #undef _DEBUG
 #endif
-#include <Python.h>
+//#include <Python.h>
 #ifdef RESTORE_DEBUG
 #define _DEBUG
 #undef RESTORE_DEBUG
