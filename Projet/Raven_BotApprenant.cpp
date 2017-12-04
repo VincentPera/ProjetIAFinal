@@ -67,7 +67,40 @@ void Raven_BotApprenant::Update()
 
 		//this method aims the bot's current weapon at the current target
 		//and takes a shot if a shot is possible
-		//m_pWeaponSys->TakeAimAndShoot();
+		// Instead call the neuron network to see if he should shoot or not
+		if (GetTargetBot() != NULL) {
+			UseNetToShoot();
+		}
+	}
+}
+
+void Raven_BotApprenant::UseNetToShoot() {
+	// Retrieve all the input of the game that the net need
+	vector<double> gameValues;
+	vector<double> result;
+
+	// first : if the ennemy is visible
+	gameValues.push_back(GetTargetSys()->isTargetWithinFOV());
+	// second : ennemy life
+	gameValues.push_back(GetTargetBot()->Health() < 50);
+	// third : player life
+	gameValues.push_back(Health() < 50);
+	// fourth : the current weapon used
+	gameValues.push_back(GetWeaponSys()->GetCurrentWeaponType());
+	// fifth : the distance between the two bots
+	gameValues.push_back((GetTargetBot()->Pos() - Pos()).Length());
+
+	// Put inputs in the net
+	GetNet()->FeedForward(vector<double>(gameValues.begin(), gameValues.begin() + m_neuralNet->GetNetInputNumber() - 1));
+	// Get the result with those inputs
+	GetNet()->GetResult(result);
+
+	if (result[0] > 0.9) {
+		// Fire !!
+		m_pWeaponSys->ShootAt(GetTargetBot()->Pos());
+	}
+	else {
+		// Not the right situation => don't shoot.
 	}
 }
 

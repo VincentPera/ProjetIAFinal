@@ -132,11 +132,10 @@ vector<vector<vector<double>>> Net::GetWeights() {
 	return weights;
 }
 
-Net::~Net(){}
-
-double Net::getError()
-{
-	return m_error;
+double Net::GetNetInputNumber() {
+	return m_Layers.at(0).size();
 }
 
-
+Net::~Net()
+{
+}

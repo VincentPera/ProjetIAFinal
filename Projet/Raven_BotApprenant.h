@@ -39,6 +39,8 @@ public:
 	void		SetNetTopology(vector<unsigned int> topology);
 	void		Update();
 	Net*		GetNet();
+	void		UseNetToShoot();
+
 	void		StartTraining(string inputFileName);
 	void		LoadTraining(string inputFileName);
 private:

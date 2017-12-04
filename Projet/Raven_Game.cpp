@@ -269,20 +269,18 @@ void Raven_Game::CloseFile() {
 
 void Raven_Game::WriteLine() {
 	if (m_ThePlayer->GetTargetBot() != NULL) {
-		// first column : visibility
-		// 0 : if the ennemy is not visible
-		// 1 : if the ennemy is visible
-		m_outputFile << m_ThePlayer->GetTargetSys()->isTargetWithinFOV() << ";";
-		// second column : ennemy life
-		// float that represent the ennemy's life
-		m_outputFile << m_ThePlayer->GetTargetBot()->Health() << ";";
-		// third column : player life
-		// float that represent the ennemy's life
-		m_outputFile << m_ThePlayer->Health() << ";";
-
-		m_outputFile << m_ThePlayer->GetTargetSys()->isTargetWithinFOV() << "\n";
+		// first : if the ennemy is visible
+		m_outputFile << (m_ThePlayer->GetTargetSys()->isTargetWithinFOV()) << ";";
+		// second : ennemy life
+		m_outputFile << (m_ThePlayer->GetTargetBot()->Health() < 50) << ";";
+		// third : player life
+		//m_outputFile << (m_ThePlayer->Health() < 50) << ";";
+		// fourth : the current weapon used
+		//m_outputFile << (m_ThePlayer->GetWeaponSys()->GetCurrentWeaponType()) << ";";
+		// fifth : the distance between the two bots
+		//m_outputFile << ((m_ThePlayer->GetTargetBot()->Pos() - m_ThePlayer->Pos()).Distance) << ";";
 		// last column : if the player shot
-		// TODO LATER : m_outputFile << hasShot << "\n";
+		m_outputFile << hasShot << "\n";
 	}
 	// Reset variables
 	hasShot = false;
