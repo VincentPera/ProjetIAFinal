@@ -113,7 +113,7 @@ void Net::GetResult(vector<double> &resultVals) const
 }
 
 void Net::SetWeights(vector<vector<vector<double>>> weights) {
-	for (unsigned layerNum = 1; layerNum < m_Layers.size() - 1; ++layerNum) {
+	for (unsigned layerNum = 0; layerNum < m_Layers.size() - 1; ++layerNum) {
 		for (unsigned n = 0; n < m_Layers[layerNum].size(); ++n) {
 			m_Layers[layerNum][n].SetWeight(weights[layerNum][n]);
 		}

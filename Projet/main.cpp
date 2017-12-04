@@ -93,6 +93,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 		isRecording = 0;
 		isLearning = 0;
 
+
 		// Ask user to enter informations for the application
 		if (DialogBox(hinst, "DIALOG1", hwnd, (DLGPROC)Dialog1Proc) == DB_OK)
 			InvalidateRect(hwnd, NULL, TRUE);

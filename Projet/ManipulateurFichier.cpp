@@ -9,10 +9,9 @@ ManipulateurFichier::~ManipulateurFichier()
 {
 }
 
-void ManipulateurFichier::FillWeightsValues(vector<vector<vector<double>>> &weightsValues)
+void ManipulateurFichier::FillWeightsValues(vector<vector<vector<double>>> &weightsValues, vector<unsigned> &topologyValues)
 {
 	vector<vector<vector<double>>> result;
-	// TODO
 	weightsValues.clear();
 	string contenu;
 	ifstream file(m_filepath, ios::in);
@@ -20,6 +19,17 @@ void ManipulateurFichier::FillWeightsValues(vector<vector<vector<double>>> &weig
 	{
 		string ligne = contenu;
 
+		string topology;
+		// Fill the topology values
+		if (getline(file, topology)) {
+			vector<string> parsedTopology;
+			split(topology, ";", parsedTopology);
+			for each (string s in parsedTopology) {
+				topologyValues.push_back(stoul(s));
+			}
+		}
+
+		// Fill the weights values
 		while (getline(file, contenu))
 		{
 			vector<string> rawLine;

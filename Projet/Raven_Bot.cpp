@@ -447,7 +447,6 @@ void Raven_Bot::Exorcise()
 void Raven_Bot::BecomeLearner()
 {
 	m_bLearner = true;
-	debug_con << "Bot " << this->ID() << " is learning how to shoot!";
 }
 
 
