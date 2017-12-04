@@ -107,6 +107,36 @@ Raven_Bot::~Raven_Bot()
   delete m_pSensoryMem;
 }
 
+//-------------------------- SetBrainBehavior ---------------------------------
+//  give a personnality to the bot by giving customs weights to his goals
+//  0 : Standard.
+//  1 : Burnhead behavior (like to fight and explore)
+//  2 : Coward  (like take health)
+//  3 : Weapons Collector (like to collect all kind of weapons)
+//-----------------------------------------------------------------------------
+void Raven_Bot::SetBrainBehavior(int behavior) {
+	switch (behavior) {
+		case 1:
+			//replace the old brain by a more personnal one
+			m_pBrain = new Goal_Think(this, 0.5, 0.5, 0.5, 0.5, 0.5, 1.5, 1.5);
+			break;
+		case 2:
+			//replace the old brain by a more personnal one
+			m_pBrain = new Goal_Think(this, 1.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5);
+			break;
+		case 3:
+			//replace the old brain by a more personnal one
+			m_pBrain = new Goal_Think(this, 0.5, 1.5, 1.5, 1.5, 1.5, 0.5, 0.5);
+			break;
+		default:
+			// nothing
+			break;
+	}
+	// Assigne the behavior of the bot to render them better
+	m_bBehavior = behavior;
+
+}
+
 //------------------------------- Spawn ---------------------------------------
 //
 //  spawns the bot at the given position
@@ -575,9 +605,23 @@ void Raven_Bot::Render()
 	  }
   } else {
 	  if (m_bLearner) {
-		  gdi->BlackPen(); // learning = pink
+		  gdi->BlackPen(); // learning = black
 	  } else {
-		  gdi->GreenPen(); //Sans équipe et non apprenant = vert
+		  switch (m_bBehavior) {
+			case 0:
+				gdi->GreenPen(); // Regular bot
+				break;
+			case 1:
+				gdi->RedPen(); // Burnhead bot
+				break;
+			case 2:
+				gdi->BluePen(); // Coward bot
+				break;
+			case 3:
+				gdi->OrangePen(); // Weapons Collector  bot
+				break;
+		  }
+		  
 	  }
 	  
   }

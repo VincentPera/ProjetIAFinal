@@ -1,3 +1,17 @@
+// This code makes us always use the release version of Python
+// even when in debug mode of this program.
+// https://pytools.codeplex.com/discussions/547562
+#define HAVE_ROUND
+#ifdef _DEBUG
+#define RESTORE_DEBUG
+#undef _DEBUG
+#endif
+#include <Python.h>
+#ifdef RESTORE_DEBUG
+#define _DEBUG
+#undef RESTORE_DEBUG
+#endif
+
 #pragma warning (disable:4786)
 #include <string>
 #include <iostream>
@@ -14,6 +28,7 @@
 #include "Raven_Game.h"
 #include "lua/Raven_Scriptor.h"
 
+//#include <Python.h>
 
 //need to include this for the toolbar stuff
 #include <commctrl.h>
@@ -77,21 +92,81 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
    // To get information about the mouse
    MSLLHOOKSTRUCT * pMouseStruct = (MSLLHOOKSTRUCT *)lParam;
 
-    switch (msg)
-    {
-	
-		//A WM_CREATE msg is sent when your application window is first
-		//created
-    case WM_CREATE:
-      {
-		// initial parameters
-		human = 0;
-		strategy_t1 = 0;
-		strategy_t2 = 0;
-		grenades = 0;
-		learning_bot = 0;
-		isRecording = 0;
-		isLearning = 0;
+   switch (msg)
+   {
+
+	   //A WM_CREATE msg is sent when your application window is first
+	   //created
+   case WM_CREATE:
+   {
+	   // initial parameters
+	   human = 0;
+	   strategy_t1 = 0;
+	   strategy_t2 = 0;
+	   grenades = 0;
+	   learning_bot = 0;
+	   isRecording = 0;
+	   isLearning = 0;
+
+	   //OutputDebugStringW(L"Calling Python to find the sum of 2 and 2.\n");
+	   //wchar_t nom[1024] = L"main.cpp";
+	   //Py_SetProgramName(nom);
+
+	   // Initialize the Python interpreter.
+	   //Py_Initialize();
+
+	   /*
+	   wchar_t **params = new wchar_t*[3]();
+	   params[0] = { L"main" };
+	   params[1] = { L"Test" };
+	   PySys_SetArgv(1, params);
+
+	   PyObject *obj = Py_BuildValue("s", "./mypython.py");
+	   FILE *file = _Py_fopen_obj(obj, "r+");
+	   if (file != NULL) {
+		   PyRun_SimpleFile(file, "./mypython.py");
+	   }
+	   Py_Finalize();
+
+	   delete params;*/
+
+	   // Test 2 
+	   /*
+	   int num = 1;
+
+	   FILE*        exp_file;
+	   PyObject*    main_module, *global_dict, *expression;
+
+	   // Initialize a global variable for
+	   // display of expression results
+	   PyRun_SimpleString("x = 0");
+
+	   const char exec[1024] = "mypython.py";
+
+		// Open and execute the Python file
+		PyObject *obj = Py_BuildValue("s", exec);
+		FILE *file = _Py_fopen_obj(obj, "r+");
+		if (file != NULL) {
+			PyRun_SimpleFile(file, exec);
+		}
+
+		// Get a reference to the main module
+		// and global dictionary
+		main_module = PyImport_AddModule("__main__");
+		global_dict = PyModule_GetDict(main_module);
+
+		// Extract a reference to the function "func_name"
+		// from the global dictionary
+		expression =
+			PyDict_GetItemString(global_dict, "multiply");
+
+
+		while (num--) {
+			// Make a call to the function referenced
+			// by "expression"
+			PyObject_CallFunction(expression, NULL);
+		}
+		PyRun_SimpleString("print x");*/
 
 
 		// Ask user to enter informations for the application
@@ -546,14 +621,16 @@ BOOL CALLBACK Dialog1Proc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			SendDlgItemMessage(hDlg, ID_MODE, CB_SETCURSEL, mode, 0);
 
 			// Settings of the comboBox players strategies
+			SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Standard");
 			SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Burnhead");
 			SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Coward");
-			SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Camper");
+			SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Weapons Collector");
 			SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_SETCURSEL, strategy_j1, 0);
 
+			SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Standard");
 			SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Burnhead");
 			SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Coward");
-			SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Camper");
+			SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Weapons Collector");
 			SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_SETCURSEL, strategy_j2, 0);
 
 			// Settings of the comboBox team strategies
@@ -621,11 +698,11 @@ BOOL CALLBACK Dialog1Proc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 					// get the behavior wanted
 					mode = SendDlgItemMessage(hDlg, ID_MODE, CB_GETCURSEL, 0, 0);
 					// get the number of stadard agent 
-					strategy_j1 = GetDlgItemInt(hDlg, ID_STRAT_J1, NULL, FALSE);
-					strategy_j2 = GetDlgItemInt(hDlg, ID_STRAT_J2, NULL, FALSE);
+					strategy_j1 = SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_GETCURSEL, 0, 0);
+					strategy_j2 = SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_GETCURSEL, 0, 0);
 					// get the number of pursuiver for the leader1
-					strategy_t1 = GetDlgItemInt(hDlg, ID_STRAT_T1, NULL, FALSE);
-					strategy_t2 = GetDlgItemInt(hDlg, ID_STRAT_T2, NULL, FALSE);
+					strategy_t1 = SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_GETCURSEL, 0, 0);
+					strategy_t2 = SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_GETCURSEL, 0, 0);
 
 					int bufSize = 1024;
 					LPTSTR szText = new TCHAR[bufSize];

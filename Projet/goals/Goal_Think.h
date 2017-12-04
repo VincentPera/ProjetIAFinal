@@ -32,6 +32,10 @@ private:
 public:
 
   Goal_Think(Raven_Bot* pBot);
+  Goal_Think(Raven_Bot* pBot, double HealthBias, double ShotgunBias, double RocketLauncherBias,
+			 double RailgunBias, double GrenadeBias, double ExploreBias, double AttackBias);
+  void init(Raven_Bot* pBot, double HealthBias, double ShotgunBias, double RocketLauncherBias,
+			double RailgunBias, double GrenadeBias, double ExploreBias, double AttackBias);
   ~Goal_Think();
 
   //this method iterates through each goal evaluator and selects the one

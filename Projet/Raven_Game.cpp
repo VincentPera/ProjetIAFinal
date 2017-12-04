@@ -46,8 +46,6 @@ Raven_Game::Raven_Game():m_pSelectedBot(NULL),
                          m_pGraveMarkers(NULL)
 {
 	m_mode, m_human, m_learning_bot = 0;
-	m_strategy_j1, m_strategy_j2 = 0;
-	m_strategy_t1, m_strategy_t2 = 0;
 	m_isRecording, m_isLearning, m_isUsingWeights = 0;
 	m_inputFileName, m_weightFileName = "";
 
@@ -69,10 +67,8 @@ Raven_Game::Raven_Game(int mode, int human, int grenades, int learning_bot, int 
 	m_mode = static_cast<GAME_MODE>(mode);
 	m_human = human;
 	m_learning_bot = learning_bot;
-	m_strategy_j1 = strategie_j1;
-	m_strategy_j2 = strategie_j1;
-	m_strategy_t1 = strategie_t1;
-	m_strategy_t2 = strategie_t2;
+	m_strategy_players = { strategie_j1, strategie_j2 };
+	m_strategy_teams = { strategie_t1, strategie_t2 };
 	m_isRecording = isRecording;
 	m_isLearning = isLearning;
 	m_isUsingWeights = isUsingWeights;
@@ -81,11 +77,11 @@ Raven_Game::Raven_Game(int mode, int human, int grenades, int learning_bot, int 
 	m_weightFileName = weightFileName;
 
 	if (m_mode == TEAM_MATCH) { //Creation of both teams
-		if (m_strategy_t1 == 0) { // TeamSimple
+		if (m_strategy_teams[0] == 0) { // TeamSimple
 			Vector2D loot = Vector2D(0, 0); // TODO Change that.
 			m_teams.push_back(new TeamSimple(loot, "Alpha"));
 		}
-		if (m_strategy_t2 == 0) { // TeamSimple
+		if (m_strategy_teams[1] == 0) { // TeamSimple
 			Vector2D loot = Vector2D(0, 0); // TODO change that.
 			m_teams.push_back(new TeamSimple(loot, "Beta"));
 		}
@@ -379,7 +375,7 @@ bool Raven_Game::AttemptToAddBotTeam(Raven_Bot* pBot)
 
 //-------------------------- AddBotsTeam --------------------------------------
 //
-//  Adds a bot and switches on the default steering behavior
+//  Adds a bot in a team and switches on the default steering behavior
 //-----------------------------------------------------------------------------
 void Raven_Game::AddBotsTeam(unsigned int NumBotsToAdd)
 {
@@ -402,7 +398,31 @@ void Raven_Game::AddBotsTeam(unsigned int NumBotsToAdd)
 		// switch to the next team
 		currTeamId = ++currTeamId % 2;
 	}
+}
 
+//-------------------------- AddBotsSolo --------------------------------------
+//
+//  Adds a bot with a particular behavior and switches on the default steering behavior
+//-----------------------------------------------------------------------------
+void Raven_Game::AddBotsSolo(unsigned int NumBotsToAdd)
+{
+	int currentPlayer = 0;
+	while (NumBotsToAdd--)
+	{
+		//create a bot. (its position is irrelevant at this point because it will
+		//not be rendered until it is spawned)
+		Raven_Bot* rb = new Raven_Bot(this, Vector2D());
+		// Set his behavior
+		rb->SetBrainBehavior(m_strategy_players[currentPlayer]);
+
+		// Add the current bot to the game
+		AddBot(rb);
+
+#ifdef LOG_CREATIONAL_STUFF
+		debug_con << "Adding bot with ID " << ttos(rb->ID()) << " with the behavior " << m_strategy_players[currentPlayer] << "";
+#endif
+		currentPlayer++;
+	}
 }
 
 //-------------------------- AddBots --------------------------------------
@@ -637,7 +657,9 @@ bool Raven_Game::LoadMap(const std::string& filename)
 		  AddSpawnPointsTeams();
 		  AddBotsTeam(script->GetInt(numbots) - m_human);
 	  }
-	  else {
+	  else if (m_mode == SOLO) {
+		  AddBotsSolo(script->GetInt(numbots) - m_human);
+	  } else {
 		  AddBots(script->GetInt(numbots) - m_human);
 	  }
 	  if (m_human) {

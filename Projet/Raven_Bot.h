@@ -106,8 +106,10 @@ protected:
   bool                               m_bPossessed;
   //set to true when the bot is learning how to shoot
   bool								m_bLearner;
-
+  //bot number in the team (0, 1 or 2)
   int								m_bNumber;
+  //behavior of the bot (0, 1, 2 or 3)
+  int								m_bBehavior;
 
   //a vertex buffer containing the bot's geometry
   std::vector<Vector2D>              m_vecBotVB;
@@ -140,6 +142,9 @@ public:
   bool         HandleMessage(const Telegram& msg);
   void         Write(std::ostream&  os)const{/*not implemented*/}
   void         Read (std::ifstream& is){/*not implemented*/}
+
+  //Used to give a 
+  void			SetBrainBehavior(int behavior);
 
   //this rotates the bot's heading until it is facing directly at the target
   //position. Returns false if not facing at the target.

@@ -76,10 +76,8 @@ private:
   GAME_MODE                        m_mode;
   int                              m_human;			//if there are a human player
   int                              m_learning_bot;	//if there are a learning bot
-  int                              m_strategy_j1;	  //strategie of the player1
-  int                              m_strategy_j2;	  //strategie of the player2
-  int                              m_strategy_t1;	  //strategie of the team1
-  int                              m_strategy_t2;	  //strategie of the team2
+  vector<int>                      m_strategy_players;	  //strategie of players
+  vector<int>                      m_strategy_teams;	  //strategie of teams
   int							   m_isRecording;
   int							   m_isLearning;
   int							   m_isUsingWeights;
@@ -135,9 +133,10 @@ public:
   //loads an environment from a file
   bool LoadMap(const std::string& FileName); 
 
-  //used for refactoring when introducing teams
+  //methods to add bots in the game
   void AddBots(unsigned int NumBotsToAdd);
   void AddBotsTeam(unsigned int NumBotsToAdd);
+  void AddBotsSolo(unsigned int NumBotsToAdd);
   void AddBot(Raven_Bot* rb);
 
   //Neural network methods
