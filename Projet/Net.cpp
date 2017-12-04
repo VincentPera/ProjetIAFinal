@@ -132,6 +132,10 @@ vector<vector<vector<double>>> Net::GetWeights() {
 	return weights;
 }
 
+double Net::GetNetInputNumber() {
+	return m_Layers.at(0).size();
+}
+
 Net::~Net()
 {
 }

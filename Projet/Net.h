@@ -16,6 +16,7 @@ public:
 
 	void SetWeights(vector<vector<vector<double>>> weights);
 	vector<vector<vector<double>>> GetWeights();
+	double Net::GetNetInputNumber();
 private:
 	vector<Layer> m_Layers; // m_layers[layersNum][neuronNum]
 	double m_error;
