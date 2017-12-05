@@ -61,7 +61,7 @@ void Net::BackProp(const vector<double> &targetVals)
 		m_error += delta * delta;
 	}
 	m_error /= outputLayer.size() - 1; // get the average error squared
-	m_error = sqrt(m_error); // RMS
+	m_error = m_error; // RMS
 
 	// Implement a recent average measurement of the precedent error
 	m_recentAverageError = (m_recentAverageError * m_recentAverageSmoothingFactor + m_error)
@@ -133,7 +133,8 @@ vector<vector<vector<double>>> Net::GetWeights() {
 }
 
 double Net::GetNetInputNumber() {
-	return m_Layers.at(0).size();
+	// without the biais neurons (- 1)
+	return m_Layers.at(0).size() - 1;
 }
 
 double Net::getError() {

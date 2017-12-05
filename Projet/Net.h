@@ -21,7 +21,7 @@ public:
 	double Net::GetNetInputNumber();
 private:
 	vector<Layer> m_Layers; // m_layers[layersNum][neuronNum]
-	double m_error;
+	double m_error = 1.0;
 	double m_recentAverageError;
 	double m_recentAverageSmoothingFactor;
 };

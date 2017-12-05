@@ -12,6 +12,7 @@
 #include "goals/Goal_Think.h"
 
 #include "Debug/DebugConsole.h"
+#include <numeric>
 
 Raven_BotApprenant::Raven_BotApprenant(Raven_Game* world, Vector2D v) :Raven_Bot(world, v)
 {
@@ -82,16 +83,16 @@ void Raven_BotApprenant::UseNetToShoot() {
 	// first : if the ennemy is visible
 	gameValues.push_back(GetTargetSys()->isTargetWithinFOV());
 	// second : ennemy life
-	gameValues.push_back(GetTargetBot()->Health() < 50);
+	gameValues.push_back(GetTargetBot()->Health() < 100);
 	// third : player life
-	gameValues.push_back(Health() < 50);
+	gameValues.push_back(Health() < 100);
 	// fourth : the current weapon used
 	gameValues.push_back(GetWeaponSys()->GetCurrentWeaponType());
 	// fifth : the distance between the two bots
-	gameValues.push_back((GetTargetBot()->Pos() - Pos()).Length());
+	gameValues.push_back((GetTargetBot()->Pos() - Pos()).Length() < 100);
 
 	// Put inputs in the net
-	GetNet()->FeedForward(vector<double>(gameValues.begin(), gameValues.begin() + m_neuralNet->GetNetInputNumber() - 1));
+	GetNet()->FeedForward(vector<double>(gameValues.begin(), gameValues.begin() + m_neuralNet->GetNetInputNumber()));
 	// Get the result with those inputs
 	GetNet()->GetResult(result);
 
@@ -112,6 +113,9 @@ Net* Raven_BotApprenant::GetNet()
 void Raven_BotApprenant::StartTraining(string inputFileName) {
 	debug_con << "Bot " << this->ID() << " is learning how to shoot!" << "";
 
+	int testNumber = 50;
+	int numberDataTraining = 4000;
+
 	// Load dataset to train the net
 	READER_FICHIER.InitFile(READER_FICHIER.PATH + "TrainingData/" + inputFileName);
 	vector<vector<double>> trainValues;
@@ -119,37 +123,84 @@ void Raven_BotApprenant::StartTraining(string inputFileName) {
 
 	vector<unsigned> topology;
 
-	// Usefull for testing
+	// Usefull for testing topology influence
 	for (int i = 1; i < 5; i++) {
 
 		// Create the topology of the net
 		topology.push_back(trainValues.at(0).size()-1);
 		topology.push_back(i);
 		topology.push_back(1);
+		assert(topology.size() == 3);
 
 		// Give the topology to the learning agent
 		SetNetTopology(topology);
 
-		// Start Training (and create an output file to see the training output)
-		TrainingFunction(i, READER_FICHIER.PATH + "ResultsData/results_" + inputFileName, trainValues);
+		//init another file for the error-analyzing script
+		ofstream pythonFile(READER_FICHIER.PATH + "Errors/TrainingsError" + ttos(i) + ".txt", ios::out);
+
+		//init another file for the error-analyzing script
+		ofstream pythonFile2(READER_FICHIER.PATH + "Errors/TestsError" + ttos(i) + ".txt", ios::out);
+
+		for (int y = 0; y < testNumber; y++) {
+			// Start Training (and create an output file to see the training output)
+			// Training on the same dataset (first numberDataTraining lines of the file)
+			double random = rand() % trainValues.size() - numberDataTraining + 1;
+			double error = TrainingFunction(i, READER_FICHIER.PATH + "ResultsData/results_" + inputFileName,
+				vector<vector<double>>(trainValues.begin() + random, trainValues.begin() + random + numberDataTraining));
+
+			pythonFile << error << "\n";
+
+			// Now test the net on some data
+			double random2 = rand() % trainValues.size() - numberDataTraining + 1;
+			double error2 = TestFunction(vector<vector<double>>(trainValues.begin() + random2, trainValues.begin() + random2 + numberDataTraining));
+
+			pythonFile2 << error2 << "\n";
+		}
+
+		// Close the error file
+		pythonFile.close();
 
 		WriteData(READER_FICHIER.PATH + "WeightsData/weights_" + inputFileName, topology);
+
+		topology.clear();
 	}
 }
 
-void Raven_BotApprenant::TrainingFunction(int currentTestNumber, string filename, vector<vector<double>> trainValues) {
-	vector<double> resultVals, targetVals;
-
-	// Open a file to print results inside it
-	std::ofstream resultFile;
-	READER_FICHIER.OpenFile(resultFile, READER_FICHIER.PATH + filename);
-
-	//init another file for the error-analyzing script
-	ofstream pythonFile(READER_FICHIER.PATH + "TrainingData/Error" + ttos(currentTestNumber) + ".txt", ios::out);
+double Raven_BotApprenant::TestFunction(vector<vector<double>> trainValues) {
+	vector<double> resultVals, targetVals, errorsVals;
 
 	// Start a training pass
 	int trainingPass = 0;
 	for (int i = 1; i < trainValues.size(); i++) {
+		++trainingPass;
+
+		targetVals.push_back(trainValues.at(i).at(trainValues.at(i).size() - 1));
+		trainValues.at(i).pop_back();
+
+		// Put inputs in the net
+		GetNet()->FeedForward(trainValues.at(i));
+		// Get the result with those inputs
+		GetNet()->GetResult(resultVals);
+
+		errorsVals.push_back(this->GetNet()->getError());
+
+		targetVals.clear();
+		resultVals.clear();
+	}
+
+	return accumulate(errorsVals.begin(), errorsVals.end(), 0.0) / errorsVals.size();
+}
+
+double Raven_BotApprenant::TrainingFunction(int currentTestNumber, string filename, vector<vector<double>> trainValues) {
+	vector<double> targetVals, errorsVals;
+	vector<double> resultVals = vector<double>(5);
+	// Open a file to print results inside it
+	std::ofstream resultFile;
+	READER_FICHIER.OpenFile(resultFile, READER_FICHIER.PATH + filename);
+
+	// Start a training pass
+	int trainingPass = 0;
+	for (int i = 0; i < trainValues.size(); i++) {
 		++trainingPass;
 		resultFile << endl << "Pass " << trainingPass << "\nInputs: ";
 		for (int y = 0; y < trainValues.at(i).size() - 1; y++) {
@@ -165,18 +216,21 @@ void Raven_BotApprenant::TrainingFunction(int currentTestNumber, string filename
 		GetNet()->GetResult(resultVals);
 
 		resultFile << "Output: " << resultVals.at(0) << "\n";
-		double error = this->GetNet()->getError();
-		resultFile << "Erreur: " << error << "\n";
-		pythonFile << error << "\n";
+		errorsVals.push_back(this->GetNet()->getError());
+		//if (error >= 0.0 && error <= 1.0) {
+			//resultFile << "Erreur: " << error << "\n";
+			//pythonFile << error << "\n";
+		//}
 		// Use the backpropagation algorithm to adjust the weights of the net
 		GetNet()->BackProp(targetVals);
 		targetVals.clear();
+		resultVals.clear();
 	}
-	// Close the error file
-	pythonFile.close();
 
 	// Close the results file
 	READER_FICHIER.CloseFile(resultFile);
+
+	return accumulate(errorsVals.begin(), errorsVals.end(), 0.0) / errorsVals.size();
 }
 
 void Raven_BotApprenant::WriteData(string filename, vector<unsigned> topology) {

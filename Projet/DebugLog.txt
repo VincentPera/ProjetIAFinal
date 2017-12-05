@@ -74,16 +74,6 @@ Creating a shotgun
 Creating a rocket_launcher
 maps/Raven_DM1.map loaded okay
 strategy t1 !0
-Bot is Dead
-Je passe
-Je passe
-Je passe
-Je passe
-Je passe
-Bot is Dead
-Je passe
-Je passe
-Creating a Rocket_Launcher
 deleting raven bot (id = 401)
 deleting raven bot (id = 402)
 deleting raven bot (id = 403)
