@@ -107,6 +107,7 @@ private:
 
   bool AttemptToAddBotTeam(Raven_Bot* pBot);
 
+  bool teamFlocking;
   //when a bot is removed from the game by a user all remaining bots
   //must be notified so that they can remove any references to that bot from
   //their memory
@@ -144,6 +145,11 @@ public:
   void CloseFile();
   // method used to write a line of the current game into a file
   void WriteLine();
+
+  //If the mode is team
+  bool isTeamMatch();
+  void ActiveFlocking(bool flock);
+  bool TeamFlockingState() { return teamFlocking; }
 
   void AddHumanPlayer();
   void AddBotApprenant();

@@ -22,7 +22,7 @@ void Goal_GetItemWithDodge::Activate() {
     // If not targeted, init mouvement to the item
     else {
         initGoToItem();
-        isDodging = false();
+        isDodging = false;
     }
 
 }

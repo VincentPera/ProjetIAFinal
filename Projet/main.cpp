@@ -286,6 +286,12 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
            break;
 
+		 case 'F':
+
+			 g_pRaven->ActiveFlocking(!g_pRaven->TeamFlockingState());
+
+			 break;
+
 
          case VK_UP:
 

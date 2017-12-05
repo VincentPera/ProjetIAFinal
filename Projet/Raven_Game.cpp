@@ -810,6 +810,10 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
   }
 }
 
+
+
+
+
 //---------------------- ScrollMouseButton ---------------------------------
 //-----------------------------------------------------------------------------
 void Raven_Game::ScrollMouseButton(bool scrollUp)
@@ -930,6 +934,23 @@ bool Raven_Game::isPathObstructed(Vector2D A,
   return false;
 }
 
+void Raven_Game::ActiveFlocking(bool flock) {
+	teamFlocking = flock;
+	if (flock) {
+		std::list<Raven_Bot*>::const_iterator it = m_Bots.begin();
+		for (it; it != m_Bots.end(); ++it) {
+			(*it)->GetSteering()->CohesionOn();
+			(*it)->GetSteering()->AlignmentOn();
+		}
+	}
+	else {
+		std::list<Raven_Bot*>::const_iterator it = m_Bots.begin();
+		for (it; it != m_Bots.end(); ++it) {
+			(*it)->GetSteering()->CohesionOff();
+			(*it)->GetSteering()->AlignmentOff();
+		}
+	}
+}
 
 //----------------------------- GetAllBotsInFOV ------------------------------
 //
@@ -1157,4 +1178,15 @@ void Raven_Game::Render()
       gdi->TextAtPos(GetClientCursorPosition(), "Queuing");
     }
   }
+}
+
+bool Raven_Game::isTeamMatch()
+{
+	if (m_mode == TEAM_MATCH) {
+		return true;
+	}
+	else {
+		return false;
+	}
+	
 }
