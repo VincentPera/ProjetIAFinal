@@ -132,6 +132,22 @@ vector<vector<vector<double>>> Net::GetWeights() {
 	return weights;
 }
 
+void Net::SetEta(double newEta) {
+	for (unsigned layerNum = 0; layerNum < m_Layers.size() - 1; ++layerNum) {
+		for (unsigned n = 0; n < m_Layers[layerNum].size(); ++n) {
+			m_Layers[layerNum][n].SetEta(newEta);
+		}
+	}
+}
+
+void Net::SetAlpha(double newAlpha) {
+	for (unsigned layerNum = 0; layerNum < m_Layers.size() - 1; ++layerNum) {
+		for (unsigned n = 0; n < m_Layers[layerNum].size(); ++n) {
+			m_Layers[layerNum][n].SetAlpha(newAlpha);
+		}
+	}
+}
+
 double Net::GetNetInputNumber() {
 	// without the biais neurons (- 1)
 	return m_Layers.at(0).size() - 1;

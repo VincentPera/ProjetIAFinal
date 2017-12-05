@@ -29,6 +29,8 @@ public:
 
 	vector<double>	GetWeight() const;
 	void			SetWeight(vector<double> weights);
+	void			SetEta(double newEta);
+	void			SetAlpha(double newAlpha);
 
 private:
 	static double RandomWeight(void) { return rand() / double(RAND_MAX); }

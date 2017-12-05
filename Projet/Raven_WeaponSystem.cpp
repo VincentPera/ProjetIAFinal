@@ -315,6 +315,78 @@ void Raven_WeaponSystem::TakeAimAndShoot(double angle)const
   }
 }
 
+//--------------------------- TakeAimLearningBot ---------------------------------
+//
+//  this method aims the bots current weapon at the target (if there is a
+//  target) and, if aimed correctly, fires a round
+//-----------------------------------------------------------------------------
+void Raven_WeaponSystem::TakeAimLearningBot(Raven_BotApprenant *owner, double angle)
+{
+	//aim the weapon only if the current target is shootable or if it has only
+	//very recently gone out of view (this latter condition is to ensure the 
+	//weapon is aimed at the target even if it temporarily dodges behind a wall
+	//or other cover)
+	if (owner->GetTargetSys()->isTargetShootable() ||
+		(owner->GetTargetSys()->GetTimeTargetHasBeenOutOfView() <
+			m_dAimPersistance))
+	{
+		//the position the weapon will be aimed at
+		Vector2D AimingPos = owner->GetTargetBot()->Pos();
+
+		//if the current weapon is not an instant hit type gun the target position
+		//must be adjusted to take into account the predicted movement of the 
+		//target
+		if (GetCurrentWeapon()->GetType() == type_rocket_launcher ||
+			GetCurrentWeapon()->GetType() == type_blaster)
+		{
+			AimingPos = PredictFuturePositionOfTarget();
+
+			//if the weapon is aimed correctly, there is line of sight between the
+			//bot and the aiming position and it has been in view for a period longer
+			//than the bot's reaction time, shoot the weapon
+			if (owner->RotateFacingTowardPosition(AimingPos) &&
+				(owner->GetTargetSys()->GetTimeTargetHasBeenVisible() >
+					m_dReactionTime) &&
+				owner->hasLOSto(AimingPos))
+			{
+				// Not the best option.
+				// AddNoiseToAim(AimingPos);
+
+				// Do some fuzzyfication instead
+				AddFuzzyAngleToAim(AimingPos, angle);
+
+				owner->UseNetToShoot(AimingPos);
+			}
+		}
+
+		//no need to predict movement, aim directly at target
+		else
+		{
+			//if the weapon is aimed correctly and it has been in view for a period
+			//longer than the bot's reaction time, shoot the weapon
+			if (owner->RotateFacingTowardPosition(AimingPos) &&
+				(owner->GetTargetSys()->GetTimeTargetHasBeenVisible() >
+					m_dReactionTime))
+			{
+				//AddNoiseToAim(AimingPos);
+
+				// Do some fuzzyfication instead
+				AddFuzzyAngleToAim(AimingPos, angle);
+
+				owner->UseNetToShoot(AimingPos);
+			}
+		}
+
+	}
+
+	//no target to shoot at so rotate facing to be parallel with the bot's
+	//heading direction
+	else
+	{
+		owner->RotateFacingTowardPosition(owner->Pos() + owner->Heading());
+	}
+}
+
 //---------------------------- GetBotAim -----------------------------------
 //
 //-----------------------------------------------------------------------------
