@@ -16,9 +16,12 @@ public:
 
 	double getError();
 
-	void SetWeights(vector<vector<vector<double>>> weights);
-	vector<vector<vector<double>>> GetWeights();
-	double Net::GetNetInputNumber();
+	void							SetWeights(vector<vector<vector<double>>> weights);
+	vector<vector<vector<double>>>	GetWeights();
+	double							GetNetInputNumber();
+
+	void SetEta(double newEta);
+	void SetAlpha(double newAlpha);
 private:
 	vector<Layer> m_Layers; // m_layers[layersNum][neuronNum]
 	double m_error = 1.0;

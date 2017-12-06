@@ -69,13 +69,14 @@ void Raven_BotApprenant::Update()
 		//this method aims the bot's current weapon at the current target
 		//and takes a shot if a shot is possible
 		// Instead call the neuron network to see if he should shoot or not
+		double angle = m_pWeaponSys->GetBotAim();
 		if (GetTargetBot() != NULL) {
-			UseNetToShoot();
+			m_pWeaponSys->TakeAimLearningBot(this, angle);
 		}
 	}
 }
 
-void Raven_BotApprenant::UseNetToShoot() {
+void Raven_BotApprenant::UseNetToShoot(Vector2D pos) {
 	// Retrieve all the input of the game that the net need
 	vector<double> gameValues;
 	vector<double> result;
@@ -98,7 +99,7 @@ void Raven_BotApprenant::UseNetToShoot() {
 
 	if (result[0] > 0.9) {
 		// Fire !!
-		m_pWeaponSys->ShootAt(GetTargetBot()->Pos());
+		m_pWeaponSys->ShootAt(pos);
 	}
 	else {
 		// Not the right situation => don't shoot.
@@ -121,31 +122,93 @@ void Raven_BotApprenant::StartTraining(string inputFileName) {
 	vector<vector<double>> trainValues;
 	READER_FICHIER.FillInputValues(trainValues);
 
+	// Test on the topology
+	//StartTrainingTopology(testNumber, numberDataTraining, inputFileName, trainValues);
+
+	// Test on the Alpha
+	// StartTrainingAlpha(testNumber, numberDataTraining, inputFileName, trainValues);
+
+	// Test on the Eta
+	//StartTrainingEta(testNumber, numberDataTraining, inputFileName, trainValues);
+
+	// Regular training
+
+	// Create the "right" topology of the net
 	vector<unsigned> topology;
+	topology.push_back(trainValues.at(0).size()-1);
+	topology.push_back(3);
+	topology.push_back(1);
+	assert(topology.size() == 3);
+
+	// Give the topology to the learning agent
+	SetNetTopology(topology);
+
+	this->m_neuralNet->SetEta(0.01);
+
+	this->m_neuralNet->SetAlpha(0.00);
+
+	//init another file for the error-analyzing script
+	//ofstream pythonFile(READER_FICHIER.PATH + "Errors/TrainingsError" + ttos(i) + ".txt", ios::out);
+	ofstream pythonFile(READER_FICHIER.PATH + "Errors/Regular_TrainingsError.txt", ios::out);
+
+	//init another file for the error-analyzing script
+	//ofstream pythonFile2(READER_FICHIER.PATH + "Errors/TestsError" + ttos(i) + ".txt", ios::out);
+	ofstream pythonFile2(READER_FICHIER.PATH + "Errors/Regular_TestsError.txt", ios::out);
+
+	for (int y = 0; y < testNumber; y++) {
+		// Start Training (and create an output file to see the training output)
+		// Training on the same dataset (first numberDataTraining lines of the file)
+		double random = rand() % trainValues.size() - numberDataTraining + 1;
+		double error = TrainingFunction(READER_FICHIER.PATH + "ResultsData/Regular_results_" + inputFileName,
+			vector<vector<double>>(trainValues.begin() + random, trainValues.begin() + random + numberDataTraining));
+
+		pythonFile << error << "\n";
+
+		// Now test the net on some data
+		double random2 = rand() % trainValues.size() - numberDataTraining + 1;
+		double error2 = TestFunction(vector<vector<double>>(trainValues.begin() + random2, trainValues.begin() + random2 + numberDataTraining));
+
+		pythonFile2 << error2 << "\n";
+	}
+
+	// Close the error file
+	pythonFile.close();
+
+	WriteData(READER_FICHIER.PATH + "WeightsData/Regular_weights_" + inputFileName, topology);
+
+	topology.clear();
+}
+
+void Raven_BotApprenant::StartTrainingAlpha(int testsNumber, int numberDataTraining, string inputFileName, vector<vector<double>> trainValues) {
+
+	// Create the topology of the net
+	vector<unsigned> topology;
+	topology.push_back(trainValues.at(0).size() - 1);
+	topology.push_back(3);
+	topology.push_back(1);
+	assert(topology.size() == 3);
+
+	// Give the topology to the learning agent
+	SetNetTopology(topology);
+
+	this->m_neuralNet->SetEta(0.01);
 
 	// Usefull for testing topology influence
-	for (int i = 1; i < 5; i++) {
+	for (float alpha = 0.00; alpha <= 1.0; alpha += 0.25) {
 
-		// Create the topology of the net
-		topology.push_back(trainValues.at(0).size()-1);
-		topology.push_back(i);
-		topology.push_back(1);
-		assert(topology.size() == 3);
-
-		// Give the topology to the learning agent
-		SetNetTopology(topology);
+		this->m_neuralNet->SetAlpha(alpha);
 
 		//init another file for the error-analyzing script
-		ofstream pythonFile(READER_FICHIER.PATH + "Errors/TrainingsError" + ttos(i) + ".txt", ios::out);
+		ofstream pythonFile(READER_FICHIER.PATH + "Errors/Alpha" + ttos(alpha) + "_TrainingsError.txt", ios::out);
 
 		//init another file for the error-analyzing script
-		ofstream pythonFile2(READER_FICHIER.PATH + "Errors/TestsError" + ttos(i) + ".txt", ios::out);
+		ofstream pythonFile2(READER_FICHIER.PATH + "Errors/Alpha" + ttos(alpha) + "_TestsError.txt", ios::out);
 
-		for (int y = 0; y < testNumber; y++) {
+		for (int y = 0; y < testsNumber; y++) {
 			// Start Training (and create an output file to see the training output)
 			// Training on the same dataset (first numberDataTraining lines of the file)
 			double random = rand() % trainValues.size() - numberDataTraining + 1;
-			double error = TrainingFunction(i, READER_FICHIER.PATH + "ResultsData/results_" + inputFileName,
+			double error = TrainingFunction(READER_FICHIER.PATH + "ResultsData/Alpha" + ttos(alpha) + "results.txt",
 				vector<vector<double>>(trainValues.begin() + random, trainValues.begin() + random + numberDataTraining));
 
 			pythonFile << error << "\n";
@@ -160,69 +223,152 @@ void Raven_BotApprenant::StartTraining(string inputFileName) {
 		// Close the error file
 		pythonFile.close();
 
-		WriteData(READER_FICHIER.PATH + "WeightsData/weights_" + inputFileName, topology);
+		WriteData(READER_FICHIER.PATH + "WeightsData/Alpha" + ttos(alpha) + "_weights_" + inputFileName, topology);
+
+	}
+	topology.clear();
+}
+
+void Raven_BotApprenant::StartTrainingEta(int testsNumber, int numberDataTraining, string inputFileName, vector<vector<double>> trainValues) {
+	
+	// Create the topology of the net
+	vector<unsigned> topology;
+	topology.push_back(trainValues.at(0).size() - 1);
+	topology.push_back(3);
+	topology.push_back(1);
+	assert(topology.size() == 3);
+
+	// Give the topology to the learning agent
+	SetNetTopology(topology);
+
+	// Usefull for testing topology influence
+	for (float eta = 0.01; eta <= 0.16; eta+=0.04) {
+
+		this->m_neuralNet->SetEta(eta);
+
+		//init another file for the error-analyzing script
+		ofstream pythonFile(READER_FICHIER.PATH + "Errors/Eta" + ttos(eta) + "_TrainingsError.txt", ios::out);
+
+		//init another file for the error-analyzing script
+		ofstream pythonFile2(READER_FICHIER.PATH + "Errors/Eta" + ttos(eta) + "_TestsError.txt", ios::out);
+
+		for (int y = 0; y < testsNumber; y++) {
+			// Start Training (and create an output file to see the training output)
+			// Training on the same dataset (first numberDataTraining lines of the file)
+			double random = rand() % trainValues.size() - numberDataTraining + 1;
+			double error = TrainingFunction(READER_FICHIER.PATH + "ResultsData/Eta" + ttos(eta) + "results.txt",
+				vector<vector<double>>(trainValues.begin() + random, trainValues.begin() + random + numberDataTraining));
+
+			pythonFile << error << "\n";
+
+			// Now test the net on some data
+			double random2 = rand() % trainValues.size() - numberDataTraining + 1;
+			double error2 = TestFunction(vector<vector<double>>(trainValues.begin() + random2, trainValues.begin() + random2 + numberDataTraining));
+
+			pythonFile2 << error2 << "\n";
+		}
+
+		// Close the error file
+		pythonFile.close();
+
+		WriteData(READER_FICHIER.PATH + "WeightsData/Eta" + ttos(eta) + "_weights_" + inputFileName, topology);
+
+	}
+	topology.clear();
+}
+
+void Raven_BotApprenant::StartTrainingTopology(int testsNumber, int numberDataTraining, string inputFileName, vector<vector<double>> trainValues) {
+
+	vector<unsigned> topology;
+	// Usefull for testing topology influence
+	for (int i = 1; i < 5; i++) {
+
+		// Create the topology of the net
+		topology.push_back(trainValues.at(0).size() - 1);
+		topology.push_back(i);		// Change the topology here
+		topology.push_back(1);
+		assert(topology.size() == 3);
+
+		// Give the topology to the learning agent
+		SetNetTopology(topology);
+
+		//init another file for the error-analyzing script
+		ofstream pythonFile(READER_FICHIER.PATH + "Errors/Topo" + ttos(i) + "_TrainingsError.txt", ios::out);
+
+		//init another file for the error-analyzing script
+		ofstream pythonFile2(READER_FICHIER.PATH + "Errors/Topo" + ttos(i) + "_TestsError.txt", ios::out);
+
+		for (int y = 0; y < testsNumber; y++) {
+			// Start Training (and create an output file to see the training output)
+			// Training on the same dataset (first numberDataTraining lines of the file)
+			double random = rand() % trainValues.size() - numberDataTraining + 1;
+			double error = TrainingFunction(READER_FICHIER.PATH + "ResultsData/Topo" + ttos(i) + "results.txt",
+				vector<vector<double>>(trainValues.begin() + random, trainValues.begin() + random + numberDataTraining));
+
+			pythonFile << error << "\n";
+
+			// Now test the net on some data
+			double random2 = rand() % trainValues.size() - numberDataTraining + 1;
+			double error2 = TestFunction(vector<vector<double>>(trainValues.begin() + random2, trainValues.begin() + random2 + numberDataTraining));
+
+			pythonFile2 << error2 << "\n";
+		}
+
+		// Close the error file
+		pythonFile.close();
+
+		WriteData(READER_FICHIER.PATH + "WeightsData/Topo" + ttos(i) + "_weights_" + inputFileName, topology);
 
 		topology.clear();
 	}
 }
 
 double Raven_BotApprenant::TestFunction(vector<vector<double>> trainValues) {
-	vector<double> resultVals, targetVals, errorsVals;
+	vector<double> resultVals, errorsVals;
 
 	// Start a training pass
-	int trainingPass = 0;
 	for (int i = 1; i < trainValues.size(); i++) {
-		++trainingPass;
-
-		targetVals.push_back(trainValues.at(i).at(trainValues.at(i).size() - 1));
-		trainValues.at(i).pop_back();
 
 		// Put inputs in the net
-		GetNet()->FeedForward(trainValues.at(i));
+		GetNet()->FeedForward(vector<double>(trainValues.at(i).begin(), trainValues.at(i).end() - 1));
+
 		// Get the result with those inputs
 		GetNet()->GetResult(resultVals);
 
+		// Retrieve errors : Purpose of the test
 		errorsVals.push_back(this->GetNet()->getError());
 
-		targetVals.clear();
+		// No backpropagation here
+
 		resultVals.clear();
 	}
 
 	return accumulate(errorsVals.begin(), errorsVals.end(), 0.0) / errorsVals.size();
 }
 
-double Raven_BotApprenant::TrainingFunction(int currentTestNumber, string filename, vector<vector<double>> trainValues) {
+double Raven_BotApprenant::TrainingFunction(string filename, vector<vector<double>> trainValues) {
 	vector<double> targetVals, errorsVals;
-	vector<double> resultVals = vector<double>(5);
+	vector<double> resultVals = vector<double>(trainValues.at(0).size() - 1);
+
 	// Open a file to print results inside it
 	std::ofstream resultFile;
 	READER_FICHIER.OpenFile(resultFile, READER_FICHIER.PATH + filename);
 
 	// Start a training pass
-	int trainingPass = 0;
 	for (int i = 0; i < trainValues.size(); i++) {
-		++trainingPass;
-		resultFile << endl << "Pass " << trainingPass << "\nInputs: ";
-		for (int y = 0; y < trainValues.at(i).size() - 1; y++) {
-			resultFile << trainValues.at(i).at(y) << ", ";
-		}
-		resultFile << "\nTarget: " << trainValues.at(i).at(trainValues.at(i).size() - 1) << "\n";
-		targetVals.push_back(trainValues.at(i).at(trainValues.at(i).size() - 1));
-		trainValues.at(i).pop_back();
 
-		// Put inputs in the net
-		GetNet()->FeedForward(trainValues.at(i));
+		// Put inputs in the net (all except the last one)
+		GetNet()->FeedForward(vector<double>(trainValues.at(i).begin(), trainValues.at(i).end() - 1));
 		// Get the result with those inputs
 		GetNet()->GetResult(resultVals);
-
-		resultFile << "Output: " << resultVals.at(0) << "\n";
+		
+		// Get the error for graphs
 		errorsVals.push_back(this->GetNet()->getError());
-		//if (error >= 0.0 && error <= 1.0) {
-			//resultFile << "Erreur: " << error << "\n";
-			//pythonFile << error << "\n";
-		//}
+
 		// Use the backpropagation algorithm to adjust the weights of the net
+		targetVals.push_back(trainValues.at(i).at(trainValues.at(i).size() - 1));
 		GetNet()->BackProp(targetVals);
+
 		targetVals.clear();
 		resultVals.clear();
 	}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 NavGraph for maps/Raven_DM1.map loaded okay
 Average edge length is 23.7036
 Neighborhood range set to 24.7036
@@ -80,3 +81,5 @@ deleting raven bot (id = 404)
 deleting raven bot (id = 403)
 deleting raven bot (id = 402)
 deleting raven bot (id = 401)
+=======
+>>>>>>> a0e9b920fb2ee83474db5b84926daedb9607f3f7

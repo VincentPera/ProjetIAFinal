@@ -39,11 +39,16 @@ public:
 	void		SetNetTopology(vector<unsigned int> topology);
 	void		Update();
 	Net*		GetNet();
-	void		UseNetToShoot();
+	void		UseNetToShoot(Vector2D pos);
 
+	// Training functions
 	void		StartTraining(string inputFileName);
+	void		StartTrainingTopology(int testsNumber, int numberDataTraining, string inputFileName, vector<vector<double>> trainValues);
+	void		StartTrainingAlpha(int testsNumber, int numberDataTraining, string inputFileName, vector<vector<double>> trainValues);
+	void		StartTrainingEta(int testsNumber, int numberDataTraining, string inputFileName, vector<vector<double>> trainValues);
+
 	void		LoadTraining(string inputFileName);
-	double		TrainingFunction(int currentTestNumber, string filename, vector<vector<double>> trainValues);
+	double		TrainingFunction(string filename, vector<vector<double>> trainValues);
 	double		TestFunction(vector<vector<double>> trainValues);
 	void		WriteData(string fileName, vector<unsigned> topology);
 private:

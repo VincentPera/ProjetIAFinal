@@ -115,3 +115,13 @@ void Neuron::SetWeight(vector<double> weights)
 		m_outputWeights.at(c).weight = weights.at(c);
 	}
 }
+
+void Neuron::SetEta(double newEta)
+{
+	Neuron::eta = newEta;
+}
+
+void Neuron::SetAlpha(double newAlpha)
+{
+	Neuron::alpha = newAlpha;
+}
