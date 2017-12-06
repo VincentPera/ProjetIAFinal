@@ -14,6 +14,7 @@ TeamSimple::TeamSimple(Vector2D lootposition, std::string name)
 	name_team = name;
 	lootingLocation = lootposition;
 	target = 0;
+	team_leader = *members.begin();
 }
 
 void TeamSimple::UpdateNewTarget(Raven_Bot* new_target,int id_sender) {

@@ -108,6 +108,7 @@ private:
   bool AttemptToAddBotTeam(Raven_Bot* pBot);
 
   bool teamFlocking;
+  bool leaderFollow;
   //when a bot is removed from the game by a user all remaining bots
   //must be notified so that they can remove any references to that bot from
   //their memory
@@ -150,6 +151,9 @@ public:
   bool isTeamMatch();
   void ActiveFlocking(bool flock);
   bool TeamFlockingState() { return teamFlocking; }
+
+  void ActiveLeaderFollow(bool b_leader);
+  bool LeaderFollowState() { return leaderFollow; }
 
   void AddHumanPlayer();
   void AddBotApprenant();

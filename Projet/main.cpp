@@ -292,6 +292,12 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
 			 break;
 
+		 case 'G':
+
+			 g_pRaven->ActiveLeaderFollow(!g_pRaven->LeaderFollowState());
+
+			 break;
+
 
          case VK_UP:
 

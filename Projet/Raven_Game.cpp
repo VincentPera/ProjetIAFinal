@@ -65,6 +65,7 @@ Raven_Game::Raven_Game(int mode, int human, int grenades, int learning_bot, int 
 {
 	hasShot = false;
 	teamFlocking = false;
+	leaderFollow = false;
 	m_mode = static_cast<GAME_MODE>(mode);
 	m_human = human;
 	m_learning_bot = learning_bot;
@@ -948,6 +949,22 @@ void Raven_Game::ActiveFlocking(bool flock) {
 		for (it; it != m_Bots.end(); ++it) {
 			(*it)->GetSteering()->CohesionOff();
 			(*it)->GetSteering()->AlignmentOff();
+		}
+	}
+}
+
+void Raven_Game::ActiveLeaderFollow(bool b_leader) {
+	leaderFollow = b_leader;
+	if (b_leader) {
+		std::list<Raven_Bot*>::const_iterator it = m_Bots.begin();
+		for (it; it != m_Bots.end(); ++it) {
+			(*it)->GetSteering()->FollowLeaderOn();
+		}
+	}
+	else {
+		std::list<Raven_Bot*>::const_iterator it = m_Bots.begin();
+		for (it; it != m_Bots.end(); ++it) {
+			(*it)->GetSteering()->FollowLeaderOff();
 		}
 	}
 }

@@ -58,6 +58,7 @@ private:
 	cohesion		   = 0x00020,
     separation         = 0x00040,
 	alignment          = 0x00080,
+	follow			   = 0x00100,
     wall_avoidance     = 0x00200,
   };
 
@@ -213,6 +214,7 @@ public:
   void WanderOn(){m_iFlags |= wander;}
   void SeparationOn(){m_iFlags |= separation;}
   void CohesionOn() { m_iFlags |= cohesion;}
+  void FollowLeaderOn() { m_iFlags |= follow; }
   void AlignmentOn() { m_iFlags |= alignment; }
   void WallAvoidanceOn(){m_iFlags |= wall_avoidance;}
 
@@ -221,6 +223,7 @@ public:
   void WanderOff(){if(On(wander)) m_iFlags ^=wander;}
   void SeparationOff(){if(On(separation)) m_iFlags ^=separation;}
   void CohesionOff() { if (On(cohesion)) m_iFlags ^= cohesion; }
+  void FollowLeaderOff() { if (On(follow)) m_iFlags ^= follow; }
   void AlignmentOff() { if (On(alignment)) m_iFlags ^= alignment; }
   void WallAvoidanceOff(){if(On(wall_avoidance)) m_iFlags ^=wall_avoidance;}
 
@@ -229,6 +232,7 @@ public:
   bool WanderIsOn(){return On(wander);}
   bool SeparationIsOn(){return On(separation);}
   bool CohesionIsOn() { return On(cohesion); }
+  bool FollowLeaderIsOn() { return On(follow); }
   bool AlignmentIsOn() { return On(alignment); }
   bool WallAvoidanceIsOn(){return On(wall_avoidance);}
 
