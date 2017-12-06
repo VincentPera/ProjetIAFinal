@@ -289,13 +289,11 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 		 case 'F':
 
 			 g_pRaven->ActiveFlocking(!g_pRaven->TeamFlockingState());
-			 debug_con << "Team Flocking Pressed" << "";
 			 break;
 
 		 case 'G':
 
 			 g_pRaven->ActiveLeaderFollow(!g_pRaven->LeaderFollowState());
-			 debug_con << "Leader Following Pressed" << "";
 			 break;
 
 

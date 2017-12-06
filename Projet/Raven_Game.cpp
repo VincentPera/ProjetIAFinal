@@ -938,6 +938,7 @@ bool Raven_Game::isPathObstructed(Vector2D A,
 void Raven_Game::ActiveFlocking(bool flock) {
 	teamFlocking = flock;
 	if (flock) {
+		debug_con << "Team Flocking On" << "";
 		std::list<Raven_Bot*>::const_iterator it = m_Bots.begin();
 		for (it; it != m_Bots.end(); ++it) {
 			(*it)->GetSteering()->CohesionOn();
@@ -945,6 +946,7 @@ void Raven_Game::ActiveFlocking(bool flock) {
 		}
 	}
 	else {
+		debug_con << "Team Flocking Off" << "";
 		std::list<Raven_Bot*>::const_iterator it = m_Bots.begin();
 		for (it; it != m_Bots.end(); ++it) {
 			(*it)->GetSteering()->CohesionOff();
@@ -959,11 +961,13 @@ void Raven_Game::ActiveLeaderFollow(bool b_leader) {
 	++it;
 	leaderFollow = b_leader;
 	if (b_leader) {
+		debug_con << "Leader Following On" << "";
 		for (it; it != m_Bots.end(); ++it) {
 			(*it)->GetSteering()->FollowLeaderOn(leader);
 		}
 	}
 	else {
+		debug_con << "Leader Following Off" << "";
 		for (it; it != m_Bots.end(); ++it) {
 			(*it)->GetSteering()->FollowLeaderOff();
 		}

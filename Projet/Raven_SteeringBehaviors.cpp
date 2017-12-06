@@ -26,9 +26,9 @@ Raven_Steering::Raven_Steering(Raven_Game* world, Raven_Bot* agent) :
  			 m_pRaven_Bot(agent),
  			 m_iFlags(0),
 			 m_dWeightSeparation(script->GetDouble("SeparationWeight")),
-			 m_dWeightAlignment(15), //codé en dur, peu mieux faire
-			 m_dWeightCohesion(0.2),
-			 m_dWeightFollow(0.5),
+			 m_dWeightAlignment(0.7), //codé en dur, peu mieux faire
+			 m_dWeightCohesion(0.7),
+			 m_dWeightFollow(0.2),
              m_dWeightWander(script->GetDouble("WanderWeight")),
              m_dWeightWallAvoidance(script->GetDouble("WallAvoidanceWeight")),
              m_dViewDistance(script->GetDouble("ViewDistance")),
