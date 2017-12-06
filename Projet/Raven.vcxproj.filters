@@ -207,5 +207,6 @@
     <None Include="note.txt" />
     <None Include="maps\Raven_DM1.map" />
     <None Include="maps\Raven_DM1_Doors.map" />
+    <None Include="mypython.py" />
   </ItemGroup>
 </Project>

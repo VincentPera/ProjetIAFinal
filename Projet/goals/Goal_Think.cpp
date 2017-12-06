@@ -182,7 +182,7 @@ void Goal_Think::AddGoal_GetItem(unsigned int ItemType)
 void Goal_Think::AddGoal_GetItemWithDodge( unsigned int ItemType ) {
     if ( notPresent( ItemTypeToGoalType( ItemType ) ) ) {
         RemoveAllSubgoals();
-        AddSubgoal( new Goal_GetItemWithDodge( m_pOwner, ItemType ) );
+        AddSubgoal( new Goal_GetItemWithDodge( m_pOwner, ItemType, 40 ) );
     }
 }
 

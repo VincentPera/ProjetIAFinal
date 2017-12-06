@@ -1,6 +1,7 @@
 #include "Goal_GetItemWithDodge.h"
 #include "../Raven_SteeringBehaviors.h"
 #include "../navigation/Raven_PathPlanner.h"
+#include "Debug/DebugConsole.h"
 #include "Goal_Wander.h"
 
 
@@ -13,9 +14,11 @@
 //-----------------------------------------------------------------------------
 void Goal_GetItemWithDodge::Activate() {
     m_iStatus = active;
+    currentNbChange = 0;
+    isDodging = true;
 
     // If targeted, init dodge
-    if (m_pOwner->GetTargetSys()->isTargetWithinFOV()) {
+    if (!isDodging) {
         initDodge();
         isDodging = true;
     }
@@ -37,25 +40,40 @@ int Goal_GetItemWithDodge::Process() {
     // Abort if the item disapeared
     if ( hasItemBeenStolen() ) {
         Terminate();
+        m_iStatus = failed;
+
     }
-    else if (!isDodging && m_pOwner->GetTargetSys()->isTargetWithinFOV()) {
-        // Someone targets the bot while getting the item : dodge
-        RemoveAllSubgoals();
-        initDodge();
-        isDodging = true;
+    else if ( currentNbChange >= nbFramesBetweenChange ) {
+        // The bot have to change goal
+        currentNbChange = 0;
+        if ( !isDodging && m_pOwner->GetTargetSys()->isTargetWithinFOV() ) {
+            // Someone targets the bot while getting the item : dodge
+            RemoveAllSubgoals();
+            initDodge();
+            isDodging = true;
+        }
+        else if ( isDodging && !m_pOwner->GetTargetSys()->isTargetWithinFOV() ) {
+            // The bots was targeted, but not anymore : go to the item 
+            m_pOwner->GetSteering()->SeekOff();
+            initGoToItem();
+            isDodging = false;
+        }
     }
-    else if (isDodging && !m_pOwner->GetTargetSys()->isTargetWithinFOV()) {
-        // The bots was targeted, but not anymore : go to the item 
+    else if ( !isDodging ) {
+        // Process subgoals if going to the item
+        m_iStatus = ProcessSubgoals();
+        currentNbChange++;
+    }
+    else if ( isDodging && m_pOwner->isAtPosition( m_vStrafeTarget ) ) {
+        // The bot finish the Dodge -> Go to the item
+        currentNbChange = 0;
+        m_iStatus = completed;
         m_pOwner->GetSteering()->SeekOff();
         initGoToItem();
         isDodging = false;
     }
-    else if ( !isDodging ) {
-        // Process the subgoals (if not targeted, ie. while he dodges)
-        m_iStatus = ProcessSubgoals();
-    }
     else {
-        m_iStatus = inactive;
+        currentNbChange++;
     }
     return m_iStatus;
 
@@ -64,7 +82,7 @@ int Goal_GetItemWithDodge::Process() {
 //------------------------------- Terminate -------------------------------------
 //-------------------------------------------------------------------------------
 void Goal_GetItemWithDodge::Terminate() {
-    // Finish dodge
+    // Finish the dodge (if dodging)
     if ( isDodging ) {
         m_pOwner->GetSteering()->SeekOff();
     }

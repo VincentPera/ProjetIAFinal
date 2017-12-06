@@ -9,15 +9,19 @@ private:
     bool        m_bClockwise;
     Vector2D    m_vStrafeTarget;
     bool        isDodging;
+    int         nbFramesBetweenChange;
+    int         currentNbChange;
     void        Goal_GetItemWithDodge::initGoToItem();
     void        Goal_GetItemWithDodge::initDodge();
 
 public:
     Goal_GetItemWithDodge(
-        Raven_Bot* pBot,
-        int        item ) : Goal_GetItem( pBot, item ) 
+        Raven_Bot*  pBot,
+        int         item, 
+        int         p_nbFramesBetweenChange) : Goal_GetItem( pBot, item ) 
     {
         m_bClockwise = RandBool();
+        Goal_GetItemWithDodge:nbFramesBetweenChange = p_nbFramesBetweenChange;
     };
     
     void Activate() override;
