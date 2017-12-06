@@ -1,0 +1,172 @@
+NavGraph for maps/Raven_DM1.map loaded okay
+Average edge length is 23.7036
+Neighborhood range set to 24.7036
+Partitioning navgraph nodes...
+Loading map...
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Spawn Point
+Creating a Spawn Point
+Creating a Spawn Point
+Creating a Health
+Creating a Health
+Creating a Health
+Creating a rocket_launcher
+Creating a Railgun
+Creating a shotgun
+Creating a shotgun
+Creating a rocket_launcher
+maps/Raven_DM1.map loaded okay
+strategy t1 !0
+Bot is Dead
+Je passe
+Je passe
+Creating a Rocket_Launcher
+Je passe
+Je passe
+Je passe
+Bot 401 picked a weapon 7
+Bot is Dead
+Je passe
+Je passe
+Je passe
+Creating a Shootgun
+Je passe
+Je passe
+Bot is Dead
+Je passe
+Creating a Railgun
+Je passe
+Je passe
+Je passe
+Je passe
+Bot 405 picked a weapon 6
+Bot is Dead
+Je passe
+Je passe
+Creating a Rocket_Launcher
+Je passe
+Creating a Shootgun
+Je passe
+Je passe
+Bot 402 picked a weapon 8
+Bot 402 picked a weapon 7
+Bot 402 picked a weapon 8
+Bot is Dead
+Je passe
+Je passe
+Creating a Rocket_Launcher
+Je passe
+Creating a Shootgun
+Je passe
+Je passe
+Bot is Dead
+Je passe
+Je passe
+Je passe
+Creating a Shootgun
+Je passe
+Je passe
+Bot 403 picked a weapon 8
+Bot is Dead
+Je passe
+Creating a Railgun
+Je passe
+Creating a Rocket_Launcher
+Je passe
+Je passe
+Je passe
+Bot is Dead
+Je passe
+Je passe
+Je passe
+Creating a Shootgun
+Je passe
+Je passe
+Bot 401 picked a weapon 6
+Bot 401 picked a weapon 7
+Bot is Dead
+Je passe
+Creating a Railgun
+Je passe
+Creating a Rocket_Launcher
+Je passe
+Creating a Shootgun
+Je passe
+Je passe
+Bot is Dead
+Je passe
+Je passe
+Je passe
+Creating a Shootgun
+Je passe
+Je passe
+Bot 403 picked a weapon 8
+Bot is Dead
+Je passe
+Je passe
+Je passe
+Je passe
+Je passe
+deleting raven bot (id = 401)
+deleting raven bot (id = 402)
+deleting raven bot (id = 403)
+deleting raven bot (id = 404)
+deleting raven bot (id = 405)
+deleting raven bot (id = 406)

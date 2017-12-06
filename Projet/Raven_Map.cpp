@@ -11,6 +11,7 @@
 #include "triggers/Trigger_WeaponGiver.h"
 #include "triggers/Trigger_OnButtonSendMsg.h"
 #include "triggers/Trigger_SoundNotify.h"
+#include "Trigger_DroppedWeapon.h"
 
 #include "Raven_UserOptions.h"
 
@@ -181,6 +182,57 @@ void Raven_Map::AddWeapon_Giver_bis(int type_of_weapon, std::ifstream& in, bool 
 
 	//register the entity 
 	EntityMgr->RegisterEntity(wg);
+}
+
+void Raven_Map::AddDroppedWeaponTrigger(Vector2D pos, unsigned int weapon, int ammo, Raven_Game* world) {
+
+	int closestNode_idx = GetClosestNodeToPosition(pos);
+	Trigger_DroppedWeapon* tdw = new Trigger_DroppedWeapon(pos, weapon, ammo, world, closestNode_idx);
+	m_TriggerSystem.Register(tdw);
+	//let the corresponding navgraph node point to this object
+	NavGraph::NodeType& node = m_pNavGraph->GetNode(tdw->GraphNodeIndex());
+
+
+	node.SetExtraInfo(tdw);
+
+	//register the entity 
+	EntityMgr->RegisterEntity(tdw);
+}
+
+int Raven_Map::GetClosestNodeToPosition(Vector2D pos)const
+{
+	double ClosestSoFar = MaxDouble;
+	int   ClosestNode = -1;
+
+	//when the cell space is queried this the the range searched for neighboring
+	//graph nodes. This value is inversely proportional to the density of a 
+	//navigation graph (less dense = bigger values)
+	const double range = GetCellSpaceNeighborhoodRange();
+
+	//calculate the graph nodes that are neighboring this position
+	GetCellSpace()->CalculateNeighbors(pos, range);
+
+	//iterate through the neighbors and sum up all the position vectors
+	for (Raven_Map::NavGraph::NodeType* pN = GetCellSpace()->begin();
+		!GetCellSpace()->end();
+		pN = GetCellSpace()->next())
+	{
+		//if the path between this node and pos is unobstructed calculate the
+		//distance
+		/*if (m_pOwner->canWalkBetween(pos, pN->Pos()))
+		{*/
+		double dist = Vec2DDistanceSq(pos, pN->Pos());
+
+		//keep a record of the closest so far
+		if (dist < ClosestSoFar)
+		{
+			ClosestSoFar = dist;
+			ClosestNode = pN->Index();
+		}
+		//}
+	}
+
+	return ClosestNode;
 }
 
 
@@ -435,4 +487,6 @@ void Raven_Map::Render()
     gdi->GreyPen();
     gdi->Circle(*curSp, 7);
   }
+
+
 }

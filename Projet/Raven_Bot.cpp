@@ -732,19 +732,19 @@ void Raven_Bot::IncreaseHealth(unsigned int val)
 void Raven_Bot::DropWeapon() {
 	if (this->HasTeam() && this->team_type == 0) { //TeamSimple
 		for (unsigned int weapon_type = 6; weapon_type < 11; weapon_type++) {
-			debug_con << "Je passe" << "";
 			switch (weapon_type) {
 			case type_shotgun: {
 				Raven_Weapon* current_weapon = m_pWeaponSys->GetWeaponFromInventory(type_shotgun);
 				if (current_weapon != NULL) {
 					//shotgun mais 8 sur la map
 					debug_con << "Creating a Shootgun" << "";
-					std::ifstream test;
+					/*std::ifstream test;
 					m_pWorld->GetMap()->lastgraphnodeindex += 1;
 					int index = m_pWorld->GetMap()->lastgraphnodeindex;
 					//test = (std::ifstream) (std::to_string(current_team->GetLootingLocation().x) + " " + std::to_string(current_team->GetLootingLocation().y)+" 7 "+ std::to_string(index));
 					test = (std::ifstream) ("401  360 60 7  340");
-					m_pWorld->GetMap()->AddWeapon_Giver_bis(8, test, false);
+					m_pWorld->GetMap()->AddWeapon_Giver_bis(8, test, false);*/
+					m_pWorld->GetMap()->AddDroppedWeaponTrigger(current_team->GetLootingLocation(), current_weapon->GetType(), current_weapon->NumRoundsRemaining(), m_pWorld);
 				}
 				break;
 			}
@@ -752,12 +752,13 @@ void Raven_Bot::DropWeapon() {
 				Raven_Weapon* current_weapon = m_pWeaponSys->GetWeaponFromInventory(type_rail_gun);
 				if (current_weapon != NULL) {
 					debug_con << "Creating a Railgun" << "";
-					std::ifstream test;
+					/*std::ifstream test;
 					m_pWorld->GetMap()->lastgraphnodeindex += 1;
 					int index = m_pWorld->GetMap()->lastgraphnodeindex;
 					//test = (std::ifstream) (std::to_string(current_team->GetLootingLocation().x) + " " + std::to_string(current_team->GetLootingLocation().y) + " 7 " + std::to_string(index));
 					test = (std::ifstream) ("401  360 60 7  340");
-					m_pWorld->GetMap()->AddWeapon_Giver_bis(6, test, false);
+					m_pWorld->GetMap()->AddWeapon_Giver_bis(6, test, false);*/
+					m_pWorld->GetMap()->AddDroppedWeaponTrigger(current_team->GetLootingLocation(), current_weapon->GetType(), current_weapon->NumRoundsRemaining(), m_pWorld);
 				}
 				break;
 			}
@@ -765,25 +766,27 @@ void Raven_Bot::DropWeapon() {
 				Raven_Weapon* current_weapon = m_pWeaponSys->GetWeaponFromInventory(type_rocket_launcher);
 				if (current_weapon != NULL) {
 					debug_con << "Creating a Rocket_Launcher" << "";
-					std::ifstream test;
+					/*std::ifstream test;
 					m_pWorld->GetMap()->lastgraphnodeindex += 1;
 					int index = m_pWorld->GetMap()->lastgraphnodeindex;
 					//test = (std::ifstream) (std::to_string(current_team->GetLootingLocation().x) + " " + std::to_string(current_team->GetLootingLocation().y) + " 7 " + std::to_string(index));
 					test = (std::ifstream) ("401  360 60 7  340");
-					m_pWorld->GetMap()->AddWeapon_Giver_bis(7, test, false);
+					m_pWorld->GetMap()->AddWeapon_Giver_bis(7, test, false);*/
+					m_pWorld->GetMap()->AddDroppedWeaponTrigger(current_team->GetLootingLocation(), current_weapon->GetType(), current_weapon->NumRoundsRemaining(), m_pWorld);
 				}
 				break;
 			}
 			case type_grenade: {//grenade 10 sur a map 
 				Raven_Weapon* current_weapon = m_pWeaponSys->GetWeaponFromInventory(type_grenade);
 				if (current_weapon != NULL) {
-					debug_con << "Creating a grenade" << "";
+					/*debug_con << "Creating a grenade" << "";
 					std::ifstream test;
 					m_pWorld->GetMap()->lastgraphnodeindex += 1;
 					int index = m_pWorld->GetMap()->lastgraphnodeindex;
 					//test = (std::ifstream) (std::to_string(current_team->GetLootingLocation().x) + " " + std::to_string(current_team->GetLootingLocation().y) + " 7 " + std::to_string(index));
 					test = (std::ifstream) ("401  360 60 7  340");
-					m_pWorld->GetMap()->AddWeapon_Giver_bis(10, test, false);
+					m_pWorld->GetMap()->AddWeapon_Giver_bis(10, test, false);*/
+					m_pWorld->GetMap()->AddDroppedWeaponTrigger(current_team->GetLootingLocation(), current_weapon->GetType(), current_weapon->NumRoundsRemaining(), m_pWorld);
 				}
 				break;
 			}

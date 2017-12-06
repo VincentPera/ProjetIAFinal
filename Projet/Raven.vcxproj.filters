@@ -73,6 +73,7 @@
     <ClCompile Include="..\Common\2D\Vector2d.cpp" />
     <ClCompile Include="..\Common\misc\WindowUtils.cpp" />
     <ClCompile Include="ManipulateurFichier.cpp" />
+    <ClCompile Include="Trigger_DroppedWeapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="armory\Projectile_Bomb.h" />
@@ -197,6 +198,7 @@
     <ClInclude Include="..\Common\2D\WallIntersectionTests.h" />
     <ClInclude Include="..\Common\misc\WindowUtils.h" />
     <ClInclude Include="ManipulateurFichier.h" />
+    <ClInclude Include="Trigger_DroppedWeapon.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Script1.rc" />
