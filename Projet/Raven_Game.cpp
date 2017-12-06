@@ -236,9 +236,8 @@ void Raven_Game::Update()
   //update the triggers
   m_pMap->UpdateTriggerSystem(m_Bots);
 
-  //if the user has requested that the number of bots be decreased, remove
-  //one
-  /*if (m_bRemoveABot)
+  //if the user has requested that the number of bots be decreased, remove one
+  if (m_bRemoveABot && m_mode == DEATH_MATCH) // this behavior is only possible in deathmatch game
   { 
     if (!m_Bots.empty())
     {
@@ -251,7 +250,7 @@ void Raven_Game::Update()
     }
 
     m_bRemoveABot = false;
-  }*/
+  }
 }
 
 void Raven_Game::OpenFile(std::string fileName) {
