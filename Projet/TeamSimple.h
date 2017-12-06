@@ -18,6 +18,7 @@ private :
 	std::list<Raven_Bot*>	members;
 	Raven_Bot*				target;
 	std::string				name_team;
+	Raven_Bot*				team_leader;
 
 	//this holds a number of spawn positions of the team.
 	// Members of the team will respawn here
@@ -34,6 +35,8 @@ public:
 	void							ClearTarget(int id_sender);
 	std::string						GetName() { return name_team; }
 	void							Addmember(Raven_Bot* new_memeber);
+	Raven_Bot*						GetTeamLeader() { return team_leader; }
+	void							AddTeamLeader(Raven_Bot* leader) { team_leader = leader; }
 
 	// Control Spawning points
 	void							AddSpawnPoint(Vector2D spawnPoint);

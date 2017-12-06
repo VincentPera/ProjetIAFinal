@@ -64,6 +64,7 @@ Raven_Game::Raven_Game(int mode, int human, int grenades, int learning_bot, int 
 							m_pGraveMarkers(NULL)
 {
 	hasShot = false;
+	teamFlocking = false;
 	m_mode = static_cast<GAME_MODE>(mode);
 	m_human = human;
 	m_learning_bot = learning_bot;
