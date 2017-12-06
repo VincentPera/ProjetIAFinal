@@ -104,6 +104,12 @@ protected:
 
   //set to true when a human player takes over control of the bot
   bool                               m_bPossessed;
+  //set to true when the bot is learning how to shoot
+  bool								m_bLearner;
+  //bot number in the team (0, 1 or 2)
+  int								m_bNumber;
+  //behavior of the bot (0, 1, 2 or 3)
+  int								m_bBehavior;
 
   //a vertex buffer containing the bot's geometry
   std::vector<Vector2D>              m_vecBotVB;
@@ -137,6 +143,9 @@ public:
   void         Write(std::ostream&  os)const{/*not implemented*/}
   void         Read (std::ifstream& is){/*not implemented*/}
 
+  //Used to give a 
+  void			SetBrainBehavior(int behavior);
+
   //this rotates the bot's heading until it is facing directly at the target
   //position. Returns false if not facing at the target.
   bool          RotateFacingTowardPosition(Vector2D target);
@@ -155,6 +164,7 @@ public:
   double        FieldOfView()const{return m_dFieldOfView;}
 
   bool          isPossessed()const{return m_bPossessed;}
+  bool          isLearning()const { return m_bLearner; }
   bool          isDead()const{return m_Status == dead;}
   bool          isAlive()const{return m_Status == alive;}
   bool          isSpawning()const{return m_Status == spawning;}
@@ -162,6 +172,7 @@ public:
   void          SetSpawning(){m_Status = spawning;}
   void          SetDead(){m_Status = dead;}
   void          SetAlive(){m_Status = alive;}
+  void			SetBotNumber(int number) { m_bNumber = number; }
 
   //returns a value indicating the time in seconds it will take the bot
   //to reach the given position at its current speed.
@@ -175,6 +186,7 @@ public:
   void          FireWeapon(Vector2D pos);
   void          ChangeWeapon(unsigned int type);
   void          TakePossession();
+  void          BecomeLearner();
   void          Exorcise();
 
   //spawns the bot at the given position
@@ -212,10 +224,10 @@ public:
   Raven_SensoryMemory* const         GetSensoryMem()const{return m_pSensoryMem;}
 
   //return the name team
-  std::string GetTeamName() { return current_team->GetName(); }
-  void SetTeam(TeamSimple* team, int type) { current_team = team; team_type = type; }
-
-  bool HasTeam() { return current_team != 0; }
+  std::string			GetTeamName() { return current_team->GetName(); }
+  void					SetTeam(TeamSimple* team, int type) { current_team = team; team_type = type; }
+  bool					HasTeam() { return current_team != 0; }
+  TeamSimple* const		GetTeam() { return current_team; }
 
   void DropWeapon();
 

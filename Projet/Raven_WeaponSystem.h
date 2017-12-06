@@ -14,6 +14,8 @@
 #include <map>
 #include "2d/vector2d.h"
 #include "Fuzzy/FuzzyModule.h"
+#include "armory/Raven_Weapon.h"
+#include "Raven_BotApprenant.h"
 
 class Raven_Bot;
 class Raven_Weapon;
@@ -91,6 +93,7 @@ public:
   //target) and, if aimed correctly, fires a round. (Called each update-step
   //from Raven_Bot::Update)
   void          TakeAimAndShoot(double angle)const;
+  void			TakeAimLearningBot(Raven_BotApprenant *owner, double angle);
 
   //this method determines the most appropriate weapon to use given the current
   //game state. (Called every n update-steps from Raven_Bot::Update)
@@ -111,6 +114,9 @@ public:
   //returns a pointer to the current weapon
   Raven_Weapon* GetCurrentWeapon()const{return m_pCurrentWeapon;} 
 
+  //returns the type of the current weapon
+  unsigned int GetCurrentWeaponType(){return m_pCurrentWeapon->GetType();}
+  
   //returns a pointer to the specified weapon type (if in inventory, null if 
   //not)
   Raven_Weapon* GetWeaponFromInventory(int weapon_type);

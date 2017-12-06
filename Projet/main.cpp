@@ -1,3 +1,17 @@
+// This code makes us always use the release version of Python
+// even when in debug mode of this program.
+// https://pytools.codeplex.com/discussions/547562
+#define HAVE_ROUND
+#ifdef _DEBUG
+#define RESTORE_DEBUG
+#undef _DEBUG
+#endif
+//#include <Python.h>
+#ifdef RESTORE_DEBUG
+#define _DEBUG
+#undef RESTORE_DEBUG
+#endif
+
 #pragma warning (disable:4786)
 #include <string>
 #include <iostream>
@@ -14,6 +28,7 @@
 #include "Raven_Game.h"
 #include "lua/Raven_Scriptor.h"
 
+//#include <Python.h>
 
 //need to include this for the toolbar stuff
 #include <commctrl.h>
@@ -31,17 +46,25 @@ Raven_Game* g_pRaven;
 
 HINSTANCE hinst;
 
-UINT human;		// 0 : no human agent. 1 : human agent.
-UINT mode;			// current mode used
+UINT human;				// 0 : no human agent. 1 : human agent.
+UINT mode;				// current mode used
 UINT grenades;			// 0 : no grenade spawn. 1 : grenade spawn available.
 UINT learning_bot;		// 0 : no learning bot. 1 : a learning bot.
 UINT strategy_j1;
 UINT strategy_j2;
 UINT strategy_t1;
 UINT strategy_t2;
+UINT isRecording;
+UINT isLearning;
+UINT isUsingWeights;
+string outputFileName;
+string inputFileName;
+string weightFileName;
 
 // Maybe useful
 BOOL APIENTRY Dialog1Proc(HWND, UINT, WPARAM, LPARAM);
+
+HWND hwndGoto = NULL;
 
 //---------------------------- WindowProc ---------------------------------
 //	
@@ -69,17 +92,82 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
    // To get information about the mouse
    MSLLHOOKSTRUCT * pMouseStruct = (MSLLHOOKSTRUCT *)lParam;
 
-    switch (msg)
-    {
-	
-		//A WM_CREATE msg is sent when your application window is first
-		//created
-    case WM_CREATE:
-      {
-		// initial parameters
-		human = 0;
-		grenades = 0;
-		learning_bot = 0;
+   switch (msg)
+   {
+
+	   //A WM_CREATE msg is sent when your application window is first
+	   //created
+   case WM_CREATE:
+   {
+	   // initial parameters
+	   human = 0;
+	   strategy_t1 = 0;
+	   strategy_t2 = 0;
+	   grenades = 0;
+	   learning_bot = 0;
+	   isRecording = 0;
+	   isLearning = 0;
+
+	   //OutputDebugStringW(L"Calling Python to find the sum of 2 and 2.\n");
+	   //wchar_t nom[1024] = L"main.cpp";
+	   //Py_SetProgramName(nom);
+
+	   // Initialize the Python interpreter.
+	   //Py_Initialize();
+
+	   /*
+	   wchar_t **params = new wchar_t*[3]();
+	   params[0] = { L"main" };
+	   params[1] = { L"Test" };
+	   PySys_SetArgv(1, params);
+
+	   PyObject *obj = Py_BuildValue("s", "./mypython.py");
+	   FILE *file = _Py_fopen_obj(obj, "r+");
+	   if (file != NULL) {
+		   PyRun_SimpleFile(file, "./mypython.py");
+	   }
+	   Py_Finalize();
+
+	   delete params;*/
+
+	   // Test 2 
+	   /*
+	   int num = 1;
+
+	   FILE*        exp_file;
+	   PyObject*    main_module, *global_dict, *expression;
+
+	   // Initialize a global variable for
+	   // display of expression results
+	   PyRun_SimpleString("x = 0");
+
+	   const char exec[1024] = "mypython.py";
+
+		// Open and execute the Python file
+		PyObject *obj = Py_BuildValue("s", exec);
+		FILE *file = _Py_fopen_obj(obj, "r+");
+		if (file != NULL) {
+			PyRun_SimpleFile(file, exec);
+		}
+
+		// Get a reference to the main module
+		// and global dictionary
+		main_module = PyImport_AddModule("__main__");
+		global_dict = PyModule_GetDict(main_module);
+
+		// Extract a reference to the function "func_name"
+		// from the global dictionary
+		expression =
+			PyDict_GetItemString(global_dict, "multiply");
+
+
+		while (num--) {
+			// Make a call to the function referenced
+			// by "expression"
+			PyObject_CallFunction(expression, NULL);
+		}
+		PyRun_SimpleString("print x");*/
+
 
 		// Ask user to enter informations for the application
 		if (DialogBox(hinst, "DIALOG1", hwnd, (DLGPROC)Dialog1Proc) == DB_OK)
@@ -117,15 +205,15 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
          //don't forget to release the DC
          ReleaseDC(hwnd, hdc);  
 
-		 //TestTeamSimple
-		 mode = 1;
-		 strategy_t1 = 0;
-		 strategy_t2 = 0;
          //create the game
          g_pRaven = new Raven_Game(mode, human, grenades, learning_bot, strategy_j1, strategy_j2,
-			 strategy_t1, strategy_t2);
+			 strategy_t1, strategy_t2, isRecording, isLearning, isUsingWeights, inputFileName, 
+			 outputFileName, weightFileName);
 
 		 debug_con << "strategy t1 !" << strategy_t1 << "";
+
+		 // Ask user to enter informations for the application
+		 // TODO LATER CreateDialog(hinst, "DIALOG2", 0, NULL);
 
         //make sure the menu items are ticked/unticked accordingly
         CheckMenuItemAppropriately(hwnd, IDM_NAVIGATION_SHOW_NAVGRAPH, UserOptions->m_bShowGraph);
@@ -157,7 +245,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
           break;
 
          case 'P':
-
+			debug_con << "PAUSE !" << "";
            g_pRaven->TogglePause();
 
            break;
@@ -198,6 +286,12 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
            break;
 
+		 case 'F':
+
+			 g_pRaven->ActiveFlocking(!g_pRaven->TeamFlockingState());
+
+			 break;
+
 
          case VK_UP:
 
@@ -213,6 +307,12 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
     break;
 
+	case WM_KEYDOWN:
+	{
+		
+	}
+
+	break;
 
     case WM_LBUTTONDOWN:
     {
@@ -402,8 +502,28 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
                 NULL,
                 NULL,
                 WHITENESS);
-          
          
+		 // Use to move the human player
+		 if (human) {
+			 Vector2D direction = Vector2D(0, 0);
+			 if (GetAsyncKeyState('Z')) {
+				 direction += Vector2D(0, -5);
+			 }
+			 if (GetAsyncKeyState('Q')) {
+				 direction += Vector2D(-5, 0);
+			 }
+			 if (GetAsyncKeyState('S')) {
+				 direction += Vector2D(0, 5);
+			 }
+			 if (GetAsyncKeyState('D')) {
+				 direction += Vector2D(5, 0);
+			 }
+			 if (direction != Vector2D(0, 0)) {
+				 g_pRaven->MoveToward(direction);
+			 }
+		 }
+
+		 // Use for render the game
          gdi->StartDrawing(hdcBackBuffer);
 
          g_pRaven->Render();
@@ -476,96 +596,141 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 		 return DefWindowProc (hwnd, msg, wParam, lParam);
 }
 
-BOOL APIENTRY Dialog1Proc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+void OneVsOneField(HWND hDlg, bool enable)
 {
-	switch (uMsg)
-	{
-	case WM_INITDIALOG:
-	{
-		// Settings of the comboBox mode
-		SendDlgItemMessage(hDlg, ID_MODE, CB_ADDSTRING, 0, (LONG)"Deathmatch");
-		SendDlgItemMessage(hDlg, ID_MODE, CB_ADDSTRING, 0, (LONG)"Team Deathmatch");
-		SendDlgItemMessage(hDlg, ID_MODE, CB_ADDSTRING, 0, (LONG)"1 vs 1");
-		SendDlgItemMessage(hDlg, ID_MODE, CB_SETCURSEL, mode, 0);
+	// Enable TextFields
+	HWND TextFieldNbLeader = GetDlgItem(hDlg, ID_STRAT_J1);
+	EnableWindow(TextFieldNbLeader, enable);
+	TextFieldNbLeader = GetDlgItem(hDlg, ID_STRAT_J2);
+	EnableWindow(TextFieldNbLeader, enable);
+}
 
-		// Settings of the comboBox players strategies
-		SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Burnhead");
-		SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Coward");
-		SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Camper");
-		SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_SETCURSEL, strategy_j1, 0);
+void TeamField(HWND hDlg, bool enable)
+{
+	// Enable TextFields
+	HWND TextFieldNbLeader = GetDlgItem(hDlg, ID_STRAT_T1);
+	EnableWindow(TextFieldNbLeader, enable);
+	TextFieldNbLeader = GetDlgItem(hDlg, ID_STRAT_T2);
+	EnableWindow(TextFieldNbLeader, enable);
+}
 
-		SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Burnhead");
-		SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Coward");
-		SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Camper");
-		SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_SETCURSEL, strategy_j2, 0);
 
-		// Settings of the comboBox team strategies
-		SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_ADDSTRING, 0, (LONG)"divideAndRule");
-		SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_ADDSTRING, 0, (LONG)"TestudoFormation");
-		SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_ADDSTRING, 0, (LONG)"LeaderFollowing");
-		SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_SETCURSEL, strategy_j1, 0);
 
-		SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_ADDSTRING, 0, (LONG)"divideAndRule");
-		SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_ADDSTRING, 0, (LONG)"TestudoFormation");
-		SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_ADDSTRING, 0, (LONG)"LeaderFollowing");
-		SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_SETCURSEL, strategy_j2, 0);
-		
-		// Settings des boutons radio
-		CheckDlgButton(hDlg, ID_NO_HUMAN, BST_CHECKED);
-		CheckDlgButton(hDlg, ID_NO_BOT_APPRE, BST_CHECKED);
-		CheckDlgButton(hDlg, ID_NO_GRENADE, BST_CHECKED);
-		return TRUE;
-	}
-	case WM_COMMAND:
+BOOL CALLBACK Dialog1Proc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	switch (uMsg) {
+		case WM_INITDIALOG:
+			// Settings of the comboBox mode
+			SendDlgItemMessage(hDlg, ID_MODE, CB_ADDSTRING, 0, (LONG)"Deathmatch");
+			SendDlgItemMessage(hDlg, ID_MODE, CB_ADDSTRING, 0, (LONG)"Team Deathmatch");
+			SendDlgItemMessage(hDlg, ID_MODE, CB_ADDSTRING, 0, (LONG)"1 vs 1");
+			SendDlgItemMessage(hDlg, ID_MODE, CB_SETCURSEL, mode, 0);
 
-		if (HIWORD(wParam) == CBN_SELCHANGE) {
-			// Retrieve the choice of method
-			int ItemIndex = SendMessage((HWND)lParam, (UINT)CB_GETCURSEL,
-				(WPARAM)0, (LPARAM)0);
-			TCHAR  ListItem[256];
-			(TCHAR)SendMessage((HWND)lParam, (UINT)CB_GETLBTEXT,
-				(WPARAM)ItemIndex, (LPARAM)ListItem);
-			//MessageBox(hDlg, (LPCWSTR)ListItem, TEXT("Item Selected"), MB_OK);
+			// Settings of the comboBox players strategies
+			SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Standard");
+			SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Burnhead");
+			SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Coward");
+			SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_ADDSTRING, 0, (LONG)"Weapons Collector");
+			SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_SETCURSEL, strategy_j1, 0);
 
-			/*if (strcmp(ListItem, "LeaderFollowing") == 0)
-				LeaderFollowingField(hDlg, true);
-			else
-				LeaderFollowingField(hDlg, false);*/
-		}
+			SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Standard");
+			SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Burnhead");
+			SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Coward");
+			SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_ADDSTRING, 0, (LONG)"Weapons Collector");
+			SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_SETCURSEL, strategy_j2, 0);
 
-		if (HIWORD(wParam) == BN_CLICKED) {
-			switch (LOWORD(wParam)) {
-				case ID_BOT_APPRE:
-				{ learning_bot = 1; break; }
-				case ID_NO_BOT_APPRE:
-				{ learning_bot = 0; break; }
-				case ID_GRENADE:
-				{ grenades = 1; break; }
-				case ID_NO_GRENADE:
-				{ grenades = 0; break; }
-				case ID_HUMAN:
-				{ human = 1; break; }
-				case ID_NO_HUMAN:
-				{ human = 0; break; }
-			}
-		}
-		if (LOWORD(wParam) == DB_OK || LOWORD(wParam) == IDCANCEL)
-		{
-			// get the behavior wanted
-			mode = SendDlgItemMessage(hDlg, ID_MODE, CB_GETCURSEL, 0, 0);
-			// get the number of stadard agent 
-			strategy_j1 = GetDlgItemInt(hDlg, ID_STRAT_J1, NULL, FALSE);
-			strategy_j2 = GetDlgItemInt(hDlg, ID_STRAT_J2, NULL, FALSE);
-			// get the number of pursuiver for the leader1
-			strategy_t1 = GetDlgItemInt(hDlg, ID_STRAT_T1, NULL, FALSE);
-			strategy_t2 = GetDlgItemInt(hDlg, ID_STRAT_T2, NULL, FALSE);
+			// Settings of the comboBox team strategies
+			SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_ADDSTRING, 0, (LONG)"divideAndRule");
+			SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_ADDSTRING, 0, (LONG)"TestudoFormation");
+			SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_ADDSTRING, 0, (LONG)"LeaderFollowing");
+			SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_SETCURSEL, strategy_j1, 0);
 
-			EndDialog(hDlg, DB_OK);
+			SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_ADDSTRING, 0, (LONG)"divideAndRule");
+			SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_ADDSTRING, 0, (LONG)"TestudoFormation");
+			SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_ADDSTRING, 0, (LONG)"LeaderFollowing");
+			SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_SETCURSEL, strategy_j2, 0);
+
+			// Settings des boutons radio
+			CheckDlgButton(hDlg, ID_NO_HUMAN, BST_CHECKED);
+			CheckDlgButton(hDlg, ID_NO_BOT_APPRE, BST_CHECKED);
+			CheckDlgButton(hDlg, ID_NO_GRENADE, BST_CHECKED);
 			return TRUE;
+		case WM_COMMAND: {
+			switch (HIWORD(wParam)) {
+				case CBN_SELCHANGE:
+					// Retrieve the choice of method
+					int ItemIndex = SendMessage((HWND)lParam, (UINT)CB_GETCURSEL, (WPARAM)0, (LPARAM)0);
+					TCHAR  ListItem[256];
+					(TCHAR)SendMessage((HWND)lParam, (UINT)CB_GETLBTEXT,
+						(WPARAM)ItemIndex, (LPARAM)ListItem);
+
+					if (strcmp(ListItem, "Deathmatch") == 0) {
+						OneVsOneField(hDlg, false);
+						TeamField(hDlg, false);
+					}
+					if (strcmp(ListItem, "Team Deathmatch") == 0) {
+						OneVsOneField(hDlg, false);
+						TeamField(hDlg, true);
+					}
+					else if (strcmp(ListItem, "1 vs 1") == 0) {
+						OneVsOneField(hDlg, true);
+						TeamField(hDlg, false);
+					}
+					return TRUE;
+			}
+			switch (wParam) {
+				case ID_BOT_APPRE: { learning_bot = 1; break; }
+				case ID_NO_BOT_APPRE: { learning_bot = 0; break; }
+				case ID_GRENADE: { grenades = 1; break; }
+				case ID_NO_GRENADE: { grenades = 0; break; }
+				case ID_HUMAN: { human = 1; break; }
+				case ID_NO_HUMAN: { human = 0; break; }
+				case IDC_WRITE: { 
+					isRecording = !isRecording;
+					EnableWindow(GetDlgItem(hDlg, IDC_FILENAME), isRecording);
+					break; 
+				}
+				case IDC_LEARNING: { 
+					isLearning = !isLearning;
+					EnableWindow(GetDlgItem(hDlg, IDC_FILENAME3), isLearning);
+					break; 
+				}
+				case IDC_WEIGHT: {
+					isUsingWeights = !isUsingWeights;
+					EnableWindow(GetDlgItem(hDlg, IDC_FILENAME2), isUsingWeights);
+					break;
+				}
+				case DB_OK : {
+					// get the behavior wanted
+					mode = SendDlgItemMessage(hDlg, ID_MODE, CB_GETCURSEL, 0, 0);
+					// get the number of stadard agent 
+					strategy_j1 = SendDlgItemMessage(hDlg, ID_STRAT_J1, CB_GETCURSEL, 0, 0);
+					strategy_j2 = SendDlgItemMessage(hDlg, ID_STRAT_J2, CB_GETCURSEL, 0, 0);
+					// get the number of pursuiver for the leader1
+					strategy_t1 = SendDlgItemMessage(hDlg, ID_STRAT_T1, CB_GETCURSEL, 0, 0);
+					strategy_t2 = SendDlgItemMessage(hDlg, ID_STRAT_T2, CB_GETCURSEL, 0, 0);
+
+					int bufSize = 1024;
+					LPTSTR szText = new TCHAR[bufSize];
+					// Get the outputFileName
+					GetDlgItemText(hDlg, IDC_FILENAME, szText, 1024);
+					outputFileName = szText;
+					// Get the inputFileName
+					GetDlgItemText(hDlg, IDC_FILENAME3, szText, 1024);
+					inputFileName = szText;
+					// Get the weightFileName
+					GetDlgItemText(hDlg, IDC_FILENAME2, szText, 1024);
+					weightFileName = szText;
+
+					EndDialog(hDlg, DB_OK);
+					return TRUE;
+				}
+			}
+		} // end case
+		default: {
+			return FALSE;
 		}
-	default:
-		return FALSE;
-	}
+	} // end big switch
 }
 
 //-------------------------------- WinMain -------------------------------
@@ -642,6 +807,12 @@ int WINAPI WinMain (HINSTANCE hInstance,
 
     //enter the message loop
     bool bDone = false;
+	int periodRecordTime = 10;
+	int currFrame = 1;
+
+	if (isRecording) {
+		g_pRaven->OpenFile(outputFileName);
+	}
 
     while(!bDone)
     {
@@ -668,10 +839,22 @@ int WINAPI WinMain (HINSTANCE hInstance,
         RedrawWindow(hWnd);
       }
 
+	  if (currFrame == periodRecordTime && isRecording) {
+		  g_pRaven->WriteLine();
+		  currFrame = 1;
+	  }
+	  else
+	  {
+		  currFrame++;
+	  }
+
       //give the OS a little time
       Sleep(2);
-     					
+
     }//end while
+	if (isRecording) {
+		g_pRaven->CloseFile();
+	}
 
   }//end try block
 
@@ -689,5 +872,3 @@ int WINAPI WinMain (HINSTANCE hInstance,
  delete g_pRaven;
  return msg.wParam;
 }
-
-

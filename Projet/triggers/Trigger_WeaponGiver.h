@@ -31,6 +31,9 @@ public:
   //this type of trigger is created when reading a map file
   Trigger_WeaponGiver(std::ifstream& datafile);
 
+  Trigger_WeaponGiver(std::ifstream & datafile, bool r);
+
+
   //if triggered, this trigger will call the PickupWeapon method of the
   //bot. PickupWeapon will instantiate a weapon of the appropriate type.
   void Try(Raven_Bot*);

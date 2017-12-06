@@ -33,6 +33,32 @@ Trigger_WeaponGiver::Trigger_WeaponGiver(std::ifstream& datafile):
   }
 }
 
+Trigger_WeaponGiver::Trigger_WeaponGiver(std::ifstream& datafile, bool r) :
+
+	Trigger_Respawning<Raven_Bot>(GetValueFromStream<int>(datafile))
+{
+	Read(datafile);
+
+	//create the vertex buffer for the rocket shape
+	const int NumRocketVerts = 8;
+	const Vector2D rip[NumRocketVerts] = { Vector2D(0, 3),
+		Vector2D(1, 2),
+		Vector2D(1, 0),
+		Vector2D(2, -2),
+		Vector2D(-2, -2),
+		Vector2D(-1, 0),
+		Vector2D(-1, 2),
+		Vector2D(0, 3) };
+
+	for (int i = 0; i<NumRocketVerts; ++i)
+	{
+		m_vecRLVB.push_back(rip[i]);
+	}
+
+
+	this->setRespawanlable(r);
+}
+
 
 void Trigger_WeaponGiver::Try(Raven_Bot* pBot)
 {

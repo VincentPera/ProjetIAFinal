@@ -1,0 +1,4300 @@
+
+Pass 1
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.889401
+
+Pass 2
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.863651
+
+Pass 3
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.807605
+
+Pass 4
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.695158
+
+Pass 5
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.470892
+
+Pass 6
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.117459
+
+Pass 7
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.147032
+
+Pass 8
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.192419
+
+Pass 9
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.106636
+
+Pass 10
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.000114167
+
+Pass 11
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.0535727
+
+Pass 12
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.04829
+
+Pass 13
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.0167714
+
+Pass 14
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.00906412
+
+Pass 15
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.0165435
+
+Pass 16
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.0103616
+
+Pass 17
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.00105413
+
+Pass 18
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.00423222
+
+Pass 19
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.00433612
+
+Pass 20
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.00178647
+
+Pass 21
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.000560242
+
+Pass 22
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.00139745
+
+Pass 23
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.000977591
+
+Pass 24
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.000181105
+
+Pass 25
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.000325801
+
+Pass 26
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.000383773
+
+Pass 27
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.000182496
+
+Pass 28
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.76406e-05
+
+Pass 29
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.000116124
+
+Pass 30
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -9.06917e-05
+
+Pass 31
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.35603e-05
+
+Pass 32
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 2.41416e-05
+
+Pass 33
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 3.35076e-05
+
+Pass 34
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.8086e-05
+
+Pass 35
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -4.76363e-07
+
+Pass 36
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -9.47173e-06
+
+Pass 37
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -8.28638e-06
+
+Pass 38
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.72187e-06
+
+Pass 39
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.6935e-06
+
+Pass 40
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 2.88509e-06
+
+Pass 41
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.74983e-06
+
+Pass 42
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.32302e-07
+
+Pass 43
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -7.55843e-07
+
+Pass 44
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -7.4641e-07
+
+Pass 45
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.93847e-07
+
+Pass 46
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.08742e-07
+
+Pass 47
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 2.44792e-07
+
+Pass 48
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.65941e-07
+
+Pass 49
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 2.69513e-08
+
+Pass 50
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -5.87145e-08
+
+Pass 51
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -6.63187e-08
+
+Pass 52
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -3.03296e-08
+
+Pass 53
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 5.86272e-09
+
+Pass 54
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 2.04412e-08
+
+Pass 55
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.54658e-08
+
+Pass 56
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 3.69856e-09
+
+Pass 57
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -4.40417e-09
+
+Pass 58
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -5.81304e-09
+
+Pass 59
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -3.02965e-09
+
+Pass 60
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.79837e-10
+
+Pass 61
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.67668e-09
+
+Pass 62
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.41909e-09
+
+Pass 63
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 4.38843e-10
+
+Pass 64
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -3.14586e-10
+
+Pass 65
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -5.02549e-10
+
+Pass 66
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.95001e-10
+
+Pass 67
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -1.42264e-11
+
+Pass 68
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.34697e-10
+
+Pass 69
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.2834e-10
+
+Pass 70
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 4.81579e-11
+
+Pass 71
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.0828e-11
+
+Pass 72
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -4.28242e-11
+
+Pass 73
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.81277e-11
+
+Pass 74
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -3.90288e-12
+
+Pass 75
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.05513e-11
+
+Pass 76
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.14475e-11
+
+Pass 77
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 5.02709e-12
+
+Pass 78
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -1.19926e-12
+
+Pass 79
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -3.5929e-12
+
+Pass 80
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.63389e-12
+
+Pass 81
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -5.74207e-13
+
+Pass 82
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 8.00249e-13
+
+Pass 83
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.00742e-12
+
+Pass 84
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 5.06484e-13
+
+Pass 85
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -4.79616e-14
+
+Pass 86
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.9643e-13
+
+Pass 87
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.42695e-13
+
+Pass 88
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -7.01661e-14
+
+Pass 89
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 5.81757e-14
+
+Pass 90
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 8.74856e-14
+
+Pass 91
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 4.95159e-14
+
+Pass 92
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 8.88178e-16
+
+Pass 93
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.39808e-14
+
+Pass 94
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.19824e-14
+
+Pass 95
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -7.77156e-15
+
+Pass 96
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 3.9968e-15
+
+Pass 97
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 7.54952e-15
+
+Pass 98
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 4.66294e-15
+
+Pass 99
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 4.44089e-16
+
+Pass 100
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -1.9984e-15
+
+Pass 101
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -1.9984e-15
+
+Pass 102
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -8.88178e-16
+
+Pass 103
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 2.22045e-16
+
+Pass 104
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 6.66134e-16
+
+Pass 105
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 4.44089e-16
+
+Pass 106
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 107
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.22045e-16
+
+Pass 108
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.22045e-16
+
+Pass 109
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 110
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 111
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 112
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 113
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 114
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 115
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 116
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 117
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 118
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 119
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 120
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 121
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 122
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 123
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 124
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 125
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 126
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 127
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 128
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 129
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 130
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 131
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 132
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 133
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 134
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 135
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 136
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 137
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 138
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 139
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 140
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 141
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 142
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 143
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 144
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 145
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 146
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 147
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 148
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 149
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 150
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 151
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 152
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 153
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 154
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 155
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 156
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 157
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 158
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 159
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 160
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 161
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 162
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 163
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 164
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 165
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 166
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 167
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 168
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 169
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 170
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 171
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 172
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 173
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 174
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 175
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 176
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 177
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 178
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 179
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 180
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 181
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 182
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 183
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 184
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 185
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 186
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 187
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 188
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 189
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 190
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0
+
+Pass 191
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.53705
+
+Pass 192
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.799655
+
+Pass 193
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.883132
+
+Pass 194
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.914006
+
+Pass 195
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.927555
+
+Pass 196
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.934311
+
+Pass 197
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.93806
+
+Pass 198
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.940375
+
+Pass 199
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.941969
+
+Pass 200
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.943185
+
+Pass 201
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.936539
+
+Pass 202
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.923388
+
+Pass 203
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.901678
+
+Pass 204
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.865473
+
+Pass 205
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.800947
+
+Pass 206
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.676278
+
+Pass 207
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.432137
+
+Pass 208
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.0716838
+
+Pass 209
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.164822
+
+Pass 210
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.18698
+
+Pass 211
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.0921116
+
+Pass 212
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.0108404
+
+Pass 213
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.0558862
+
+Pass 214
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.0450388
+
+Pass 215
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.0126626
+
+Pass 216
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.0111356
+
+Pass 217
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.0163538
+
+Pass 218
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.0091549
+
+Pass 219
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -6.26366e-05
+
+Pass 220
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.00452117
+
+Pass 221
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.00410045
+
+Pass 222
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.00142988
+
+Pass 223
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.000763342
+
+Pass 224
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.00140195
+
+Pass 225
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.000880085
+
+Pass 226
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -9.11027e-05
+
+Pass 227
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.00035805
+
+Pass 228
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.000367796
+
+Pass 229
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0.000151992
+
+Pass 230
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -4.71056e-05
+
+Pass 231
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -0.000118391
+
+Pass 232
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -8.29991e-05
+
+Pass 233
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -1.55037e-05
+
+Pass 234
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 2.75462e-05
+
+Pass 235
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 3.25434e-05
+
+Pass 236
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.5516e-05
+
+Pass 237
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.30733e-06
+
+Pass 238
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -9.83459e-06
+
+Pass 239
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -7.69747e-06
+
+Pass 240
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.01042e-06
+
+Pass 241
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 2.03935e-06
+
+Pass 242
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 2.84063e-06
+
+Pass 243
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.53689e-06
+
+Pass 244
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -3.71136e-08
+
+Pass 245
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -8.01847e-07
+
+Pass 246
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -7.03105e-07
+
+Pass 247
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.31871e-07
+
+Pass 248
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.42868e-07
+
+Pass 249
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 2.44517e-07
+
+Pass 250
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.48631e-07
+
+Pass 251
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.15096e-08
+
+Pass 252
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -6.39571e-08
+
+Pass 253
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -6.33161e-08
+
+Pass 254
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.5006e-08
+
+Pass 255
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 9.15267e-09
+
+Pass 256
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 2.07404e-08
+
+Pass 257
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.409e-08
+
+Pass 258
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 2.31082e-09
+
+Pass 259
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -4.96527e-09
+
+Pass 260
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -5.62416e-09
+
+Pass 261
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.57911e-09
+
+Pass 262
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 4.90884e-10
+
+Pass 263
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.73135e-09
+
+Pass 264
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.31277e-09
+
+Pass 265
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 3.1582e-10
+
+Pass 266
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -3.72148e-10
+
+Pass 267
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -4.92843e-10
+
+Pass 268
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.57485e-10
+
+Pass 269
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.46851e-11
+
+Pass 270
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.41959e-10
+
+Pass 271
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.20421e-10
+
+Pass 272
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 3.7399e-11
+
+Pass 273
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.65512e-11
+
+Pass 274
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -4.25955e-11
+
+Pass 275
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.50604e-11
+
+Pass 276
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -1.25655e-12
+
+Pass 277
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.13993e-11
+
+Pass 278
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 1.08877e-11
+
+Pass 279
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 4.09917e-12
+
+Pass 280
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -1.7546e-12
+
+Pass 281
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -3.62865e-12
+
+Pass 282
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.38853e-12
+
+Pass 283
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -3.35287e-13
+
+Pass 284
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 8.92397e-13
+
+Pass 285
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 9.70779e-13
+
+Pass 286
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 4.27436e-13
+
+Pass 287
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -1.00586e-13
+
+Pass 288
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -3.04201e-13
+
+Pass 289
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.23599e-13
+
+Pass 290
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -4.90719e-14
+
+Pass 291
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 6.77236e-14
+
+Pass 292
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 8.54872e-14
+
+Pass 293
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 4.30767e-14
+
+Pass 294
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -3.9968e-15
+
+Pass 295
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.5091e-14
+
+Pass 296
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.06501e-14
+
+Pass 297
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -5.9952e-15
+
+Pass 298
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 4.88498e-15
+
+Pass 299
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 7.32747e-15
+
+Pass 300
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 4.21885e-15
+
+Pass 301
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 2.22045e-16
+
+Pass 302
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -1.9984e-15
+
+Pass 303
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -1.9984e-15
+
+Pass 304
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -6.66134e-16
+
+Pass 305
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 4.44089e-16
+
+Pass 306
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 6.66134e-16
+
+Pass 307
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 4.44089e-16
+
+Pass 308
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 309
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.22045e-16
+
+Pass 310
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: -2.22045e-16
+
+Pass 311
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 312
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 313
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 314
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 315
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 316
+ Inputs: 0, 100, 100, 
+ Target: 0
+Output: 0
+
+Pass 317
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0
+
+Pass 318
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.53705
+
+Pass 319
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.799655
+
+Pass 320
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.883132
+
+Pass 321
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.914006
+
+Pass 322
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.927555
+
+Pass 323
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.934311
+
+Pass 324
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.93806
+
+Pass 325
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.940375
+
+Pass 326
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.941969
+
+Pass 327
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.943185
+
+Pass 328
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.944194
+
+Pass 329
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.945081
+
+Pass 330
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.945891
+
+Pass 331
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.946648
+
+Pass 332
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.947364
+
+Pass 333
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.948048
+
+Pass 334
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.948702
+
+Pass 335
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.949332
+
+Pass 336
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.949937
+
+Pass 337
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.950521
+
+Pass 338
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.951085
+
+Pass 339
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.951629
+
+Pass 340
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.952156
+
+Pass 341
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.952666
+
+Pass 342
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.953159
+
+Pass 343
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.953638
+
+Pass 344
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.954102
+
+Pass 345
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.954552
+
+Pass 346
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.954989
+
+Pass 347
+ Inputs: 1, 100, 100, 
+ Target: 1
+Output: 0.955414
+
+Pass 348
+ Inputs: 1, 99, 100, 
+ Target: 1
+Output: 0.955826
+
+Pass 349
+ Inputs: 1, 99, 100, 
+ Target: 1
+Output: 0.956228
+
+Pass 350
+ Inputs: 1, 99, 100, 
+ Target: 1
+Output: 0.956619
+
+Pass 351
+ Inputs: 1, 99, 100, 
+ Target: 1
+Output: 0.956999
+
+Pass 352
+ Inputs: 1, 99, 100, 
+ Target: 1
+Output: 0.95737
+
+Pass 353
+ Inputs: 1, 99, 100, 
+ Target: 1
+Output: 0.957731
+
+Pass 354
+ Inputs: 1, 99, 100, 
+ Target: 1
+Output: 0.958083
+
+Pass 355
+ Inputs: 1, 99, 100, 
+ Target: 1
+Output: 0.958426
+
+Pass 356
+ Inputs: 1, 99, 100, 
+ Target: 1
+Output: 0.958761
+
+Pass 357
+ Inputs: 1, 99, 100, 
+ Target: 1
+Output: 0.959088
+
+Pass 358
+ Inputs: 1, 99, 100, 
+ Target: 1
+Output: 0.959407
+
+Pass 359
+ Inputs: 1, 98, 100, 
+ Target: 1
+Output: 0.959719
+
+Pass 360
+ Inputs: 1, 98, 100, 
+ Target: 1
+Output: 0.960024
+
+Pass 361
+ Inputs: 1, 98, 100, 
+ Target: 1
+Output: 0.960322
+
+Pass 362
+ Inputs: 1, 98, 100, 
+ Target: 1
+Output: 0.960614
+
+Pass 363
+ Inputs: 1, 98, 100, 
+ Target: 1
+Output: 0.960899
+
+Pass 364
+ Inputs: 1, 98, 100, 
+ Target: 1
+Output: 0.961178
+
+Pass 365
+ Inputs: 1, 98, 100, 
+ Target: 1
+Output: 0.961451
+
+Pass 366
+ Inputs: 1, 98, 100, 
+ Target: 1
+Output: 0.961718
+
+Pass 367
+ Inputs: 1, 98, 100, 
+ Target: 1
+Output: 0.96198
+
+Pass 368
+ Inputs: 1, 98, 100, 
+ Target: 1
+Output: 0.962237
+
+Pass 369
+ Inputs: 1, 98, 100, 
+ Target: 1
+Output: 0.962488
+
+Pass 370
+ Inputs: 1, 98, 100, 
+ Target: 1
+Output: 0.962735
+
+Pass 371
+ Inputs: 1, 98, 100, 
+ Target: 1
+Output: 0.962976
+
+Pass 372
+ Inputs: 1, 97, 100, 
+ Target: 1
+Output: 0.963213
+
+Pass 373
+ Inputs: 1, 97, 100, 
+ Target: 1
+Output: 0.963446
+
+Pass 374
+ Inputs: 1, 97, 100, 
+ Target: 1
+Output: 0.963674
+
+Pass 375
+ Inputs: 1, 97, 100, 
+ Target: 1
+Output: 0.963898
+
+Pass 376
+ Inputs: 1, 97, 100, 
+ Target: 1
+Output: 0.964118
+
+Pass 377
+ Inputs: 1, 97, 100, 
+ Target: 1
+Output: 0.964334
+
+Pass 378
+ Inputs: 1, 97, 100, 
+ Target: 1
+Output: 0.964546
+
+Pass 379
+ Inputs: 1, 97, 100, 
+ Target: 1
+Output: 0.964754
+
+Pass 380
+ Inputs: 1, 97, 100, 
+ Target: 1
+Output: 0.964959
+
+Pass 381
+ Inputs: 1, 97, 100, 
+ Target: 1
+Output: 0.96516
+
+Pass 382
+ Inputs: 1, 97, 100, 
+ Target: 1
+Output: 0.965358
+
+Pass 383
+ Inputs: 1, 97, 100, 
+ Target: 1
+Output: 0.965552
+
+Pass 384
+ Inputs: 1, 96, 100, 
+ Target: 1
+Output: 0.965743
+
+Pass 385
+ Inputs: 1, 96, 100, 
+ Target: 1
+Output: 0.965931
+
+Pass 386
+ Inputs: 1, 96, 100, 
+ Target: 1
+Output: 0.966116
+
+Pass 387
+ Inputs: 1, 96, 100, 
+ Target: 1
+Output: 0.966298
+
+Pass 388
+ Inputs: 1, 96, 100, 
+ Target: 1
+Output: 0.966477
+
+Pass 389
+ Inputs: 1, 96, 100, 
+ Target: 1
+Output: 0.966654
+
+Pass 390
+ Inputs: 1, 96, 100, 
+ Target: 1
+Output: 0.966827
+
+Pass 391
+ Inputs: 1, 96, 100, 
+ Target: 1
+Output: 0.966998
+
+Pass 392
+ Inputs: 1, 96, 100, 
+ Target: 1
+Output: 0.967166
+
+Pass 393
+ Inputs: 1, 96, 100, 
+ Target: 1
+Output: 0.967332
+
+Pass 394
+ Inputs: 1, 96, 100, 
+ Target: 1
+Output: 0.967495
+
+Pass 395
+ Inputs: 1, 96, 100, 
+ Target: 1
+Output: 0.967656
+
+Pass 396
+ Inputs: 1, 95, 100, 
+ Target: 1
+Output: 0.967814
+
+Pass 397
+ Inputs: 1, 95, 100, 
+ Target: 1
+Output: 0.96797
+
+Pass 398
+ Inputs: 1, 95, 100, 
+ Target: 1
+Output: 0.968124
+
+Pass 399
+ Inputs: 1, 95, 100, 
+ Target: 1
+Output: 0.968276
+
+Pass 400
+ Inputs: 1, 95, 100, 
+ Target: 1
+Output: 0.968425
+
+Pass 401
+ Inputs: 1, 95, 100, 
+ Target: 1
+Output: 0.968573
+
+Pass 402
+ Inputs: 1, 95, 100, 
+ Target: 1
+Output: 0.968718
+
+Pass 403
+ Inputs: 1, 94, 100, 
+ Target: 1
+Output: 0.968862
+
+Pass 404
+ Inputs: 1, 94, 100, 
+ Target: 1
+Output: 0.969003
+
+Pass 405
+ Inputs: 1, 94, 100, 
+ Target: 1
+Output: 0.969143
+
+Pass 406
+ Inputs: 1, 94, 100, 
+ Target: 1
+Output: 0.96928
+
+Pass 407
+ Inputs: 1, 94, 100, 
+ Target: 1
+Output: 0.969416
+
+Pass 408
+ Inputs: 1, 94, 100, 
+ Target: 1
+Output: 0.96955
+
+Pass 409
+ Inputs: 1, 94, 100, 
+ Target: 1
+Output: 0.969682
+
+Pass 410
+ Inputs: 1, 94, 100, 
+ Target: 1
+Output: 0.969813
+
+Pass 411
+ Inputs: 1, 94, 100, 
+ Target: 1
+Output: 0.969942
+
+Pass 412
+ Inputs: 1, 93, 100, 
+ Target: 1
+Output: 0.970069
+
+Pass 413
+ Inputs: 1, 93, 100, 
+ Target: 1
+Output: 0.970195
+
+Pass 414
+ Inputs: 1, 93, 100, 
+ Target: 1
+Output: 0.970319
+
+Pass 415
+ Inputs: 1, 93, 100, 
+ Target: 1
+Output: 0.970442
+
+Pass 416
+ Inputs: 1, 93, 100, 
+ Target: 1
+Output: 0.970563
+
+Pass 417
+ Inputs: 1, 93, 100, 
+ Target: 1
+Output: 0.970682
+
+Pass 418
+ Inputs: 1, 93, 100, 
+ Target: 1
+Output: 0.970801
+
+Pass 419
+ Inputs: 1, 93, 100, 
+ Target: 1
+Output: 0.970917
+
+Pass 420
+ Inputs: 1, 93, 100, 
+ Target: 1
+Output: 0.971033
+
+Pass 421
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.971147
+
+Pass 422
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.971259
+
+Pass 423
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.971371
+
+Pass 424
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.971481
+
+Pass 425
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.97159
+
+Pass 426
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.971697
+
+Pass 427
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.971804
+
+Pass 428
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.971909
+
+Pass 429
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.972013
+
+Pass 430
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.972116
+
+Pass 431
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.972217
+
+Pass 432
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.972318
+
+Pass 433
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.972418
+
+Pass 434
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.972516
+
+Pass 435
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.972614
+
+Pass 436
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.97271
+
+Pass 437
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.972805
+
+Pass 438
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.9729
+
+Pass 439
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.972993
+
+Pass 440
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.973086
+
+Pass 441
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.973177
+
+Pass 442
+ Inputs: 1, 92, 100, 
+ Target: 1
+Output: 0.973268
+
+Pass 443
+ Inputs: 0, 92, 100, 
+ Target: 0
+Output: 0.973358
+
+Pass 444
+ Inputs: 0, 92, 100, 
+ Target: 0
+Output: 0.971742
+
+Pass 445
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.968975
+
+Pass 446
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.965141
+
+Pass 447
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.960064
+
+Pass 448
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.953322
+
+Pass 449
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.944153
+
+Pass 450
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.931216
+
+Pass 451
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.912035
+
+Pass 452
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.881724
+
+Pass 453
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.829866
+
+Pass 454
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.73283
+
+Pass 455
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.540459
+
+Pass 456
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.207199
+
+Pass 457
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.105624
+
+Pass 458
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.1988
+
+Pass 459
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.133841
+
+Pass 460
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.0223622
+
+Pass 461
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.0471513
+
+Pass 462
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.0536829
+
+Pass 463
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.0248866
+
+Pass 464
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.00445234
+
+Pass 465
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.0164516
+
+Pass 466
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.0125845
+
+Pass 467
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.00310168
+
+Pass 468
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.00350102
+
+Pass 469
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.00470177
+
+Pass 470
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.00248119
+
+Pass 471
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.000117817
+
+Pass 472
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.00134663
+
+Pass 473
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.00115306
+
+Pass 474
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.000364441
+
+Pass 475
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.000248534
+
+Pass 476
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.000405901
+
+Pass 477
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.000241044
+
+Pass 478
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 1.39892e-05
+
+Pass 479
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.000107932
+
+Pass 480
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.000104133
+
+Pass 481
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -3.9754e-05
+
+Pass 482
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 1.6288e-05
+
+Pass 483
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 3.45362e-05
+
+Pass 484
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 2.29386e-05
+
+Pass 485
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 3.37662e-06
+
+Pass 486
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: -8.43033e-06
+
+Pass 487
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.537043
+
+Pass 488
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.799653
+
+Pass 489
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.883132
+
+Pass 490
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.914006
+
+Pass 491
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.927555
+
+Pass 492
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.934311
+
+Pass 493
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.928224
+
+Pass 494
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.91302
+
+Pass 495
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.88626
+
+Pass 496
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.839523
+
+Pass 497
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.752426
+
+Pass 498
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.579788
+
+Pass 499
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.266431
+
+Pass 500
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.0699404
+
+Pass 501
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.197214
+
+Pass 502
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.149858
+
+Pass 503
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.0386615
+
+Pass 504
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.0406162
+
+Pass 505
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.575012
+
+Pass 506
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.811986
+
+Pass 507
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.887534
+
+Pass 508
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.915936
+
+Pass 509
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.928558
+
+Pass 510
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.923656
+
+Pass 511
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.907779
+
+Pass 512
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.878606
+
+Pass 513
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.82645
+
+Pass 514
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.727435
+
+Pass 515
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.530592
+
+Pass 516
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.556106
+
+Pass 517
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.680075
+
+Pass 518
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.775295
+
+Pass 519
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.830379
+
+Pass 520
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.861439
+
+Pass 521
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.83976
+
+Pass 522
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.77493
+
+Pass 523
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.636878
+
+Pass 524
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.367863
+
+Pass 525
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.0116221
+
+Pass 526
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: -0.180513
+
+Pass 527
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.38477
+
+Pass 528
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.7675
+
+Pass 529
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.880013
+
+Pass 530
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.917481
+
+Pass 531
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.932761
+
+Pass 532
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.939953
+
+Pass 533
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.935554
+
+Pass 534
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.923588
+
+Pass 535
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.90283
+
+Pass 536
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.867866
+
+Pass 537
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.805602
+
+Pass 538
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.685657
+
+Pass 539
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.665332
+
+Pass 540
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.714118
+
+Pass 541
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.77238
+
+Pass 542
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.816635
+
+Pass 543
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.846449
+
+Pass 544
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.866297
+
+Pass 545
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.879903
+
+Pass 546
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.857757
+
+Pass 547
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.80176
+
+Pass 548
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.68637
+
+Pass 549
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.455818
+
+Pass 550
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.100491
+
+Pass 551
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.153232
+
+Pass 552
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.189972
+
+Pass 553
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: -0.101022
+
+Pass 554
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.00409657
+
+Pass 555
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.0543175
+
+Pass 556
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.0469793
+
+Pass 557
+ Inputs: 0, 91, 100, 
+ Target: 0
+Output: 0.0152088
+
+Pass 558
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: -0.00981485
+
+Pass 559
+ Inputs: 1, 91, 100, 
+ Target: 1
+Output: 0.525207
+
+Pass 560
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.795581
+
+Pass 561
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.881611
+
+Pass 562
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.913293
+
+Pass 563
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 0.927149
+
+Pass 564
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 0.922406
+
+Pass 565
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 0.906224
+
+Pass 566
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 0.876235
+
+Pass 567
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 0.822308
+
+Pass 568
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 0.719416
+
+Pass 569
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 0.514957
+
+Pass 570
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 0.172189
+
+Pass 571
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -0.123461
+
+Pass 572
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -0.197524
+
+Pass 573
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -0.123658
+
+Pass 574
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -0.013303
+
+Pass 575
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 0.0501297
+
+Pass 576
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 0.0518607
+
+Pass 577
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 0.0217389
+
+Pass 578
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -0.00637725
+
+Pass 579
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -0.0166094
+
+Pass 580
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -0.0117643
+
+Pass 581
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -0.0022842
+
+Pass 582
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 0.00382663
+
+Pass 583
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 0.0045861
+
+Pass 584
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 0.00221427
+
+Pass 585
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -0.000300213
+
+Pass 586
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -0.00137733
+
+Pass 587
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -0.00108949
+
+Pass 588
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -0.000291878
+
+Pass 589
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 0.000282054
+
+Pass 590
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 0.000399788
+
+Pass 591
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 0.000218782
+
+Pass 592
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -2.99008e-06
+
+Pass 593
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -0.000112082
+
+Pass 594
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -9.93789e-05
+
+Pass 595
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -3.33999e-05
+
+Pass 596
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.96295e-05
+
+Pass 597
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 3.43665e-05
+
+Pass 598
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 2.11151e-05
+
+Pass 599
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.82034e-06
+
+Pass 600
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -8.91925e-06
+
+Pass 601
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -8.93749e-06
+
+Pass 602
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -3.58412e-06
+
+Pass 603
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.24304e-06
+
+Pass 604
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 2.91079e-06
+
+Pass 605
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.9982e-06
+
+Pass 606
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 3.42979e-07
+
+Pass 607
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -6.90417e-07
+
+Pass 608
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -7.92865e-07
+
+Pass 609
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -3.6837e-07
+
+Pass 610
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 6.48995e-08
+
+Pass 611
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 2.42594e-07
+
+Pass 612
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.85885e-07
+
+Pass 613
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 4.59995e-08
+
+Pass 614
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -5.15431e-08
+
+Pass 615
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -6.93885e-08
+
+Pass 616
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -3.66781e-08
+
+Pass 617
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.68394e-09
+
+Pass 618
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.98546e-08
+
+Pass 619
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.70272e-08
+
+Pass 620
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 5.39716e-09
+
+Pass 621
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -3.65615e-09
+
+Pass 622
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -5.98911e-09
+
+Pass 623
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -3.56213e-09
+
+Pass 624
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -2.11358e-10
+
+Pass 625
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.59084e-09
+
+Pass 626
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.53744e-09
+
+Pass 627
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 5.88272e-10
+
+Pass 628
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -2.39273e-10
+
+Pass 629
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -5.09482e-10
+
+Pass 630
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -3.38897e-10
+
+Pass 631
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -5.02663e-11
+
+Pass 632
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.24209e-10
+
+Pass 633
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.36921e-10
+
+Pass 634
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 6.11245e-11
+
+Pass 635
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.34485e-11
+
+Pass 636
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -4.26658e-11
+
+Pass 637
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -3.1675e-11
+
+Pass 638
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -7.17459e-12
+
+Pass 639
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 9.38039e-12
+
+Pass 640
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.20296e-11
+
+Pass 641
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 6.13654e-12
+
+Pass 642
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -4.9194e-13
+
+Pass 643
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -3.51108e-12
+
+Pass 644
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -2.914e-12
+
+Pass 645
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -8.66973e-13
+
+Pass 646
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 6.76681e-13
+
+Pass 647
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.04261e-12
+
+Pass 648
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 5.99854e-13
+
+Pass 649
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.85407e-14
+
+Pass 650
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -2.83218e-13
+
+Pass 651
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -2.64122e-13
+
+Pass 652
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -9.60343e-14
+
+Pass 653
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 4.56302e-14
+
+Pass 654
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 8.91509e-14
+
+Pass 655
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 5.73985e-14
+
+Pass 656
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 6.99441e-15
+
+Pass 657
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -2.23155e-14
+
+Pass 658
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -2.36478e-14
+
+Pass 659
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.0103e-14
+
+Pass 660
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 2.77556e-15
+
+Pass 661
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 7.43849e-15
+
+Pass 662
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 5.44009e-15
+
+Pass 663
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.22125e-15
+
+Pass 664
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.66533e-15
+
+Pass 665
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -2.10942e-15
+
+Pass 666
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -9.99201e-16
+
+Pass 667
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 668
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 5.55112e-16
+
+Pass 669
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 5.55112e-16
+
+Pass 670
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 671
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 672
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 673
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 674
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 675
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 676
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 677
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 678
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 679
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 680
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 681
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 682
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 683
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 684
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 685
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 686
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 687
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 688
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 689
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 690
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 691
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 692
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 693
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 694
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 695
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 696
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 697
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 698
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 699
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 700
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 701
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 702
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 703
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 704
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 705
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 706
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 707
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 708
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 709
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 710
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 711
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 712
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 713
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 714
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 715
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 716
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 717
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 718
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 719
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 720
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 721
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 722
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 723
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 724
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 725
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 726
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 727
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 728
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 729
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 730
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 731
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 732
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 733
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 734
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 735
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 736
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 737
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 738
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 739
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: -1.11022e-16
+
+Pass 740
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 741
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 742
+ Inputs: 0, 90, 100, 
+ Target: 0
+Output: 1.11022e-16
+
+Pass 743
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 1.11022e-16
+
+Pass 744
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.53705
+
+Pass 745
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.799655
+
+Pass 746
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.883132
+
+Pass 747
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.914006
+
+Pass 748
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.927555
+
+Pass 749
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.934311
+
+Pass 750
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.93806
+
+Pass 751
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.940375
+
+Pass 752
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.941969
+
+Pass 753
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.943185
+
+Pass 754
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.944194
+
+Pass 755
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.945081
+
+Pass 756
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.945891
+
+Pass 757
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.946648
+
+Pass 758
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.947364
+
+Pass 759
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.948048
+
+Pass 760
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.948702
+
+Pass 761
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.949332
+
+Pass 762
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.949937
+
+Pass 763
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.950521
+
+Pass 764
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.951085
+
+Pass 765
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.951629
+
+Pass 766
+ Inputs: 1, 90, 100, 
+ Target: 1
+Output: 0.952156
+
+Pass 767
+ Inputs: 1, 90, 99, 
+ Target: 1
+Output: 0.952666
+
+Pass 768
+ Inputs: 1, 90, 99, 
+ Target: 1
+Output: 0.953159
+
+Pass 769
+ Inputs: 1, 90, 99, 
+ Target: 1
+Output: 0.953638
+
+Pass 770
+ Inputs: 1, 90, 99, 
+ Target: 1
+Output: 0.954102
+
+Pass 771
+ Inputs: 1, 90, 99, 
+ Target: 1
+Output: 0.954552
+
+Pass 772
+ Inputs: 1, 90, 99, 
+ Target: 1
+Output: 0.954989
+
+Pass 773
+ Inputs: 1, 90, 99, 
+ Target: 1
+Output: 0.955414
+
+Pass 774
+ Inputs: 1, 90, 99, 
+ Target: 1
+Output: 0.955826
+
+Pass 775
+ Inputs: 1, 90, 79, 
+ Target: 1
+Output: 0.956228
+
+Pass 776
+ Inputs: 1, 90, 79, 
+ Target: 1
+Output: 0.956619
+
+Pass 777
+ Inputs: 1, 90, 79, 
+ Target: 1
+Output: 0.956999
+
+Pass 778
+ Inputs: 1, 90, 79, 
+ Target: 1
+Output: 0.95737
+
+Pass 779
+ Inputs: 1, 90, 79, 
+ Target: 1
+Output: 0.957731
+
+Pass 780
+ Inputs: 1, 90, 79, 
+ Target: 1
+Output: 0.958083
+
+Pass 781
+ Inputs: 1, 90, 79, 
+ Target: 1
+Output: 0.958426
+
+Pass 782
+ Inputs: 1, 80, 79, 
+ Target: 1
+Output: 0.958761
+
+Pass 783
+ Inputs: 1, 80, 79, 
+ Target: 1
+Output: 0.959088
+
+Pass 784
+ Inputs: 1, 80, 79, 
+ Target: 1
+Output: 0.959407
+
+Pass 785
+ Inputs: 1, 80, 79, 
+ Target: 1
+Output: 0.959719
+
+Pass 786
+ Inputs: 1, 80, 79, 
+ Target: 1
+Output: 0.960024
+
+Pass 787
+ Inputs: 1, 80, 79, 
+ Target: 1
+Output: 0.960322
+
+Pass 788
+ Inputs: 1, 80, 79, 
+ Target: 1
+Output: 0.960614
+
+Pass 789
+ Inputs: 1, 80, 79, 
+ Target: 1
+Output: 0.960899
+
+Pass 790
+ Inputs: 1, 80, 79, 
+ Target: 1
+Output: 0.961178
+
+Pass 791
+ Inputs: 1, 80, 79, 
+ Target: 1
+Output: 0.961451
+
+Pass 792
+ Inputs: 1, 80, 79, 
+ Target: 1
+Output: 0.961718
+
+Pass 793
+ Inputs: 1, 80, 79, 
+ Target: 1
+Output: 0.96198
+
+Pass 794
+ Inputs: 1, 80, 79, 
+ Target: 1
+Output: 0.962237
+
+Pass 795
+ Inputs: 1, 80, 79, 
+ Target: 1
+Output: 0.962488
+
+Pass 796
+ Inputs: 1, 80, 79, 
+ Target: 1
+Output: 0.962735
+
+Pass 797
+ Inputs: 1, 80, 79, 
+ Target: 1
+Output: 0.962976
+
+Pass 798
+ Inputs: 1, 70, 79, 
+ Target: 1
+Output: 0.963213
+
+Pass 799
+ Inputs: 1, 70, 79, 
+ Target: 1
+Output: 0.963446
+
+Pass 800
+ Inputs: 1, 70, 79, 
+ Target: 1
+Output: 0.963674
+
+Pass 801
+ Inputs: 1, 70, 79, 
+ Target: 1
+Output: 0.963898
+
+Pass 802
+ Inputs: 1, 70, 79, 
+ Target: 1
+Output: 0.964118
+
+Pass 803
+ Inputs: 1, 70, 79, 
+ Target: 1
+Output: 0.964334
+
+Pass 804
+ Inputs: 1, 70, 79, 
+ Target: 1
+Output: 0.964546
+
+Pass 805
+ Inputs: 1, 70, 79, 
+ Target: 1
+Output: 0.964754
+
+Pass 806
+ Inputs: 1, 70, 79, 
+ Target: 1
+Output: 0.964959
+
+Pass 807
+ Inputs: 1, 70, 79, 
+ Target: 1
+Output: 0.96516
+
+Pass 808
+ Inputs: 1, 70, 79, 
+ Target: 1
+Output: 0.965358
+
+Pass 809
+ Inputs: 1, 70, 79, 
+ Target: 1
+Output: 0.965552
+
+Pass 810
+ Inputs: 1, 70, 79, 
+ Target: 1
+Output: 0.965743
+
+Pass 811
+ Inputs: 1, 70, 79, 
+ Target: 1
+Output: 0.965931
+
+Pass 812
+ Inputs: 1, 70, 79, 
+ Target: 1
+Output: 0.966116
+
+Pass 813
+ Inputs: 1, 40, 79, 
+ Target: 1
+Output: 0.966298
+
+Pass 814
+ Inputs: 1, 40, 79, 
+ Target: 1
+Output: 0.966477
+
+Pass 815
+ Inputs: 1, 40, 79, 
+ Target: 1
+Output: 0.966654
+
+Pass 816
+ Inputs: 1, 40, 79, 
+ Target: 1
+Output: 0.966827
+
+Pass 817
+ Inputs: 1, 40, 79, 
+ Target: 1
+Output: 0.966998
+
+Pass 818
+ Inputs: 1, 40, 79, 
+ Target: 1
+Output: 0.967166
+
+Pass 819
+ Inputs: 1, 40, 69, 
+ Target: 1
+Output: 0.967332
+
+Pass 820
+ Inputs: 1, 40, 69, 
+ Target: 1
+Output: 0.967495
+
+Pass 821
+ Inputs: 1, 40, 69, 
+ Target: 1
+Output: 0.967656
+
+Pass 822
+ Inputs: 1, 40, 69, 
+ Target: 1
+Output: 0.967814
+
+Pass 823
+ Inputs: 1, 40, 69, 
+ Target: 1
+Output: 0.96797
+
+Pass 824
+ Inputs: 1, 40, 69, 
+ Target: 1
+Output: 0.968124
+
+Pass 825
+ Inputs: 1, 40, 69, 
+ Target: 1
+Output: 0.968276
+
+Pass 826
+ Inputs: 1, 40, 69, 
+ Target: 1
+Output: 0.968425
+
+Pass 827
+ Inputs: 1, 40, 69, 
+ Target: 1
+Output: 0.968573
+
+Pass 828
+ Inputs: 1, 30, 100, 
+ Target: 1
+Output: 0.968718
+
+Pass 829
+ Inputs: 1, 30, 100, 
+ Target: 1
+Output: 0.968862
+
+Pass 830
+ Inputs: 1, 30, 100, 
+ Target: 1
+Output: 0.969003
+
+Pass 831
+ Inputs: 1, 30, 100, 
+ Target: 1
+Output: 0.969143
+
+Pass 832
+ Inputs: 1, 30, 100, 
+ Target: 1
+Output: 0.96928
+
+Pass 833
+ Inputs: 1, 30, 100, 
+ Target: 1
+Output: 0.969416
+
+Pass 834
+ Inputs: 1, 30, 100, 
+ Target: 1
+Output: 0.96955
+
+Pass 835
+ Inputs: 1, 30, 100, 
+ Target: 1
+Output: 0.969682
+
+Pass 836
+ Inputs: 0, 30, 100, 
+ Target: 0
+Output: 0.969813
+
+Pass 837
+ Inputs: 0, 30, 100, 
+ Target: 0
+Output: 0.967755
+
+Pass 838
+ Inputs: 0, 30, 100, 
+ Target: 0
+Output: 0.964172
+
+Pass 839
+ Inputs: 0, 30, 100, 
+ Target: 0
+Output: 0.959098
+
+Pass 840
+ Inputs: 0, 30, 100, 
+ Target: 0
+Output: 0.952183
+
+Pass 841
+ Inputs: 0, 30, 100, 
+ Target: 0
+Output: 0.94266
+
+Pass 842
+ Inputs: 1, 30, 100, 
+ Target: 1
+Output: 0.9291
+
+Pass 843
+ Inputs: 1, 20, 100, 
+ Target: 1
+Output: 0.922084
+
+Pass 844
+ Inputs: 1, 20, 100, 
+ Target: 1
+Output: 0.919421
+
+Pass 845
+ Inputs: 1, 20, 94, 
+ Target: 1
+Output: 0.919224
+
+Pass 846
+ Inputs: 1, 20, 94, 
+ Target: 1
+Output: 0.920284
+
+Pass 847
+ Inputs: 1, 20, 94, 
+ Target: 1
+Output: 0.921915
+
+Pass 848
+ Inputs: 1, 20, 94, 
+ Target: 1
+Output: 0.923756
+
+Pass 849
+ Inputs: 1, 20, 94, 
+ Target: 1
+Output: 0.925628
+
+Pass 850
+ Inputs: 1, 20, 94, 
+ Target: 1
+Output: 0.927446
+
+Pass 851
+ Inputs: 1, 20, 94, 
+ Target: 1
+Output: 0.929176
+
+Pass 852
+ Inputs: 1, 20, 94, 
+ Target: 1
+Output: 0.930806
+
+Pass 853
+ Inputs: 1, 20, 94, 
+ Target: 1
+Output: 0.932336
+
+Pass 854
+ Inputs: 1, 20, 94, 
+ Target: 1
+Output: 0.933772
+
+Pass 855
+ Inputs: 1, 20, 94, 
+ Target: 1
+Output: 0.935121
+
+Pass 856
+ Inputs: 1, 20, 94, 
+ Target: 1
+Output: 0.93639
+
+Pass 857
+ Inputs: 1, 20, 94, 
+ Target: 1
+Output: 0.937587
+
+Pass 858
+ Inputs: 1, 20, 94, 
+ Target: 1
+Output: 0.938717
+
+Pass 859
+ Inputs: 1, 20, 94, 
+ Target: 1
+Output: 0.939787
+
+Pass 860
+ Inputs: 1, 20, 94, 
+ Target: 1
+Output: 0.940802

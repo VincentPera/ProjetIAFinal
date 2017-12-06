@@ -32,6 +32,10 @@ private:
 public:
 
   Goal_Think(Raven_Bot* pBot);
+  Goal_Think(Raven_Bot* pBot, double HealthBias, double ShotgunBias, double RocketLauncherBias,
+			 double RailgunBias, double GrenadeBias, double ExploreBias, double AttackBias);
+  void init(Raven_Bot* pBot, double HealthBias, double ShotgunBias, double RocketLauncherBias,
+			double RailgunBias, double GrenadeBias, double ExploreBias, double AttackBias);
   ~Goal_Think();
 
   //this method iterates through each goal evaluator and selects the one
@@ -48,6 +52,7 @@ public:
   
   //top level goal types
   void AddGoal_MoveToPosition(Vector2D pos);
+  void AddGoal_SeekToPosition(Vector2D pos);
   void AddGoal_GetItem(unsigned int ItemType);
   void AddGoal_GetItemWithDodge( unsigned int ItemType );
   void AddGoal_Explore();

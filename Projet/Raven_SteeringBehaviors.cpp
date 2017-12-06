@@ -26,6 +26,8 @@ Raven_Steering::Raven_Steering(Raven_Game* world, Raven_Bot* agent):
              m_pRaven_Bot(agent),
              m_iFlags(0),
              m_dWeightSeparation(script->GetDouble("SeparationWeight")),
+			 m_dWeightAlignment(15), //codé en dur, peu mieux faire
+			 m_dWeightCohesion(0.2),
              m_dWeightWander(script->GetDouble("WanderWeight")),
              m_dWeightWallAvoidance(script->GetDouble("WallAvoidanceWeight")),
              m_dViewDistance(script->GetDouble("ViewDistance")),
@@ -172,6 +174,20 @@ Vector2D Raven_Steering::CalculatePrioritized()
 
       if (!AccumulateForce(m_vSteeringForce, force)) return m_vSteeringForce;
     }
+
+	if (On(cohesion))
+	{
+		force = Cohesion(m_pWorld->GetAllBots()) * m_dWeightSeparation;
+
+		if (!AccumulateForce(m_vSteeringForce, force)) return m_vSteeringForce;
+	}
+
+	if (On(alignment))
+	{
+		force = Alignment(m_pWorld->GetAllBots()) * m_dWeightSeparation;
+
+		if (!AccumulateForce(m_vSteeringForce, force)) return m_vSteeringForce;
+	}
 
 
   if (On(seek))
@@ -403,7 +419,76 @@ Vector2D Raven_Steering::Separation(const std::list<Raven_Bot*>& neighbors)
   return SteeringForce;
 }
 
+Vector2D Raven_Steering::Cohesion(const std::list<Raven_Bot*> &agents)
+{
+	//first find the center of mass of all the agents
+	Vector2D CenterOfMass, SteeringForce;
 
+	int NeighborCount = 0;
+
+	std::list<Raven_Bot*>::const_iterator it = agents.begin();
+	for (it; it != agents.end(); ++it)
+	{
+		//make sure this agent isn't included in the calculations and that
+		//the agent being examined is close enough. ***also make sure it doesn't
+		//include the evade target ***
+		if ((*it != m_pRaven_Bot) && (*it)->IsTagged() &&
+			(*it != m_pTargetAgent1) && (!m_pWorld->isTeamMatch() ||(*it)->GetTeam() == m_pRaven_Bot->GetTeam()))
+		{
+			CenterOfMass += (*it)->Pos();
+
+			++NeighborCount;
+		}
+	}
+
+	if (NeighborCount > 0)
+	{
+		//the center of mass is the average of the sum of positions
+		CenterOfMass /= (double)NeighborCount;
+
+		//now seek towards that position
+		SteeringForce = Seek(CenterOfMass);
+	}
+
+	//the magnitude of cohesion is usually much larger than separation or
+	//allignment so it usually helps to normalize it.
+	return Vec2DNormalize(SteeringForce);
+}
+
+Vector2D Raven_Steering::Alignment(const std::list<Raven_Bot*> &agents)
+{
+	//used to record the average heading of the neighbors
+	Vector2D AverageHeading;
+
+	//used to count the number of vehicles in the neighborhood
+	int    NeighborCount = 0;
+
+	std::list<Raven_Bot*>::const_iterator it = agents.begin();
+	for (it; it != agents.end(); ++it)
+	{
+		//make sure this agent isn't included in the calculations and that
+		//the agent being examined is close enough. ***also make sure it doesn't
+		//include the evade target ***
+		if ((*it != m_pRaven_Bot) && (*it)->IsTagged() &&
+			(*it != m_pTargetAgent1) && (!m_pWorld->isTeamMatch() ||(*it)->GetTeam() == m_pRaven_Bot->GetTeam()))
+		{
+			AverageHeading += (*it)->Heading();
+
+			++NeighborCount;
+		}
+	}
+
+	//if the neighborhood contained one or more vehicles, average their
+	//heading vectors.
+	if (NeighborCount > 0)
+	{
+		AverageHeading /= (double)NeighborCount;
+
+		AverageHeading -= m_pRaven_Bot->Heading();
+	}
+
+	return AverageHeading;
+}
 
 
 

@@ -1,3 +1,5 @@
+#include <string>
+#include <locale>
 #include "Raven_Bot.h"
 #include "misc/Cgdi.h"
 #include "misc/utils.h"
@@ -18,8 +20,10 @@
 
 #include "goals/Raven_Goal_Types.h"
 #include "goals/Goal_Think.h"
+#include "Raven_Bot.h"
 
 #include "Debug/DebugConsole.h"
+
 
 //-------------------------- ctor ---------------------------------------------
 Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
@@ -45,6 +49,7 @@ Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
                  m_iScore(0),
                  m_Status(spawning),
                  m_bPossessed(false),
+				 m_bLearner(false),
 				 current_team(0),
                  m_dFieldOfView(DegsToRads(script->GetDouble("Bot_FOV")))
            
@@ -102,6 +107,36 @@ Raven_Bot::~Raven_Bot()
   delete m_pSensoryMem;
 }
 
+//-------------------------- SetBrainBehavior ---------------------------------
+//  give a personnality to the bot by giving customs weights to his goals
+//  0 : Standard.
+//  1 : Burnhead behavior (like to fight and explore)
+//  2 : Coward  (like take health)
+//  3 : Weapons Collector (like to collect all kind of weapons)
+//-----------------------------------------------------------------------------
+void Raven_Bot::SetBrainBehavior(int behavior) {
+	switch (behavior) {
+		case 1:
+			//replace the old brain by a more personnal one
+			m_pBrain = new Goal_Think(this, 0.5, 0.5, 0.5, 0.5, 0.5, 1.5, 1.5);
+			break;
+		case 2:
+			//replace the old brain by a more personnal one
+			m_pBrain = new Goal_Think(this, 1.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5);
+			break;
+		case 3:
+			//replace the old brain by a more personnal one
+			m_pBrain = new Goal_Think(this, 0.5, 1.5, 1.5, 1.5, 1.5, 0.5, 0.5);
+			break;
+		default:
+			// nothing
+			break;
+	}
+	// Assigne the behavior of the bot to render them better
+	m_bBehavior = behavior;
+
+}
+
 //------------------------------- Spawn ---------------------------------------
 //
 //  spawns the bot at the given position
@@ -110,7 +145,9 @@ void Raven_Bot::Spawn(Vector2D pos)
 {
     SetAlive();
     m_pBrain->RemoveAllSubgoals();
-    m_pTargSys->ClearTarget();
+	//if the bot is under AI control but not scripted
+	if (!isPossessed())
+		m_pTargSys->ClearTarget();
     SetPos(pos);
     m_pWeaponSys->Initialize();
     RestoreHealthToMaximum();
@@ -144,7 +181,7 @@ void Raven_Bot::Update()
 			}
 			else {
 				if (m_pTargSys->GetTarget() == 0) {//if his team has a target but he dont we give to him (case if bot respawn)
-					m_pTargSys->SerTarget(current_team->GetTarget());
+					m_pTargSys->SetTarget(current_team->GetTarget());
 				}
 			}
 		}
@@ -178,6 +215,14 @@ void Raven_Bot::Update()
     //this method aims the bot's current weapon at the current target
     //and takes a shot if a shot is possible
     m_pWeaponSys->TakeAimAndShoot(angle);
+  }
+  else
+  {
+	  //update the sensory memory with any visual stimulus
+	  if (m_pVisionUpdateRegulator->isReady())
+	  {
+		  m_pSensoryMem->UpdateVision();
+	  }
   }
 }
 
@@ -231,6 +276,18 @@ bool Raven_Bot::isReadyForTriggerUpdate()const
   return m_pTriggerTestRegulator->isReady();
 }
 
+// Used to make an uppercase word
+std::string Convert(std::string& str)
+{
+	std::locale settings;
+	std::string converted;
+
+	for (short i = 0; i < str.size(); ++i)
+		converted += (std::toupper(str[i], settings));
+
+	return converted;
+}
+
 //--------------------------- HandleMessage -----------------------------------
 //-----------------------------------------------------------------------------
 bool Raven_Bot::HandleMessage(const Telegram& msg)
@@ -252,6 +309,7 @@ bool Raven_Bot::HandleMessage(const Telegram& msg)
     //if this bot is now dead let the shooter know
     if (isDead())
     {
+		debug_con << "Bot is Dead" << "";
 		DropWeapon();
       Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
                               ID(),
@@ -265,9 +323,15 @@ bool Raven_Bot::HandleMessage(const Telegram& msg)
   case Msg_YouGotMeYouSOB:
     
     IncrementScore();
-    
+
     //the bot this bot has just killed should be removed as the target
 	if (this->HasTeam() ) {
+		// Update the score of the current bot
+		//"IDC_SCORE" + current_team->GetName() + 'J' + ttos(m_bNumber);
+		//std::string id = "IDC_SCORE_" + Convert(current_team->GetName()) + 'J' + ttos(m_bNumber));
+		//debug_con << ("IDC_SCORE_" + Convert(current_team->GetName()) + 'J' + ttos(m_bNumber)) << "";
+		//SetDlgItemText(IDC_STATIC, "New text here.");
+		// Clear the target
 		current_team->ClearTarget(ID());
 	}
 	else {
@@ -303,7 +367,7 @@ bool Raven_Bot::HandleMessage(const Telegram& msg)
 
   case Msg_UpdatingTarget : 
   {
-	  m_pTargSys->SerTarget(current_team->GetTarget()); // modify target
+	  m_pTargSys->SetTarget(current_team->GetTarget()); // modify target
 	  return true;
   }
 
@@ -407,6 +471,15 @@ void Raven_Bot::Exorcise()
   debug_con << "Player is exorcised from bot " << this->ID() << "";
 }
 
+//--------------------------- Learning -----------------------------------------
+//
+//  this is called to allow a bot to learn how to shoot
+//-----------------------------------------------------------------------------
+void Raven_Bot::BecomeLearner()
+{
+	m_bLearner = true;
+}
+
 
 //----------------------- ChangeWeapon ----------------------------------------
 void Raven_Bot::ChangeWeapon(unsigned int type)
@@ -473,7 +546,7 @@ bool Raven_Bot::canWalkBetween(Vector2D from, Vector2D to)const
 //
 //  returns true if there is space enough to step in the indicated direction
 //  If true PositionOfStep will be assigned the offset position
-//-----------------------------------------------------------------------------
+//---------------------------TakePossession--------------------------------------------------
 bool Raven_Bot::canStepLeft(Vector2D& PositionOfStep)const
 {
   static const double StepDistance = BRadius() * 2;
@@ -531,9 +604,27 @@ void Raven_Bot::Render()
 	  if (this->GetTeamName() == "Beta") { //Team beta bleue
 		  gdi->RedPen();
 	  }
-  }
-  else {
-	  gdi->GreenPen(); //Sans équipe vert
+  } else {
+	  if (m_bLearner) {
+		  gdi->BlackPen(); // learning = black
+	  } else {
+		  switch (m_bBehavior) {
+			case 0:
+				gdi->GreenPen(); // Regular bot
+				break;
+			case 1:
+				gdi->RedPen(); // Burnhead bot
+				break;
+			case 2:
+				gdi->BluePen(); // Coward bot
+				break;
+			case 3:
+				gdi->OrangePen(); // Weapons Collector  bot
+				break;
+		  }
+		  
+	  }
+	  
   }
 
   
@@ -567,8 +658,18 @@ void Raven_Bot::Render()
   }
 
   gdi->TransparentText();
-  gdi->TextColor(0,255,0);
-
+  if (this->HasTeam()) {
+	  if (this->GetTeamName() == "Alpha")
+		  gdi->TextColor(0, 0, 255);
+	  if (this->GetTeamName() == "Beta")
+		  gdi->TextColor(255, 0, 0);
+  } else {
+	  if (m_bLearner)
+		  gdi->TextColor(0, 0, 0);
+	  else
+		  gdi->TextColor(0, 255, 0);
+  }
+  
   if (UserOptions->m_bShowBotIDs)
   {
     gdi->TextAtPos(Pos().x -10, Pos().y-20, ttos(ID()));
@@ -629,23 +730,66 @@ void Raven_Bot::IncreaseHealth(unsigned int val)
 
 
 void Raven_Bot::DropWeapon() {
-	if (this->HasTeam() && this->team_type ==0){ //TeamSimple
-		for (int i = 0; i < m_pWeaponSys->GetNumberOfWeapon(); i++) {
-			Raven_Weapon* current_weapon = m_pWeaponSys->GetWeaponFromInventory(0);
-			if (current_weapon != NULL) {
-				switch (i) {
-				case 1: //shotgun
-					break;
-				case 2: //railgun
-					break;
-				case 3: //rocket_launcher
-					break;
-				case 4: //grenade
-					break;
-
+	if (this->HasTeam() && this->team_type == 0) { //TeamSimple
+		for (unsigned int weapon_type = 6; weapon_type < 11; weapon_type++) {
+			debug_con << "Je passe" << "";
+			switch (weapon_type) {
+			case type_shotgun: {
+				Raven_Weapon* current_weapon = m_pWeaponSys->GetWeaponFromInventory(type_shotgun);
+				if (current_weapon != NULL) {
+					//shotgun mais 8 sur la map
+					debug_con << "Creating a Shootgun" << "";
+					std::ifstream test;
+					m_pWorld->GetMap()->lastgraphnodeindex += 1;
+					int index = m_pWorld->GetMap()->lastgraphnodeindex;
+					//test = (std::ifstream) (std::to_string(current_team->GetLootingLocation().x) + " " + std::to_string(current_team->GetLootingLocation().y)+" 7 "+ std::to_string(index));
+					test = (std::ifstream) ("401  360 60 7  340");
+					m_pWorld->GetMap()->AddWeapon_Giver_bis(8, test, false);
 				}
+				break;
+			}
+			case type_rail_gun: {//railgun 6 sur la map 
+				Raven_Weapon* current_weapon = m_pWeaponSys->GetWeaponFromInventory(type_rail_gun);
+				if (current_weapon != NULL) {
+					debug_con << "Creating a Railgun" << "";
+					std::ifstream test;
+					m_pWorld->GetMap()->lastgraphnodeindex += 1;
+					int index = m_pWorld->GetMap()->lastgraphnodeindex;
+					//test = (std::ifstream) (std::to_string(current_team->GetLootingLocation().x) + " " + std::to_string(current_team->GetLootingLocation().y) + " 7 " + std::to_string(index));
+					test = (std::ifstream) ("401  360 60 7  340");
+					m_pWorld->GetMap()->AddWeapon_Giver_bis(6, test, false);
+				}
+				break;
+			}
+			case type_rocket_launcher: {//rocket_launcher 7 sur la map 
+				Raven_Weapon* current_weapon = m_pWeaponSys->GetWeaponFromInventory(type_rocket_launcher);
+				if (current_weapon != NULL) {
+					debug_con << "Creating a Rocket_Launcher" << "";
+					std::ifstream test;
+					m_pWorld->GetMap()->lastgraphnodeindex += 1;
+					int index = m_pWorld->GetMap()->lastgraphnodeindex;
+					//test = (std::ifstream) (std::to_string(current_team->GetLootingLocation().x) + " " + std::to_string(current_team->GetLootingLocation().y) + " 7 " + std::to_string(index));
+					test = (std::ifstream) ("401  360 60 7  340");
+					m_pWorld->GetMap()->AddWeapon_Giver_bis(7, test, false);
+				}
+				break;
+			}
+			case type_grenade: {//grenade 10 sur a map 
+				Raven_Weapon* current_weapon = m_pWeaponSys->GetWeaponFromInventory(type_grenade);
+				if (current_weapon != NULL) {
+					debug_con << "Creating a grenade" << "";
+					std::ifstream test;
+					m_pWorld->GetMap()->lastgraphnodeindex += 1;
+					int index = m_pWorld->GetMap()->lastgraphnodeindex;
+					//test = (std::ifstream) (std::to_string(current_team->GetLootingLocation().x) + " " + std::to_string(current_team->GetLootingLocation().y) + " 7 " + std::to_string(index));
+					test = (std::ifstream) ("401  360 60 7  340");
+					m_pWorld->GetMap()->AddWeapon_Giver_bis(10, test, false);
+				}
+				break;
+			}
+
 			}
 		}
-		
+
 	}
 }

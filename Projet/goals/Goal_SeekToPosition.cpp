@@ -106,7 +106,7 @@ void Goal_SeekToPosition::Terminate()
 //-----------------------------------------------------------------------------
 void Goal_SeekToPosition::Render()
 {
-  if (m_iStatus == active)
+  /*if (m_iStatus == active)
   {
     gdi->GreenBrush();
     gdi->BlackPen();
@@ -119,6 +119,6 @@ void Goal_SeekToPosition::Render()
    gdi->RedBrush();
    gdi->BlackPen();
    gdi->Circle(m_vPosition, 3);
-  }
+  }*/
 }
 

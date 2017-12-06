@@ -69,6 +69,8 @@ private:
 
   int m_iSizeX;
   int m_iSizeY;
+
+  //
   
   void  PartitionNavGraph();
 
@@ -81,7 +83,7 @@ private:
   void AddWall(std::ifstream& in);
   void AddSpawnPoint(std::ifstream& in);
   void AddHealth_Giver(std::ifstream& in);
-  void AddWeapon_Giver(int type_of_weapon, std::ifstream& in);
+  //void AddWeapon_Giver(int type_of_weapon, std::ifstream& in); 
   void AddDoor(std::ifstream& in);
   void AddDoorTrigger(std::ifstream& in);
 
@@ -93,6 +95,11 @@ public:
   ~Raven_Map();
 
   void Render();
+
+  //Modification for spawnin eapon
+  void AddWeapon_Giver(int type_of_weapon, std::ifstream& in);
+  void AddWeapon_Giver_bis(int type_of_weapon, std::ifstream & in, bool f);
+  int lastgraphnodeindex = 339;
 
   //loads an environment from a file
   bool LoadMap(const std::string& FileName); 

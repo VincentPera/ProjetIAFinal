@@ -6,6 +6,10 @@
 
 NumBots   = 6
 
+NumBots0   = 6
+NumBots1   = 6
+NumBots2   = 2
+
 --this is the maximum number of search cycles allocated to *all* current path
 -- planning searches per update
 MaxSearchCyclesPerUpdateStep = 1000
@@ -13,8 +17,14 @@ MaxSearchCyclesPerUpdateStep = 1000
 --the name of the default map
 StartMap = "maps/Raven_DM1.map"
 
+--the name of the duel map (1vs1)
+DuelMap = "maps/Raven_Rust_Test.map"
+
 --the name of the grenade map
 GrenadeMap = "maps/Raven_DM2.map"
+
+--the name of the output file of the game
+TrainingFile = "OutputHumanAgentFile.txt"
 
 --cell space partitioning defaults
 NumCellsX = 10

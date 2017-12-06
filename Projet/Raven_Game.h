@@ -26,6 +26,7 @@
 #include "Raven_Bot.h"
 #include "navigation/pathmanager.h"
 #include "Raven_HumanPlayer.h"
+#include "Raven_BotApprenant.h"
 #include "TeamSimple.h"
 
 
@@ -34,7 +35,7 @@ class Raven_Projectile;
 class Raven_Map;
 class GraveMarkers;
 
-
+enum GAME_MODE {DEATH_MATCH = 0, TEAM_MATCH = 1, SOLO = 2};
 
 class Raven_Game
 {
@@ -72,23 +73,27 @@ private:
   GraveMarkers*                    m_pGraveMarkers;
 
   //current mode used in the game
-  int                              m_mode;
-  //if there are a human player
-  int                              m_human;
-  //if there are a learning bot
-  int                              m_learning_bot;
-  //strategie of the player1
-  int                              m_strategy_j1;
-  //strategie of the player2
-  int                              m_strategy_j2;
-  //strategie of the team1
-  int                              m_strategy_t1;
-  //strategie of the team2
-  int                              m_strategy_t2;
+  GAME_MODE                        m_mode;
+  int                              m_human;			//if there are a human player
+  int                              m_learning_bot;	//if there are a learning bot
+  vector<int>                      m_strategy_players;	  //strategie of players
+  vector<int>                      m_strategy_teams;	  //strategie of teams
+  int							   m_isRecording;
+  int							   m_isLearning;
+  int							   m_isUsingWeights;
+  string						   m_inputFileName;
+  string						   m_outputFileName;
+  string						   m_weightFileName;
 
-  //teamms
-  TeamSimple* m_alpha;
-  TeamSimple* m_beta;
+  //teams
+  std::vector<TeamSimple*>	m_teams;
+
+  //output for the neural network
+  std::ofstream				m_outputFile;
+  bool						hasShot;
+
+  //used to open / close a file
+  ManipulateurFichier		FILE_CONTROL;
 
   //this iterates through each trigger, testing each one against each bot
   void  UpdateTriggers();
@@ -100,10 +105,16 @@ private:
   //if unsuccessful 
   bool AttemptToAddBot(Raven_Bot* pBot);
 
+  bool AttemptToAddBotTeam(Raven_Bot* pBot);
+
+  bool teamFlocking;
   //when a bot is removed from the game by a user all remaining bots
   //must be notified so that they can remove any references to that bot from
   //their memory
   void NotifyAllBotsOfRemoval(Raven_Bot* pRemovedBot)const;
+
+  //used when we want to assign spawnpoints to teams
+  void AddSpawnPointsTeams();
 
   int mod(int a, int b);
   
@@ -111,7 +122,9 @@ public:
   
   Raven_Game();
   Raven_Game(int mode, int human, int grenades, int learning_bot, int strategie_j1,
-			 int strategie_j2, int strategie_t1, int strategie_t2);
+			 int strategie_j2, int strategie_t1, int strategie_t2, int isRecording,
+			 int isLearning, int isUsingWeights, string inputFileName, string outputFileName,
+			 string weightFileName);
   ~Raven_Game();
 
   //the usual suspects
@@ -121,8 +134,25 @@ public:
   //loads an environment from a file
   bool LoadMap(const std::string& FileName); 
 
+  //methods to add bots in the game
   void AddBots(unsigned int NumBotsToAdd);
+  void AddBotsTeam(unsigned int NumBotsToAdd);
+  void AddBotsSolo(unsigned int NumBotsToAdd);
+  void AddBot(Raven_Bot* rb);
+
+  //Neural network methods
+  void OpenFile(std::string fileName);
+  void CloseFile();
+  // method used to write a line of the current game into a file
+  void WriteLine();
+
+  //If the mode is team
+  bool isTeamMatch();
+  void ActiveFlocking(bool flock);
+  bool TeamFlockingState() { return teamFlocking; }
+
   void AddHumanPlayer();
+  void AddBotApprenant();
   void AddRocket(Raven_Bot* shooter, Vector2D target);
   void AddRailGunSlug(Raven_Bot* shooter, Vector2D target);
   void AddShotGunPellet(Raven_Bot* shooter, Vector2D target);
@@ -163,6 +193,9 @@ public:
 
 
   void        TogglePause(){m_bPaused = !m_bPaused;}
+
+  // Give the possibility to move with key instead of clicking with the mouse
+  void Raven_Game::MoveToward(Vector2D dir);
   
   //this method is called when the user clicks the right mouse button.
   //The method checks to see if a bot is beneath the cursor. If so, the bot

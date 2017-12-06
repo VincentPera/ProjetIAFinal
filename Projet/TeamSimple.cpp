@@ -8,7 +8,7 @@ TeamSimple::TeamSimple()
 {
 }
 
-TeamSimple::TeamSimple(Vector2D lootposition,std::string name)
+TeamSimple::TeamSimple(Vector2D lootposition, std::string name)
 {
 	members = std::list<Raven_Bot*>();
 	name_team = name;
@@ -42,7 +42,9 @@ void TeamSimple::ClearTarget(int id_sender) {
 	}
 }
 
-
+void TeamSimple::AddSpawnPoint(Vector2D spawnPoint) {
+	m_SpawnPoints.push_back(spawnPoint);
+}
 
 
 void TeamSimple::Addmember(Raven_Bot * new_memeber)
