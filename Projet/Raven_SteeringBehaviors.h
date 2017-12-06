@@ -82,6 +82,8 @@ private:
   //the current target
   Vector2D    m_vTarget;
 
+  Raven_Bot*  leader;
+
 
   //a vertex buffer to contain the feelers rqd for wall avoidance  
   std::vector<Vector2D> m_Feelers;
@@ -105,6 +107,7 @@ private:
   double        m_dWeightSeparation;
   double		m_dWeightCohesion;
   double		m_dWeightAlignment;
+  double        m_dWeightFollow;
   double        m_dWeightWander;
   double        m_dWeightWallAvoidance;
   double        m_dWeightSeek;
@@ -167,6 +170,7 @@ private:
   Vector2D Cohesion(const std::list<Raven_Bot*> &agents);
   Vector2D Separation(const std::list<Raven_Bot*> &agents);
   Vector2D Alignment(const std::list<Raven_Bot*> &agents);
+  Vector2D Follow(Raven_Bot* agents);
 
 
     /* .......................................................
@@ -214,7 +218,7 @@ public:
   void WanderOn(){m_iFlags |= wander;}
   void SeparationOn(){m_iFlags |= separation;}
   void CohesionOn() { m_iFlags |= cohesion;}
-  void FollowLeaderOn() { m_iFlags |= follow; }
+  void FollowLeaderOn(Raven_Bot* l) { m_iFlags |= follow; leader = l; }
   void AlignmentOn() { m_iFlags |= alignment; }
   void WallAvoidanceOn(){m_iFlags |= wall_avoidance;}
 

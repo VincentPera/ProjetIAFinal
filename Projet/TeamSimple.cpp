@@ -35,6 +35,8 @@ void TeamSimple::UpdateNewTarget(Raven_Bot* new_target,int id_sender) {
 void TeamSimple::ClearTarget(int id_sender) {
 	target = 0;
 	std::list<Raven_Bot*>::iterator curBot = members.begin();
+	Raven_Bot* leader = *curBot;
+	this->AddTeamLeader(leader);
 	for (curBot; curBot != members.end(); ++curBot) { //dispatch message to all members
 		Raven_Bot* bot_courant = *curBot;
 		Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,

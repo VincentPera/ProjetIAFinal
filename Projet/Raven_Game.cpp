@@ -954,15 +954,16 @@ void Raven_Game::ActiveFlocking(bool flock) {
 }
 
 void Raven_Game::ActiveLeaderFollow(bool b_leader) {
+	std::list<Raven_Bot*>::const_iterator it = m_Bots.begin();
+	Raven_Bot* leader = *it;
+	++it;
 	leaderFollow = b_leader;
 	if (b_leader) {
-		std::list<Raven_Bot*>::const_iterator it = m_Bots.begin();
 		for (it; it != m_Bots.end(); ++it) {
-			(*it)->GetSteering()->FollowLeaderOn();
+			(*it)->GetSteering()->FollowLeaderOn(leader);
 		}
 	}
 	else {
-		std::list<Raven_Bot*>::const_iterator it = m_Bots.begin();
 		for (it; it != m_Bots.end(); ++it) {
 			(*it)->GetSteering()->FollowLeaderOff();
 		}

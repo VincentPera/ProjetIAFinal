@@ -20,14 +20,15 @@ using std::vector;
 //------------------------- ctor -----------------------------------------
 //
 //------------------------------------------------------------------------
-Raven_Steering::Raven_Steering(Raven_Game* world, Raven_Bot* agent):
-                                  
-             m_pWorld(world),
-             m_pRaven_Bot(agent),
-             m_iFlags(0),
-             m_dWeightSeparation(script->GetDouble("SeparationWeight")),
+Raven_Steering::Raven_Steering(Raven_Game* world, Raven_Bot* agent) :
+
+ 			 m_pWorld(world),
+ 			 m_pRaven_Bot(agent),
+ 			 m_iFlags(0),
+			 m_dWeightSeparation(script->GetDouble("SeparationWeight")),
 			 m_dWeightAlignment(15), //codé en dur, peu mieux faire
 			 m_dWeightCohesion(0.2),
+			 m_dWeightFollow(10),
              m_dWeightWander(script->GetDouble("WanderWeight")),
              m_dWeightWallAvoidance(script->GetDouble("WallAvoidanceWeight")),
              m_dViewDistance(script->GetDouble("ViewDistance")),
@@ -177,14 +178,21 @@ Vector2D Raven_Steering::CalculatePrioritized()
 
 	if (On(cohesion))
 	{
-		force = Cohesion(m_pWorld->GetAllBots()) * m_dWeightSeparation;
+		force = Cohesion(m_pWorld->GetAllBots()) * m_dWeightCohesion;
 
 		if (!AccumulateForce(m_vSteeringForce, force)) return m_vSteeringForce;
 	}
 
 	if (On(alignment))
 	{
-		force = Alignment(m_pWorld->GetAllBots()) * m_dWeightSeparation;
+		force = Alignment(m_pWorld->GetAllBots()) * m_dWeightAlignment;
+
+		if (!AccumulateForce(m_vSteeringForce, force)) return m_vSteeringForce;
+	}
+
+	if (On(follow))
+	{
+		force = Follow(m_pRaven_Bot->GetTeam()->GetTeamLeader()) * m_dWeightFollow;
 
 		if (!AccumulateForce(m_vSteeringForce, force)) return m_vSteeringForce;
 	}
@@ -488,6 +496,30 @@ Vector2D Raven_Steering::Alignment(const std::list<Raven_Bot*> &agents)
 	}
 
 	return AverageHeading;
+}
+
+Vector2D Raven_Steering::Follow(Raven_Bot* leader)
+{
+	Vector2D ToEvader = leader->Pos() - m_pRaven_Bot->Pos();
+
+	double RelativeHeading = m_pRaven_Bot->Heading().Dot(leader->Heading());
+
+	if ((ToEvader.Dot(m_pRaven_Bot->Heading()) > 0) &&
+		(RelativeHeading < -0.95))  //acos(0.95)=18 degs
+	{
+		return Seek(leader->Pos());
+	}
+
+	//Not considered ahead so we predict where the evader will be.
+
+	//the lookahead time is propotional to the distance between the evader
+	//and the pursuer; and is inversely proportional to the sum of the
+	//agent's velocities
+	double LookAheadTime = ToEvader.Length() /
+		(m_pRaven_Bot->MaxSpeed() + leader->Speed());
+
+	//now seek to the predicted future position of the evader
+	return Seek(leader->Pos() + leader->Velocity() * LookAheadTime);
 }
 
 
