@@ -398,11 +398,6 @@ double Raven_WeaponSystem::GetBotAim()
 		(m_pOwner->GetTargetSys()->GetTimeTargetHasBeenOutOfView() <
 			m_dAimPersistance))
 	{
-		/*debug_con << "-------" << "";
-		debug_con << (m_pOwner->GetTargetBot()->Pos() - m_pOwner->Pos()).Length() << "";
-		debug_con << (double)m_pOwner->GetTargetBot()->Velocity().Length() << "";
-		debug_con << (double)m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible() << "";
-		debug_con << "-------" << "";*/
 
 		//fuzzify distance and velocity and "visible time".
 		m_FuzzyModule.Fuzzify("DistToTarget", (m_pOwner->GetTargetBot()->Pos() - m_pOwner->Pos()).Length());
@@ -423,15 +418,10 @@ void Raven_WeaponSystem::AddFuzzyAngleToAim(Vector2D& AimingPos, double angle)co
 {
 	Vector2D toPos = AimingPos - m_pOwner->Pos();
 
-	// Apply it to the aim
-	//Vector2D pos_fuzz;
-
 	double radAngle = DegsToRads(angle);
+	double randomValue = RandInRange(-radAngle, radAngle);
 
-	//pos_fuzz.x = cos(degree_fuzz) * (AimingPos.x - m_vPosition.x) - sin(degree_fuzz) * (AimingPos.y - m_vPosition.y) + m_vPosition.x;
-	//pos_fuzz.y = sin(degree_fuzz) * (AimingPos.x - m_vPosition.x) + cos(degree_fuzz) * (AimingPos.y - m_vPosition.y) + m_vPosition.y;
-	double greg = RandInRange(-radAngle, radAngle);
-	Vec2DRotateAroundOrigin(toPos, greg);
+	Vec2DRotateAroundOrigin(toPos, randomValue);
 
 	AimingPos = toPos + m_pOwner->Pos();
 }

@@ -271,13 +271,15 @@ void Raven_Game::WriteLine() {
 		// second : ennemy life
 		m_outputFile << (m_ThePlayer->GetTargetBot()->Health() < 100) << ";";
 		// third : player life
-		//m_outputFile << (m_ThePlayer->Health() < 50) << ";";
+		m_outputFile << (m_ThePlayer->Health() < 100) << ";";
 		// fourth : the current weapon used
-		//m_outputFile << (m_ThePlayer->GetWeaponSys()->GetCurrentWeaponType()) << ";";
+		m_outputFile << (m_ThePlayer->GetWeaponSys()->GetCurrentWeaponType()) << ";";
 		// fifth : the distance between the two bots
-		//m_outputFile << ((m_ThePlayer->GetTargetBot()->Pos() - m_ThePlayer->Pos()).Distance) << ";";
+		m_outputFile << ((m_ThePlayer->GetTargetBot()->Pos() - m_ThePlayer->Pos()).Length() < 200) << ";";
 		// last column : if the player shot
-		m_outputFile << hasShot << "\n";
+		//m_outputFile << hasShot << "\n";
+		// In reality :
+		m_outputFile << ((m_ThePlayer->GetTargetSys()->isTargetWithinFOV()) || ((m_ThePlayer->GetWeaponSys()->GetCurrentWeaponType()) == type_rocket_launcher && (m_ThePlayer->GetTargetBot()->Pos() - m_ThePlayer->Pos()).Length() < 200)) << "\n";
 	}
 	// Reset variables
 	hasShot = false;
@@ -419,7 +421,7 @@ void Raven_Game::AddBotsSolo(unsigned int NumBotsToAdd)
 		// Add the current bot to the game
 		AddBot(rb);
 
-		if (m_mode == SOLO && currentPlayer == 0) {
+		if (m_mode == SOLO && !m_human && currentPlayer == 0) {
 			m_ThePlayer = rb;
 		}
 
