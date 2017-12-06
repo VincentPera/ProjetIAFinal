@@ -99,6 +99,8 @@ public:
   //Modification for spawnin eapon
   void AddWeapon_Giver(int type_of_weapon, std::ifstream& in);
   void AddWeapon_Giver_bis(int type_of_weapon, std::ifstream & in, bool f);
+  void AddDroppedWeaponTrigger(Vector2D pos, unsigned int weapon, int ammo, Raven_Game* world);
+  int GetClosestNodeToPosition(Vector2D pos) const;
   int lastgraphnodeindex = 339;
 
   //loads an environment from a file
